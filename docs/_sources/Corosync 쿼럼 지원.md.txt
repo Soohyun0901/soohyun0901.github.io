@@ -1,0 +1,1 @@
+Corosync 쿼럼 지원
