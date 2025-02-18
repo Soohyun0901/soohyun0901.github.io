@@ -28,7 +28,8 @@ html_theme = 'conestack'
 html_static_path = ['_static']
 html_favicon='favicon.ico'
 
-source_parsers = {
+source_suffix = {
+    '.rst': 'restructuredtext',
     '.md': CommonMarkParser,
 }
 
