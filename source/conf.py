@@ -28,6 +28,8 @@ html_theme = 'conestack'
 html_static_path = ['_static']
 html_favicon='favicon.ico'
 
+from recommonmark.parser import CommonMarkParser
+
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': CommonMarkParser,
