@@ -39,7 +39,7 @@ from recommonmark.parser import CommonMarkParser
 
 source_suffix = {
     '.rst': 'restructuredtext',
-    '.md': CommonMarkParser,
+    '.md': 'markdown',
 }
 
 html_baseurl="https://github.com/Soohyun0901/soohyun0901.github.io"
