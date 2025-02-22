@@ -44,7 +44,7 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-html_baseurl="https://github.com/Soohyun0901/soohyun0901.github.io/build/html/"
+html_baseurl="https://docs.virton.co.kr/build/html/"
 
 import os   # 기존주석 해제
 import sys  # 기존주석 해제
