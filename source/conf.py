@@ -28,6 +28,13 @@ html_theme = 'conestack'
 html_static_path = ['_static']
 html_favicon='favicon.ico'
 
+html_css_files = [
+    'basic.css',  # 기본 CSS 파일
+    'bootstrap.css',  # 추가적으로 필요한 CSS 파일
+    'conestack.css',  # 예시로 conestack.css 포함
+    'pygments.css',  # 코드 하이라이팅용 pygments.css 포함
+]
+
 from recommonmark.parser import CommonMarkParser
 
 source_suffix = {
@@ -35,7 +42,7 @@ source_suffix = {
     '.md': CommonMarkParser,
 }
 
-html_baseurl="https://docs.virton.co.kr"
+html_baseurl="https://github.com/Soohyun0901/soohyun0901.github.io"
 
 import os   # 기존주석 해제
 import sys  # 기존주석 해제
