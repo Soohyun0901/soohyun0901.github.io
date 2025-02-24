@@ -29,6 +29,7 @@ exclude_patterns = []
 html_theme = 'conestack'
 html_static_path = ['_static']
 html_favicon='favicon.ico'
+html_logo='_static/virton - logo - white.png'
 
 html_css_files = [
     'basic.css',  # 기본 CSS 파일
