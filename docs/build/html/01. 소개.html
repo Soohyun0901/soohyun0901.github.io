@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>[01. 소개] &#8212; virton-documents 1.0 documentation</title>
+    <title>01. 소개 &#8212; virton-documents 1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5703f573" />
     <link rel="stylesheet" type="text/css" href="_static/conestack.css?v=4f897864" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=5c69cfe2" />
@@ -53,8 +53,11 @@
   <header class="navbar navbar-expand-md" id="header">
     <nav class="container-xxl flex-wrap flex-md-nowrap p-0" id="cs-nav">
   <a id="logo" class="navbar-brand p-0 me-2" href="index.html">
-    <img src="_static/virton - logo - white.png"
-         alt="Logo"/>
+    <img src="_static/conestack.svg"
+         alt="Logo"
+         width="40px"
+         height="40px" />
+    <span>conestack</span>
   </a>
 
       
@@ -77,7 +80,7 @@
       <div class="collapse container-fluid m-0 p-3" id="cs-mobile-menu"><nav class="cs-mobile-toc">
   <p class="caption" role="heading"><span class="caption-text">목차:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">[01. 소개]</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">01. 소개</a></li>
 </ul>
 
 </nav>
@@ -91,7 +94,10 @@
   <aside id="cs-sidebar" class="ms-4 sphinxsidebar"><nav class="cs-nav-toc">
   <p class="caption" role="heading"><span class="caption-text">목차:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">[01. 소개]</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">01. 소개</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">01-1. 중앙 관리</a></li>
+</ul>
+</li>
 </ul>
 
 </nav>
@@ -105,13 +111,37 @@
       <div class="ps-lg-4 mt-3 cs-content">
         
   <section id="id1">
-<h1>[01. 소개]<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<h1>01. 소개<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>버트온(VirtOn)는 Debian Linux 기반으로 하며, 가상 머신과 컨테이너를 실행하기 위한 플랫폼입니다. 두 가지 가상화 기술, 커널 기반 가상 머신(KVM)과 컨테이너 기반 가상화(LXC)를 구현하여 유연한 기술을 극대화합니다.<br><br></p>
+<p>버트온의 주요 설계 목표 중 하나는 관리를 최대한 쉽게 만드는 것이었습니다. 사용자는 버트온을 단일 노드에서 사용하거나, 여러 노드로 클러스터 구성할 수 있습니다. 모든 관리 작업은 웹 기반 관리 인터페이스를 통해 수행할 수 있으며, 초보 사용자도 몇 분 내에 버트온을 설정하고 설치할 수 있습니다.<br></p>
+<img alt="img1" src="../img/img1.svg" />
+<section id="id2">
+<h2>01-1. 중앙 관리<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>많은 사용자들이 단일 노드로 시작하지만, 버트온은 대규모 클러스터 노드로 확장할 수 있습니다. 클러스터 구성요소는 완전히 통합되어 있으며 기본 설치와 함께 제공됩니다.</p>
+<ul class="simple">
+<li><p>고유한 멀티 마스터 디자인</p>
+<ul>
+<li><p>통합된 웹 기반 관리 인터페이스는 모든 KVM, LXC 등의 GuestOS 뿐만 아니라 클러스터 전체 내용을 제공합니다. 따라서 GUI에서 VM과 컨테이너, 스토리지 또는 클러스터를 쉽게 관리할 수 있습니다. 별도의 복잡하고 비싼 관리 서버를 설치할 필요가 없습니다.</p></li>
+</ul>
+</li>
+<li></li>
+</ul>
+</section>
 </section>
 
 
       </div>
 
     
+  <div class="cs-local-toc mx-4 mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
+    <strong class="d-block h6 my-2 pb-2 border-bottom">On this page</strong>
+    <nav id="TableOfContents">
+      <ul>
+<li><a class="reference internal" href="#id2">01-1. 중앙 관리</a></li>
+</ul>
+
+    </nav>
+  </div>
     
     </main>
   </div><div class="container footer" role="contentinfo">
