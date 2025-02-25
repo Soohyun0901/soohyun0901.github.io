@@ -28,7 +28,7 @@ exclude_patterns = []
 
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
-html_favicon='favicon.ico'
+html_favicon='virton-favicon.ico'
 html_logo='virton-logo.svg'
 
 
