@@ -26,17 +26,12 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'conestack'
+html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_favicon='favicon.ico'
 html_logo='virton-logo.svg'
 
-html_css_files = [
-    'basic.css',  # 기본 CSS 파일
-    'bootstrap.css',  # 추가적으로 필요한 CSS 파일
-    'conestack.css',  # 예시로 conestack.css 포함
-    'pygments.css',  # 코드 하이라이팅용 pygments.css 포함
-]
+
 
 from recommonmark.parser import CommonMarkParser
 
