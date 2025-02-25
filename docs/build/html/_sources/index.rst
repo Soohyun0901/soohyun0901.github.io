@@ -9,7 +9,7 @@ VirtOn[버트온] 통합 가이드
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: 목차:
 
    01. 소개 

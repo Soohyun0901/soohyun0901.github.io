@@ -48,6 +48,7 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="01. 소개" href="01.%20%EC%86%8C%EA%B0%9C.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -99,8 +100,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -146,8 +145,9 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">목차:</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01.%20%EC%86%8C%EA%B0%9C.html">01. 소개</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">02. 설치</a></li>
 </ul>
 
     </div>
@@ -270,7 +270,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -286,6 +288,21 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">02-1. 시스템 요구사항</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">02-1-1. 테스트를 위한 최소 요구사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">02-1-2. 권장 시스템 요구사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">02-1-3. 간단한 성능 개요</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">02-1-4. 웹 인터페이스 접근을 위한 지원 브라우저</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">02-2. 설치 미디어 준비</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -297,6 +314,71 @@
                   
   <section id="id1">
 <h1>02. 설치<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>버트온은 Debian Linux를 기반으로 합니다. 이러한 이유로 버트온이 제공하는 설치 디스크 이미지(ISO 파일)에는 완전한 Debian Linux 시스템과 필요한 모든 버트온 패키지가 포함되어 있습니다.<br>
+설치 프로그램은 설정 과정을 안내하며, 로컬 디스크 파티션 설정, 기본 시스템 구성(예: 시간대, 언어, 네트워크) 및 필요한 모든 패키지 설치를 지원합니다. 이 과정은 몇 분 이상 소요되지 않습니다. 제공된 ISO를 사용한 설치는 신규 및 기존 사용자 모두에게 권장되는 방법입니다.<br>
+버트온은 기존 Debian Linux 시스템 위에 설치할 수도 있습니다. 이 옵션은 버트온에 대한 상세한 지식이 필요하기 때문에 숙련된 사용자에게만 권장됩니다.</p>
+<section id="id2">
+<h2>02-1. 시스템 요구사항<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>버트온을 프로덕션 환경에서 운영할 때는 고품질 서버 하드웨어를 사용하는 것을 권장합니다. 호스트 장애의 영향을 더욱 줄이기 위해, 고가용성(HA) 가상 머신과 컨테이너를 갖춘 클러스터로 버트온을 운영할 수 있습니다.<br></p>
+<p>버트온은 로컬 스토리지(DAS), SAN, NAS, 그리고 Ceph RBD와 같은 분산 스토리지를 사용할 수 있습니다. 자세한 내용은 스토리지 챕터를 참조하세요.</p>
+<section id="id3">
+<h3>02-1-1. 테스트를 위한 최소 요구사항<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>이러한 최소 요구사항은 오직 테스트 목적으로만 사용되어야 하며, 운영 환경에서는 사용하지 않아야 합니다.</p>
+<ul class="simple">
+<li><p>CPU: 64비트(Intel 64 또는 AMD64)</p></li>
+<li><p>KVM 전체 가상화 지원을 위한 Intel VT/AMD-V 지원 CPU/마더보드</p></li>
+<li><p>RAM: 1GB RAM, 게스트에 필요한 추가 RAM</p></li>
+<li><p>하드 드라이브</p></li>
+<li><p>하나의 네트워크 카드(NIC)</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>02-1-2. 권장 시스템 요구사항<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Intel VT/AMD-V CPU 플래그가 있는 Intel 64 또는 AMD64</p></li>
+<li><p>메모리: OS와 버트온 서비스를 위한 최소 2GB, 게스트를 위한 지정된 메모리 추가. <br>(Ceph와 ZFS의 경우 추가 메모리가 필요하며, 사용된 스토리지 1TB당 약 1GB의 메모리가 필요합니다.)</p></li>
+<li><p>빠르고 이중화된 스토리지(SSD로 최상의 결과를 얻을 수 있습니다.)</p></li>
+<li><p>OS 스토리지: 배터리 보호 쓰기 캐시(“BBU”)가 있는 하드웨어 RAID 또는 ZFS용 비RAID(ZIL용 선택적 SSD) 사용</p></li>
+<li><p>VM 스토리지:</p>
+<ul>
+<li><p>로컬 스토리지의 경우, 배터리 백업 쓰기 캐시(BBU)가 있는 하드웨어 RAID 또는 ZFS와 Ceph용 비RAID 사용. <br>(ZFS와 Ceph 모두 하드웨어 RAID 컨트롤러와 호환되지 않습니다.)</p></li>
+<li><p>공유 및 분산 스토리지 가능</p></li>
+<li><p>우수한 성능을 위해 전력 손실 보호(PLP)가 있는 SSD 권장.<br>(일반 소비자용 SSD 사용은 권장하지 않습니다.)</p></li>
+</ul>
+</li>
+<li><p>선호하는 스토리지 기술 및 클러스터 설정에 따라 추가 NIC가 있는 이중화(멀티) Gbit NIC</p></li>
+<li><p>PCI(e) 패스스루를 위해서는 CPU가 VT-d/AMD-d 플래그를 지원해야 함</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>02-1-3. 간단한 성능 개요<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>설치된 버트온 시스템의 CPU와 하드 디스크 성능 개요를 얻으려면, 포함된 pveperf 도구를 실행하세요.</p>
+<blockquote>
+<div><p>이것은 매우 빠르고 일반적인 벤치마크일 뿐입니다. 특히 시스템의 I/O 성능에 대해서는 더 자세한 테스트가 권장됩니다.</p>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>02-1-4. 웹 인터페이스 접근을 위한 지원 브라우저<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>웹 기반 사용자 인터페이스에 접근하기 위해 다음 브라우저 중 하나를 사용하는 것을 권장합니다:</p>
+<ul class="simple">
+<li><p>Firefox, 현재 연도의 릴리스 또는 최신 장기 지원 릴리스</p></li>
+<li><p>Chrome, 현재 연도의 릴리스</p></li>
+<li><p>Microsoft의 현재 지원되는 버전의 Edge</p></li>
+<li><p>Safari, 현재 연도의 릴리스</p></li>
+</ul>
+<p>모바일 기기에서 접근할 때, 버트온은 가벼운 터치 기반 인터페이스를 보여줍니다.</p>
+</section>
+</section>
+<section id="id7">
+<h2>02-2. 설치 미디어 준비<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>다음 주소에서 설치 ISO 이미지를 다운로드하세요: https://www.proxmox.com/en/downloads/proxmox-virtual-environment/-iso <br>
+버트온 설치 미디어는 하이브리드 ISO 이미지이며, 두 가지 방식으로 사용할 수 있습니다:</p>
+<ul class="simple">
+<li><p>CD나 DVD에 굽기 위한 ISO 이미지 파일</p></li>
+<li><p>USB 플래시 드라이브(USB 스틱)에 복사하기 위한 원시 섹터(IMG) 이미지 파일<br></p></li>
+</ul>
+<p>USB 플래시 드라이브를 사용하여 버트온을 설치하는 것이 더 빠른 옵션이므로 권장되는 방법입니다.</p>
+</section>
 </section>
 
 
@@ -310,12 +392,44 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="01.%20%EC%86%8C%EA%B0%9C.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">01. 소개</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">02-1. 시스템 요구사항</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">02-1-1. 테스트를 위한 최소 요구사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">02-1-2. 권장 시스템 요구사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">02-1-3. 간단한 성능 개요</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">02-1-4. 웹 인터페이스 접근을 위한 지원 브라우저</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">02-2. 설치 미디어 준비</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
