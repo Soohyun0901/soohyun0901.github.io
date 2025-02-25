@@ -17,6 +17,7 @@ release = '1.0'
 extensions = ['myst_parser',
               'sphinx.ext.githubpages'
 ]
+extensions.append("sphinx_wagtail_theme")
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -26,7 +27,7 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_book_theme'
+html_theme = 'sphinx_wagtail_theme'
 html_static_path = ['_static']
 html_favicon='virton-favicon.ico'
 html_logo='virton-logo.svg'
