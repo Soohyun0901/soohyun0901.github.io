@@ -38,8 +38,8 @@
 * 공유 CIFS
 * Cepf RBD
 * iSCSI LUN 직접 사용
-* GlusterFS
-지원되는 로컬 스토리지 유형은 다음과 같습니다:<br>
+* GlusterFS<br>
+지원되는 로컬 스토리지 유형은 다음과 같습니다:
 * LVM 그룹(블록 디바이스, FC, DRBD 등과 같은 로컬 백업 장치)
 * 디렉토리(기존 파일시스템의 스토리지)
 * ZFS<br><br>
