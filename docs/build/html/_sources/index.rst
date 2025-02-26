@@ -10,7 +10,8 @@ VirtOn[버트온] 통합 가이드
 
 .. toctree::
    :maxdepth: 2
-   :caption: 목차:
+   :caption: 목차
+   :hidden:
 
    01. 소개 
    02. 설치
