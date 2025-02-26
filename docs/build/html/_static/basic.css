@@ -721,6 +721,9 @@ dl.glossary dt {
     font-family: sans-serif;
 }
 
+.accelerator {
+    text-decoration: underline;
+}
 
 .classifier {
     font-style: oblique;
