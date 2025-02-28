@@ -310,8 +310,11 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">02-3-3 하드디스크 선택</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">02-3-4 기본 구성 설정</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">02-3-5 비밀번호 및 이메일 지정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">02-3-6 네트워크 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">02-3-7 최종 확인</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">02-4 설치 후 관리 인터페이스 접속</a></li>
 </ul>
             </nav>
         </div>
@@ -438,16 +441,46 @@
 <h3>02-3-5 비밀번호 및 이메일 지정<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>다음으로 슈퍼유저(root)의 비밀번호와 이메일 주소를 지정해야 합니다. 비밀번호는 최소 5자로 구성되어야 합니다. 몇 가지 지침은 다음과 같습니다:<br></p>
 <ul class="simple">
-<li><p>최소 12자 이상의 비밀번호 길이를 사용하세요.</p></li>
+<li><p>최소 12자 이상의 비밀번호를 사용하세요.</p></li>
 <li><p>소문자와 대문자, 숫자, 기호를 포함하세요.</p></li>
-<li><p>문자 반복, 키보드 패턴, 일반적인 사전 단어, 문자 또는 숫자 시퀀스, 사용자 이름, 친척이나 애완동물 이름, 로맨틱한 관계(현재 또는 과거), 그리고 생체 정보(예: ID 번호, 조상의 이름 또는 날짜)를 피하세요.<br></p></li>
+<li><p>문자 반복, 키보드 패턴, 일반적인 사전 단어, 문자 또는 숫자 시퀀스, 사용자 이름 그리고 생체 정보(예: ID 번호, 조상의 이름 또는 날짜)를 피하세요.<br></p></li>
 </ul>
-<p>이메일 주소는 시스템 관리자에게 알림을 보내는 데 사용됩니다. 예를 들면:<br></p>
+<p>이메일 주소는 시스템 관리자에게 알림을 보내는 데 사용됩니다. 예를 들어:<br></p>
 <ul class="simple">
 <li><p>사용 가능한 패키지 업데이트에 대한 정보.</p></li>
 <li><p>주기적인 cron 작업의 오류 메시지.</p></li>
 </ul>
+<p>이러한 모든 내용은 지정한 이메일 주소로 전송됩니다.</p>
 </section>
+<section id="id14">
+<h3>02-3-6 네트워크 구성<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>마지막 단계는 네트워크 구성입니다. 현재 업링크 상태인 네트워크 인터페이스는 드롭다운 메뉴에서 이름 앞에 채워진 원이 표시됩니다. 설치 중에는 IPv4 또는 IPv6 주소 중 하나만 지정할 수 있습니다. 이중 스택 노드를 구성하려면 설치 후 추가 IP 주소를 구성하세요.</p>
+</section>
+<section id="id15">
+<h3>02-3-7 최종 확인<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>다음 단계에서는 이전에 선택한 옵션들의 요약을 보여줍니다. 모든 설정을 다시 확인하고 변경이 필요한 경우 이전 버튼을 사용하세요.<br></p>
+<p>설치를 클릭하면 설치 프로그램이 디스크 포맷을 시작하고 패키지를 대상 디스크에 복사합니다. 이 단계가 완료될 때까지 기다린 다음, 설치 미디어를 제거하고 시스템을 다시 시작하세요.<br>
+패키지 복사는 주로 설치 미디어의 속도와 대상 디스크 성능에 따라 몇 분 정도 소요됩니다.패키지 복사 및 설정이 완료되면 서버를 재부팅할 수 있습니다. 기본적으로 몇 초 후에 자동으로 재부팅됩니다.</p>
+</section>
+</section>
+<section id="id16">
+<h2>02-4 설치 후 관리 인터페이스 접속<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>정상적으로 설치하여 재부팅이 완료되었다면, 버트온 웹 인터페이스를 사용하여 추가 구성을 할 수 있습니다.<br></p>
+<blockquote>
+<div><p>기본적으로 버트온 웹 인터페이스 접속은 <em>포트 8006</em> 을 사용합니다.</p>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p>브라우저에 접속하여 버트온 IP주소 + 포트 8006을 입력합니다.</p></li>
+</ol>
+<ul class="simple">
+<li><p>ex) https://[VirtOn_IP_Address]:8006</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>슈퍼 유저(root)의 계정 정보를 입력하여 로그인합니다.(realm PAM)</p></li>
+<li><p>IP 구성 및 호스트 이름을 확인합니다.</p></li>
+<li><p>시간대를 확인합니다.</p></li>
+<li><p>방화벽 설정을 확인합니다.</p></li>
+</ol>
 </section>
 </section>
 
@@ -502,8 +535,11 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">02-3-3 하드디스크 선택</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">02-3-4 기본 구성 설정</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">02-3-5 비밀번호 및 이메일 지정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">02-3-6 네트워크 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">02-3-7 최종 확인</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">02-4 설치 후 관리 인터페이스 접속</a></li>
 </ul>
   </nav></div>
 
