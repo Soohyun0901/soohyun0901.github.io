@@ -274,7 +274,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -290,6 +292,24 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">03-1 패키지 저장소</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">03-1-1 버트온 제공 저장소</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-enterprise-repository">03-1-2 Proxmox Enterprise Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-no-subscription-repository">03-1-3 Proxmox No-Subscription Repository</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">03-2 시스템 소프트웨어 업데이트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">03-3 펌웨어 업데이트</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">03-3-1 영구 펌웨어</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -301,6 +321,86 @@
                   
   <section id="id1">
 <h1>03 호스트 시스템 관리/운영<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>버트온은 Debian GNU/Linux를 기반으로 하며 버트온 관련 패키지를 제공하는 추가 저장소가 포함되어 있습니다. 이는 보안 업데이트 및 버그 수정을 포함한 모든 Debian 패키지를 사용할 수 있음을 의미합니다. 버트온은 Ubuntu 커널을 기반으로 한 자체 Linux 커널을 제공합니다. 이 커널에는 필요한 모든 가상화 및 컨테이너 기능이 활성화되어 있으며 ZFS와 여러 추가 하드웨어 드라이버가 포함되어 있습니다.<br></p>
+<section id="id2">
+<h2>03-1 패키지 저장소<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>버트온은 다른 Debian 기반 시스템과 마찬가지로 <strong>APT</strong>를 패키지 관리 도구로 사용합니다.<br>
+버트온은 매일 자동으로 패키지 업데이트를 확인합니다. 가능한 업데이트에 대한 정보는 root&#64;pam 사용자에게 이메일로 통지됩니다. GUI에서는 <em>changelog</em> 버튼을 사용하여 선택한 업데이트에 대한 자세한 정보를 확인할 수 있습니다.</p>
+<section id="id3">
+<h3>03-1-1 버트온 제공 저장소<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>저장소는 소프트웨어 패키지의 모음으로, 새로운 소프트웨어를 설치하는 데 사용할 수 있을 뿐만 아니라 새로운 업데이트를 받는 데도 중요합니다.</p>
+<blockquote>
+<div><p>참고<br />
+최신 보안 업데이트, 버그 수정 및 새로운 기능을 얻으려면 유효한 Debian 및 버트온 저장소가 필요합니다.</p>
+</div></blockquote>
+<p>APT 저장소는 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> 파일과 <code class="docutils literal notranslate"><span class="pre">/etc/apt/s</span></code> 경로에 위치한 <code class="docutils literal notranslate"><span class="pre">.list</span></code> 파일에 정의됩니다.<br>
+<strong>Sources.list</strong><br>
+sources.list 파일에서 각 줄은 패키지 저장소를 정의합니다.</p>
+<p>버트온은 세 가지 다른 패키지 저장소를 제공합니다. 선호하는 소스가 가장 먼저 나와야 하며, 빈 줄은 무시됩니다. <em>#</em> 문자는 해당 줄의 나머지 부분을 주석으로 표시합니다. 저장소에서 사용 가능한 패키지는 <em>apt-get update</em> 명령을 실행하여 획득합니다. 업데이트는 <em>apt-get</em>을 사용하여 직접 설치하거나, GUI(Node → Updates)를 통해 설치할 수 있습니다.
+<strong>/etc/apt/sources.list 파일</strong></p>
+<blockquote>
+<div><p>deb http://deb.debian.org/debian bookworm main contrib
+deb http://deb.debian.org/debian bookworm-updates main contrib</p>
+<p class="rubric" id="security-updates">security updates</p>
+<p>deb http://security.debian.org/debian-security bookworm-security main contrib</p>
+</div></blockquote>
+</section>
+<section id="proxmox-enterprise-repository">
+<h3>03-1-2 Proxmox Enterprise Repository<a class="headerlink" href="#proxmox-enterprise-repository" title="Link to this heading">#</a></h3>
+<p>이는 권장되는 저장소이며 모든 버트온 라이선스 구독자가 이용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션 환경에 적합합니다. <strong>pve-enterprise</strong> 저장소는 기본적으로 활성화되어 있습니다:<br>
+pve-enterprise 저장소에 접근하려면 유효한 구독 키가 필요하다는 점에 유의하십시오. 당사는 다양한 지원 수준을 제공하며, 자세한 내용은 https://proxmox.com/en/proxmox-virtual-environment/pricing에서 확인하실 수 있습니다.</p>
+<blockquote>
+<div><p>파일에서 줄 시작 부분에 ‘#’을 추가하여 주석 처리함으로써 이 저장소를 비활성화할 수 있습니다. 이렇게 하면 호스트에 구독 키가 없는 경우 오류 메시지가 표시되지 않습니다. 이 경우 pve-no-subscription 저장소를 구성하시기 바랍니다.</p>
+</div></blockquote>
+</section>
+<section id="proxmox-no-subscription-repository">
+<h3>03-1-3 Proxmox No-Subscription Repository<a class="headerlink" href="#proxmox-no-subscription-repository" title="Link to this heading">#</a></h3>
+<p>이름에서 알 수 있듯이, 이 저장소에 접근하기 위해 구독 키가 필요하지 않습니다. 테스트 및 비프로덕션 환경에서 사용할 수 있습니다. 이 패키지들은 운영 서버에서는 사용하지 않는 것이 좋습니다.</p>
+</section>
+</section>
+<section id="id4">
+<h2>03-2 시스템 소프트웨어 업데이트<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>버트온은 모든 저장소에 대해 정기적으로 업데이트를 제공합니다. 업데이트를 진행하려면 GUI 또는 다음 CLI 명령을 사용하세요:</p>
+<blockquote>
+<div><p class="rubric" id="apt-get-update">apt-get update</p>
+<p class="rubric" id="apt-get-dist-upgrade">apt-get dist-upgrade</p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h2>03-3 펌웨어 업데이트<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>펌웨어 업데이트는 베어메탈 서버에서 버트온을 실행할 때 적용해야 합니다. 게스트 환경에서 펌웨어 업데이트 구성이 적절한지 여부(ex: 디바이스 패스스루 사용 시)는 사용자의 설정에 따라 크게 달라지므로 본 문서의 범위를 벗어납니다.<br></p>
+<p>정기적인 소프트웨어 업데이트 외에도 안정적이고 안전한 운영을 위해서는 펌웨어 업데이트도 중요합니다.
+펌웨어 업데이트를 가능한 한 빨리 또는 완전히 적용하려면 사용 가능한 옵션을 조합하여 활용하는 것이 좋습니다.<br></p>
+<p>일반적으로 펌웨어라는 용어는 언어적으로 마이크로코드(CPU용)와 펌웨어(기타 디바이스용)로 구분됩니다.</p>
+<section id="id6">
+<h3>03-3-1 영구 펌웨어<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>이 섹션은 모든 장치에 적합합니다. BIOS/UEFI 업데이트에 일반적으로 포함되는 업데이트된 마이크로코드는 마더보드에 저장되는 반면, 다른 펌웨어는 해당 장치에 저장됩니다. 이 영구적인 방법은 특히 CPU에 중요하며, 부팅 시 가능한 빨리 업데이트된 마이크로코드를 정기적으로 로드할 수 있게 합니다.</p>
+<p>이는 모든 디바이스에 적용됩니다. 일반적으로 BIOS/UEFI 업데이트에 포함되는 업데이트된 마이크로코드는 마더보드에 저장되며, 다른 펌웨어는 해당 디바이스에 저장됩니다. 이 영구적인 방식은 특히 CPU에 중요한데, 부팅 시 가능한 한 빨리 업데이트된 마이크로코드를 정기적으로 로드할 수 있기 때문입니다.</p>
+<p><strong>주의:</strong><br />
+BIOS/UEFI 또는 스토리지 컨트롤러와 같은 일부 업데이트의 경우, 디바이스 구성이 초기화될 수 있습니다. 제조업체의 지침을 주의 깊게 따르고 현재 구성을 백업하시기 바랍니다.<br></p>
+<p>펌웨어 업데이트 방법에 대해서는 하드웨어 벤더에 문의하여 확인하시기 바랍니다.<br>
+서버의 경우 편리한 업데이트 방법으로는 다음과 같은 옵션이 있습니다:</p>
+<ul class="simple">
+<li><p>Dell의 Lifecycle Manager</p></li>
+<li><p>HPE의 Service Pack
+일부 하드웨어의 경우 Linux용 유틸리티도 제공됩니다:</p></li>
+<li><p>NVIDIA ConnectX 카드: mlxup</p></li>
+<li><p>Broadcom 네트워크 카드: bnxtnvm 또는 niccli
+LVFS(Linux Vendor Firmware Service)도 하나의 옵션입니다. 단, 다음 조건을 충족해야 합니다:</p></li>
+<li><p>하드웨어 벤더와의 협력 관계가 있어야 함</p></li>
+<li><p>지원되는 하드웨어를 사용해야 함</p></li>
+<li><p>시스템이 2014년 이후에 제조되었어야 함</p></li>
+<li><p>UEFI를 통해 부팅되어야 함
+이러한 방법들을 통해 펌웨어를 안전하고 효율적으로 업데이트할 수 있습니다.<br><br></p></li>
+</ul>
+<p>버트온은 자체 서명 키를 사용한 보안 부팅 지원을 위해 자체 버전의 fwupd 패키지를 제공합니다. 이 패키지는 하이퍼바이저에서 <em>udisks2</em> 패키지 사용 시 발생하는 문제로 인해 의도적으로 <em>udisks2</em>에 대한 의존성 권장을 제거했습니다. 따라서 <em>/etc/fwupd/daemon.conf</em> 파일에서 EFI 파티션의 올바른 마운트 포인트를 명시적으로 구성해야 합니다. 예를 들면 다음과 같습니다:</p>
+<blockquote>
+<div><p>[fwupd]
+EspLocation=/boot/efi</p>
+</div></blockquote>
+<p>이렇게 설정함으로써 fwupd가 EFI 시스템 파티션의 위치를 정확히 인식할 수 있게 됩니다. 이는 펌웨어 업데이트 프로세스가 올바르게 작동하는 데 필수적입니다.</p>
+</section>
+</section>
 </section>
 
 
@@ -329,6 +429,32 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">03-1 패키지 저장소</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">03-1-1 버트온 제공 저장소</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-enterprise-repository">03-1-2 Proxmox Enterprise Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-no-subscription-repository">03-1-3 Proxmox No-Subscription Repository</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">03-2 시스템 소프트웨어 업데이트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">03-3 펌웨어 업데이트</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">03-3-1 영구 펌웨어</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
