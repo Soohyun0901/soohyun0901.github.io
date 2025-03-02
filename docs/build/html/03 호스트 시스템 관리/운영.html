@@ -311,6 +311,9 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">03-4 네트워크 구성</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">03-4-1 네트워크 변경 사항 적용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">03-4-2 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">03-4-3 네트워크 구성 선택하기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.4.4 브릿지를 사용한 기본 구성</a></li>
 </ul>
 </li>
 </ul>
@@ -425,6 +428,98 @@ EspLocation=/boot/efi</p>
 <p>권장되는 ifupdown2 패키지(Proxmox VE 7.0 이후 새 설치의 기본값)를 사용하면 재부팅 없이 네트워크 구성 변경 사항을 적용할 수 있습니다. GUI를 통해 네트워크 구성을 변경한 경우, <code class="docutils literal notranslate"><span class="pre">Apply</span> <span class="pre">Configuration</span></code> 버튼을 클릭하면 됩니다. 이 작업은 <code class="docutils literal notranslate"><span class="pre">interfaces.new</span></code> 임시 파일의 변경 사항을 <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>로 이동시키고 실시간으로 적용합니다.<br></p>
 <p><code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code> 파일을 직접 수동으로 변경한 경우, <code class="docutils literal notranslate"><span class="pre">ifreload</span> <span class="pre">-a</span></code>를 실행하여 적용할 수 있습니다.</p>
 </section>
+<section id="id10">
+<h3>03-4-2 명명 규칙<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>현재 다음과 같은 디바이스 이름 명명 규칙을 사용하고 있습니다:</p>
+<ul class="simple">
+<li><p>이더넷 장치: <code class="docutils literal notranslate"><span class="pre">en*</span></code></p>
+<ul>
+<li><p>systemd 네트워크 인터페이스 이름</p></li>
+<li><p>이 명명 체계는 버트온 5.0 이후 버전에서 사용됩니다.</p></li>
+</ul>
+</li>
+<li><p>이더넷 장치: <code class="docutils literal notranslate"><span class="pre">eth[N]</span></code></p>
+<ul>
+<li><p>0 ≤ N (<code class="docutils literal notranslate"><span class="pre">eth0,</span> <span class="pre">eth1</span></code>, …)</p></li>
+<li><p>이 명명 체계는 버트온 5.0 이전 버전에서 사용됩니다. 5.0 이상 버전으로 업그레이드 시 장치 이름은 그대로 유지됩니다.</p></li>
+</ul>
+</li>
+<li><p>브릿지 이름: 일반적으로 <code class="docutils literal notranslate"><span class="pre">vmbr[N]</span></code></p>
+<ul>
+<li><p>0 ≤ N ≤ 4094 (<code class="docutils literal notranslate"><span class="pre">vmbr0</span> <span class="pre">-</span> <span class="pre">vmbr4094</span></code>)</p></li>
+<li><p>문자로 시작하고 최대 10자 길이의 영숫자 문자열도 사용 가능합니다.</p></li>
+</ul>
+</li>
+<li><p>본드: <code class="docutils literal notranslate"><span class="pre">bond[N]</span></code></p>
+<ul>
+<li><p>0 ≤ N (<code class="docutils literal notranslate"><span class="pre">bond0,</span> <span class="pre">bond1,</span></code> …)</p></li>
+</ul>
+</li>
+<li><p>VLAN: 장치 이름에 마침표(.)로 구분된 VLAN 번호를 추가합니다 (ex: <code class="docutils literal notranslate"><span class="pre">eno1.50,</span> <span class="pre">bond1.30</span></code>)</p></li>
+</ul>
+<p>이러한 명명 규칙은 장치 이름이 장치 유형을 암시하므로 네트워크 문제를 디버깅하기 쉽게 만듭니다.</p>
+<p><strong>Systemd 네트워크 인터페이스 이름</strong></p>
+<p>Systemd는 네트워크 장치 이름에 대한 버전 관리 명명 체계를 정의합니다. 이 체계는 이더넷 네트워크 장치에 대해 <code class="docutils literal notranslate"><span class="pre">en</span></code>이라는 두 글자 접두사를 사용합니다. 다음 문자는 장치 드라이버, 장치 위치 및 기타 속성에 따라 달라집니다. 가능한 패턴은 다음과 같습니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">o&lt;index&gt;[n&lt;phys_port_name&gt;|d&lt;dev_port&gt;]</span></code>: 온보드(on-board) 장치</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">s&lt;slot&gt;[f&lt;function&gt;][n&lt;phys_port_name&gt;|d&lt;dev_port&gt;]</span></code>: 핫플러그 ID 기반 장치</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[P&lt;domain&gt;]p&lt;bus&gt;s&lt;slot&gt;[f&lt;function&gt;][n&lt;phys_port_name&gt;|d&lt;dev_port&gt;]</span></code>: 버스 ID 기반 장치</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x&lt;MAC&gt;</span></code>:  MAC 주소 기반 장치</p></li>
+</ul>
+<p>[주요 구성 요소 설명]</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: 장치의 인덱스 번호</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">phys_port_name</span></code>: 물리적 포트 이름</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev_port</span></code>: 장치 포트 번호</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slot</span></code>: PCI 슬롯 번호</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">function</span></code>: PCI 기능 번호</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">domain</span></code>: PCI 도메인</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bus</span></code>: PCI 버스 번호</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code>: 장치의 MAC 주소</p></li>
+</ul>
+<p>네트워크 인터페이스 명명 규칙은 다음과 같은 일반적인 패턴을 사용합니다:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eno1</span></code> — 첫 번째 온보드 NIC(Network Interface Card)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enp3s0f1</span></code> — PCI 버스 3, 슬롯 0의 NIC의 함수 1
+이러한 명명 규칙은 하드웨어 위치와 특성을 기반으로 하여 일관성 있고 예측 가능한 이름을 제공합니다.<br></p></li>
+</ul>
+<p>새로운 systemd 버전은 새로운 네트워크 인터페이스 명명 체계를 정의할 수 있으며, 이는 기본적으로 사용됩니다. 따라서 버트온 주요 업그레이드와 같은 상황에서 systemd를 새 버전으로 업데이트하면 네트워크 디바이스의 이름이 변경될 수 있으며, 네트워크 구성을 조정해야 할 수 있습니다.<br></p>
+<p>명명 체계 버전을 수동으로 고정하여 새 버전으로 인한 이름 변경을 방지할 수 있습니다. 그러나 명명 체계 버전을 고정해도 커널이나 드라이버 업데이트로 인해 네트워크 인터페이스 이름이 여전히 변경될 수 있습니다<br>
+특정 네트워크 장치의 이름 변경을 완전히 방지하려면 링크 파일을 사용하여 수동으로 이름을 재정의할 수 있습니다. 이 방법을 통해 장치에 고정된 이름을 지정할 수 있습니다<br></p>
+<p><strong>특정 명명 체계 버전 고정하기</strong><br>
+<strong>네트워크 장치 이름 재정의하기</strong><br></p>
+</section>
+<section id="id11">
+<h3>03-4-3 네트워크 구성 선택하기<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>현재 네트워크 구성과 리소스에 따라 브릿지, 라우팅 또는 마스커레이딩 네트워킹 설정 중에서 선택할 수 있습니다.</p>
+<p><strong>외부 게이트웨이를 통해 인터넷에 연결되는 사설 LAN의 버트온 서버</strong></p>
+<p>이 경우 <code class="docutils literal notranslate"><span class="pre">브릿지(Bridged)</span></code> 모델이 가장 적합하며, 이는 버트온 첫 설치의 기본 모드이기도 합니다. 각 GuestOS은 버트온 브릿지에 연결된 가상 인터페이스를 갖게 됩니다. 이는 게스트 네트워크 카드가 LAN의 새 스위치에 직접 연결된 것과 유사한 효과를 나타내며, 버트온 호스트가 스위치 역할을 수행합니다.</p>
+<p><strong>게스트를 위한 공용 IP 범위가 있는 호스팅 제공업체의 버트온 서버</strong></p>
+<p>이 설정에서는 제공업체가 허용하는 것에 따라 <code class="docutils literal notranslate"><span class="pre">브릿지(Bridged)</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">라우팅(Routed)</span></code> 모델을 사용할 수 있습니다.</p>
+<p><strong>단일 공용 IP 주소가 있는 호스팅 제공업체의 버트온 서버</strong></p>
+<p>이 경우 게스트 시스템에 대한 나가는 네트워크 액세스를 얻는 유일한 방법은 마스커레이딩을 사용하는 것입니다. 게스트에 대한 들어오는 네트워크 액세스의 경우 포트 포워딩을 구성해야 합니다.<br></p>
+<p>추가 유연성을 위해 VLAN(IEEE 802.1q) 및 “링크 집계”라고도 알려진 네트워크 본딩을 구성할 수 있습니다. 이렇게 하면 복잡하고 유연한 가상 네트워크를 구축할 수 있습니다.</p>
+</section>
+<section id="id12">
+<h3>3.4.4 브릿지를 사용한 기본 구성<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>브릿지는 소프트웨어로 구현된 물리적 네트워크 스위치와 같습니다. 모든 가상 게스트는 단일 브릿지를 공유하거나 네트워크 도메인을 분리하기 위해 여러 브릿지를 생성할 수 있습니다. 각 호스트는 최대 4094개의 브릿지를 가질 수 있습니다.</p>
+<p>설치 프로그램은 첫 번째 이더넷 카드에 연결된 vmbr0이라는 단일 브릿지를 생성합니다. /etc/network/interfaces의 해당 구성은 다음과 같을 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="n">iface</span> <span class="n">eno1</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">auto</span> <span class="n">vmbr0</span>
+<span class="n">iface</span> <span class="n">vmbr0</span> <span class="n">inet</span> <span class="n">static</span>
+    <span class="n">address</span> <span class="mf">192.168.10.2</span><span class="o">/</span><span class="mi">24</span>
+    <span class="n">gateway</span> <span class="mf">192.168.10.1</span>
+    <span class="n">bridge</span><span class="o">-</span><span class="n">ports</span> <span class="n">eno1</span>
+    <span class="n">bridge</span><span class="o">-</span><span class="n">stp</span> <span class="n">off</span>
+    <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>가상 머신은 물리적 네트워크에 직접 연결된 것처럼 작동합니다. 반면 네트워크는 이러한 모든 VM을 네트워크에 연결하는 네트워크 케이블이 하나만 있더라도 각 가상 머신이 자체 MAC을 가지고 있는 것처럼 인식합니다.</p>
+</section>
 </section>
 </section>
 
@@ -479,6 +574,9 @@ EspLocation=/boot/efi</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">03-4 네트워크 구성</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">03-4-1 네트워크 변경 사항 적용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">03-4-2 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">03-4-3 네트워크 구성 선택하기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.4.4 브릿지를 사용한 기본 구성</a></li>
 </ul>
 </li>
 </ul>
