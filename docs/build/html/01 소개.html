@@ -51,7 +51,7 @@
     <link rel="icon" href="_static/virton-favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="02 버트온 설치" href="02%20%EB%B2%84%ED%8A%B8%EC%98%A8%20%EC%84%A4%EC%B9%98.html" />
+    <link rel="next" title="02 Proxmox VE 설치" href="02%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html" />
     <link rel="prev" title="VirtOn[버트온] 통합 가이드" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -151,7 +151,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">목차</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">01 소개</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02%20%EB%B2%84%ED%8A%B8%EC%98%A8%20%EC%84%A4%EC%B9%98.html">02 버트온 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html">02 Proxmox VE 설치</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03%20%ED%98%B8%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EA%B4%80%EB%A6%AC/%EC%9A%B4%EC%98%81.html">03 호스트 시스템 관리/운영</a></li>
 </ul>
 
@@ -371,7 +371,6 @@
 <p>Proxmox VE 스토리지 모델은 매우 유연합니다. 가상 머신 이미지는 하나 또는 여러 개의 로컬 스토리지에 저장할 수 있으며, NFS나 SAN과 같은 공유 스토리지에도 저장할 수 있습니다. 제한이 없어 원하는 만큼 구성이 가능하며, Debian Linux에서 사용 가능한 모든 스토리지 기술을 활용할 수 있습니다.<br></p>
 <p>공유 스토리지에 VM을 저장하는 것의 가장 큰 장점은 클러스터의 모든 노드가 VM 디스크 이미지에 직접 액세스할 수 있으므로 다운타임 없이 실행 중인 머신을 라이브 마이그레이션할 수 있다는 점입니다.<br></p>
 <p>현재 지원되는 네트워크 스토리지 유형은 다음과 같습니다:</p>
-<p>현재 지원되는 네트워크 스토리지 유형:</p>
 <ul class="simple">
 <li><p>LVM 그룹(iSCSI 대상을 사용한 네트워크 백업)</p></li>
 <li><p>iSCSI target</p></li>
@@ -379,8 +378,10 @@
 <li><p>공유 CIFS</p></li>
 <li><p>Cepf RBD</p></li>
 <li><p>iSCSI LUN 직접 사용</p></li>
-<li><p>GlusterFS<br>
-지원되는 로컬 스토리지 유형은 다음과 같습니다:</p></li>
+<li><p>GlusterFS<br></p></li>
+</ul>
+<p>지원되는 로컬 스토리지 유형은 다음과 같습니다:</p>
+<ul class="simple">
 <li><p>LVM 그룹(블록 디바이스, FC, DRBD 등과 같은 로컬 백업 장치)</p></li>
 <li><p>디렉토리(기존 파일시스템의 스토리지)</p></li>
 <li><p>ZFS<br><br></p></li>
@@ -451,11 +452,11 @@ HCI는 다음과 같은 이점을 제공합니다:</p>
       </div>
     </a>
     <a class="right-next"
-       href="02%20%EB%B2%84%ED%8A%B8%EC%98%A8%20%EC%84%A4%EC%B9%98.html"
+       href="02%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">02 버트온 설치</p>
+        <p class="prev-next-title">02 Proxmox VE 설치</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
