@@ -51,7 +51,7 @@
     <link rel="icon" href="../_static/virton-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="02 버트온 설치" href="../02%20%EB%B2%84%ED%8A%B8%EC%98%A8%20%EC%84%A4%EC%B9%98.html" />
+    <link rel="prev" title="02 Proxmox VE 설치" href="../02%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -150,7 +150,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">목차</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../01%20%EC%86%8C%EA%B0%9C.html">01 소개</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../02%20%EB%B2%84%ED%8A%B8%EC%98%A8%20%EC%84%A4%EC%B9%98.html">02 버트온 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html">02  Proxmox VE 설치</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">03 호스트 시스템 관리/운영</a></li>
 </ul>
 
@@ -297,23 +297,28 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">03-1 패키지 저장소</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">03-1-1 버트온 제공 저장소</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-enterprise-repository">03-1-2 Proxmox Enterprise Repository</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-no-subscription-repository">03-1-3 Proxmox No-Subscription Repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">03-1 패키지 레포지토리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve">03-1-1 Proxmox VE의 레포지토리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-enterprise-repository">03-1-2 Proxmox VE Enterprise Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-no-subscription-repository">03-1-3 Proxmox VE No-Subscription Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-test-repository">03-1-4 Proxmox VE Test Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-squid-enterprise-repository">03-1-5 Ceph Squid Enterprise Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-squid-no-subscription-repository">03-1-6 Ceph Squid No-Subscription Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-squid-test-repository">03-1-7 Ceph Squid Test Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-reef-enterprise-repository">03-1-8 Ceph Reef Enterprise Repository</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">03-2 시스템 소프트웨어 업데이트</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">03-3 펌웨어 업데이트</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">03-3-1 영구 펌웨어</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">03-3-2 런타임 펌웨어 파일</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">03-2 시스템 소프트웨어 업데이트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">03-3 펌웨어 업데이트</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">03-3-1 영구 펌웨어</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">03-3-2 런타임 펌웨어 파일</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">03-4 네트워크 구성</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">03-4-1 네트워크 변경 사항 적용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">03-4-2 명명 규칙</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">03-4-3 네트워크 구성 선택하기</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.4.4 브릿지를 사용한 기본 구성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">03-4 네트워크 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">03-4-1 네트워크 변경 사항 적용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">03-4-2 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">03-4-3 네트워크 구성 선택하기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.4.4 브릿지를 사용한 기본 구성</a></li>
 </ul>
 </li>
 </ul>
@@ -329,60 +334,147 @@
                   
   <section id="id1">
 <h1>03 호스트 시스템 관리/운영<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<p>버트온은 Debian GNU/Linux를 기반으로 하며 버트온 관련 패키지를 제공하는 추가 저장소가 포함되어 있습니다. 이는 보안 업데이트 및 버그 수정을 포함한 모든 Debian 패키지를 사용할 수 있음을 의미합니다. 버트온은 Ubuntu 커널을 기반으로 한 자체 Linux 커널을 제공합니다. 이 커널에는 필요한 모든 가상화 및 컨테이너 기능이 활성화되어 있으며 ZFS와 여러 추가 하드웨어 드라이버가 포함되어 있습니다.<br></p>
+<p>Proxmox VE는 Debian GNU/Linux를 기반으로 하며, 추가 레포지토리를 통해 Proxmox VE 관련 패키지를 제공합니다. 즉, 보안 업데이트 및 버그 수정을 포함한 모든 범위의 Debian 패키지를 사용할 수 있습니다. Proxmox VE는 우분투 커널을 기반으로 하는 자체 Linux 커널을 제공합니다. 필요한 모든 가상화 및 컨테이너 기능이 활성화되어 있으며 ZFS 및 몇 가지 추가 하드웨어 드라이버가 포함되어 있습니다.<br></p>
 <section id="id2">
-<h2>03-1 패키지 저장소<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>버트온은 다른 Debian 기반 시스템과 마찬가지로 <strong>APT</strong>를 패키지 관리 도구로 사용합니다.<br>
-버트온은 매일 자동으로 패키지 업데이트를 확인합니다. 가능한 업데이트에 대한 정보는 <code class="docutils literal notranslate"><span class="pre">root&#64;pam</span></code> 사용자에게 이메일로 통지됩니다. GUI에서는 <code class="docutils literal notranslate"><span class="pre">changelog</span></code> 버튼을 사용하여 선택한 업데이트에 대한 자세한 정보를 확인할 수 있습니다.</p>
-<section id="id3">
-<h3>03-1-1 버트온 제공 저장소<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>저장소는 소프트웨어 패키지의 모음으로, 새로운 소프트웨어를 설치하는 데 사용할 수 있을 뿐만 아니라 새로운 업데이트를 받는 데도 중요합니다.</p>
+<h2>03-1 패키지 레포지토리<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Proxmox VE는 다른 Debian 기반 시스템과 마찬가지로 <strong>APT</strong>를 패키지 관리 도구로 사용합니다.<br>
+Proxmox VE는 매일 패키지 업데이트를 자동으로 확인합니다. <strong>root&#64;pam</strong> 사용자는 사용 가능한 업데이트에 대해 이메일을 통해 알림을 받습니다. GUI에서 <strong>changelog</strong>버튼을 사용하여 선택한 업데이트에 대한 자세한 내용을 볼 수 있습니다.<br></p>
+<section id="proxmox-ve">
+<h3>03-1-1 Proxmox VE의 레포지토리<a class="headerlink" href="#proxmox-ve" title="Link to this heading">#</a></h3>
+<p>레포지토리는 소프트웨어 패키지의 모음으로, 새 소프트웨어를 설치하는 데 사용할 수 있을 뿐만 아니라 새 업데이트를 받는 데도 중요합니다.</p>
 <blockquote>
-<div><p>참고<br />
-최신 보안 업데이트, 버그 수정 및 새로운 기능을 얻으려면 유효한 Debian 및 버트온 저장소가 필요합니다.</p>
+<div><p><img alt="" src="../_images/notes.svg" /> 참고<br>
+최신 보안 업데이트, 버그 수정 및 새로운 기능을 받으려면 유효한 Debian 및 Proxmox 레포지토리가 필요합니다.
+<br></p>
 </div></blockquote>
-<p>APT 저장소는 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> 파일과 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d</span></code> 경로에 위치한 <code class="docutils literal notranslate"><span class="pre">.list</span></code> 파일에 정의됩니다.
+<p>APT 레포지토리는 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> 파일과 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code>에 있는 <strong>.list</strong> 확장자 파일에 정의되어 있습니다.</p>
 <br>
-<strong>Sources.list</strong><br>
-sources.list 파일에서 각 줄은 패키지 저장소를 정의합니다.</p>
-<p>버트온은 세 가지 다른 패키지 저장소를 제공합니다. 선호하는 소스가 가장 먼저 나와야 하며, 빈 줄은 무시됩니다. <em>#</em> 문자는 해당 줄의 나머지 부분을 주석으로 표시합니다. 저장소에서 사용 가능한 패키지는 <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">update</span></code> 명령을 실행하여 획득합니다. 업데이트는 <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>을 사용하여 직접 설치하거나, GUI(Node → Updates)를 통해 설치할 수 있습니다.
-<strong>/etc/apt/sources.list 파일</strong></p>
-<blockquote>
-<div><p>deb http://deb.debian.org/debian bookworm main contrib
-deb http://deb.debian.org/debian bookworm-updates main contrib</p>
-<p class="rubric" id="security-updates">security updates</p>
-<p>deb http://security.debian.org/debian-security bookworm-security main contrib</p>
-</div></blockquote>
+<p><strong>[레포지토리 관리]</strong>
+<img alt="" src="../_images/img11.png" /><br>
+Proxmox VE 7부터는 웹 인터페이스에서 레포지토리 상태를 확인할 수 있습니다. 노드 요약 패널에는 개략적인 상태 개요가 표시되며, 별도의 <strong>Repository</strong> 패널에는 구성된 모든 레포지토리의 심층적인 상태와 목록이 표시됩니다.</p>
+<p>레포지토리 활성화 또는 비활성화와 같은 기본적인 레포지토리 관리도 지원됩니다.<br></p>
+<p><strong>[sources.list 파일]</strong>
+<strong>sources.list</strong> 파일에서 각 줄은 패키지 레포지토리를 정의합니다.</p>
+<p>선호하는 소스가 가장 먼저 나와야 하며, 빈 줄은 무시됩니다. <strong>#</strong> 문자는 해당 줄의 나머지 부분을 주석으로 표시합니다. 레포지토리에서 사용 가능한 패키지는 <strong>apt-get update</strong> 명령을 실행하여 얻습니다. 업데이트는 <strong>apt-get</strong>을 사용하여 직접 설치하거나, GUI(Node → Updates)를 통해 설치할 수 있습니다.<br></p>
+<p><strong>[/etc/apt/sources.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="n">bookworm</span> <span class="n">main</span> <span class="n">contrib</span>
+<span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="n">bookworm</span><span class="o">-</span><span class="n">updates</span> <span class="n">main</span> <span class="n">contrib</span>
+
+<span class="c1"># security updates</span>
+<span class="n">deb</span> 
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">security</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span><span class="o">-</span><span class="n">security</span> <span class="n">bookworm</span><span class="o">-</span><span class="n">security</span> <span class="n">main</span> <span class="n">contrib</span>
+</pre></div>
+</div>
+<p>Proxmox VE는 세 가지 패키지 레포지토리를 제공합니다.<br></p>
 </section>
-<section id="proxmox-enterprise-repository">
-<h3>03-1-2 Proxmox Enterprise Repository<a class="headerlink" href="#proxmox-enterprise-repository" title="Link to this heading">#</a></h3>
+<section id="proxmox-ve-enterprise-repository">
+<h3>03-1-2 Proxmox VE Enterprise Repository<a class="headerlink" href="#proxmox-ve-enterprise-repository" title="Link to this heading">#</a></h3>
 <p>이는 권장되는 저장소이며 모든 버트온 라이선스 구독자가 이용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션 환경에 적합합니다. <strong>pve-enterprise</strong> 저장소는 기본적으로 활성화되어 있습니다:<br>
 pve-enterprise 저장소에 접근하려면 유효한 구독 키가 필요하다는 점에 유의하십시오. 당사는 다양한 지원 수준을 제공하며, 자세한 내용은 https://proxmox.com/en/proxmox-virtual-environment/pricing에서 확인하실 수 있습니다.</p>
 <blockquote>
 <div><p>파일에서 줄 시작 부분에 ‘#’을 추가하여 주석 처리함으로써 이 저장소를 비활성화할 수 있습니다. 이렇게 하면 호스트에 구독 키가 없는 경우 오류 메시지가 표시되지 않습니다. 이 경우 pve-no-subscription 저장소를 구성하시기 바랍니다.</p>
 </div></blockquote>
+<p>이 레포지토리는 권장 레포지토리이며 모든 Proxmox VE 구독 사용자가 사용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션용으로 적합합니다. <strong>pve-enterprise</strong> 레포지토리는 기본적으로 활성화되어 있습니다:<br><br></p>
+<p><strong>[/etc/apt/sources.list.d/pve-enterprise.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> 
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">enterprise</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">pve</span> <span class="n">bookworm</span> <span class="n">pve</span><span class="o">-</span><span class="n">enterprise</span>
+</pre></div>
+</div>
+<p><strong>pve-enterprise</strong> 레포지토리에 액세스하려면 유효한 구독 키가 필요하다는 점에 유의하세요.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/notes.svg" /> 참고<br>
+위 줄의 첫 번째 줄에 **#**를 사용하여 주석을 달면 이 레포지토리를 비활성화할 수 있습니다. 이렇게 하면 호스트에 구독 키가 없는 경우 오류 메시지가 표시되지 않습니다. 이 경우 <strong>pve-no-subscription</strong> 레포지토리를 구성하세요.</p>
+</div></blockquote>
+<br>
 </section>
-<section id="proxmox-no-subscription-repository">
-<h3>03-1-3 Proxmox No-Subscription Repository<a class="headerlink" href="#proxmox-no-subscription-repository" title="Link to this heading">#</a></h3>
-<p>이름에서 알 수 있듯이, 이 저장소에 접근하기 위해 구독 키가 필요하지 않습니다. 테스트 및 비프로덕션 환경에서 사용할 수 있습니다. 이 패키지들은 운영 서버에서는 사용하지 않는 것이 좋습니다.</p>
+<section id="proxmox-ve-no-subscription-repository">
+<h3>03-1-3 Proxmox VE No-Subscription Repository<a class="headerlink" href="#proxmox-ve-no-subscription-repository" title="Link to this heading">#</a></h3>
+<p>이름에서 알 수 있듯이 이 레포지토리에 액세스하는 데는 구독 키가 필요하지 않습니다. 테스트 및 비프로덕션 용도로 사용할 수 있습니다. 이러한 패키지는 항상 철저한 테스트와 검증을 거치는 것은 아니므로 프로덕션 서버에서는 사용하지 않는 것이 좋습니다.<br></p>
+<p>이 레포지토리는 <strong>/etc/apt/sources.list</strong>에서 구성하는 것이 좋습니다.<br><br></p>
+<p><strong>[/etc/apt/sources.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="n">bookworm</span> <span class="n">main</span> <span class="n">contrib</span>
+<span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="n">bookworm</span><span class="o">-</span><span class="n">updates</span> <span class="n">main</span> <span class="n">contrib</span>
+
+<span class="c1"># Proxmox VE pve-no-subscription repository provided by proxmox.com,</span>
+<span class="c1"># NOT recommended for production use</span>
+<span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">pve</span> <span class="n">bookworm</span> <span class="n">pve</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">subscription</span>
+
+<span class="c1"># security updates</span>
+<span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">security</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span><span class="o">-</span><span class="n">security</span> <span class="n">bookworm</span><span class="o">-</span><span class="n">security</span> <span class="n">main</span> <span class="n">contrib</span>
+</pre></div>
+</div>
+<br>
+</section>
+<section id="proxmox-ve-test-repository">
+<h3>03-1-4 Proxmox VE Test Repository<a class="headerlink" href="#proxmox-ve-test-repository" title="Link to this heading">#</a></h3>
+<p>이 레지토리에는 최신 패키지가 포함되어 있으며 주로 개발자가 새로운 기능을 테스트하는 데 사용됩니다. 구성하려면 <strong>/etc/apt/sources.list</strong>에 다음 줄을 추가합니다:<br>
+<strong>[pvetest에 대한 sources.list 항목]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">pve</span> <span class="n">bookworm</span> <span class="n">pvetest</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/alert.svg" /> 경고<br>
+<strong>pvetest</strong> 레포지토리는 이름에서 알 수 있듯이 새로운 기능이나 버그 수정을 테스트하는 용도로만 사용해야 합니다.</p>
+</div></blockquote>
+</section>
+<section id="ceph-squid-enterprise-repository">
+<h3>03-1-5 Ceph Squid Enterprise Repository<a class="headerlink" href="#ceph-squid-enterprise-repository" title="Link to this heading">#</a></h3>
+<p>이 레지토리에는 엔터프라이즈용 Proxmox VE Ceph 19.2 Squid 패키지가 있습니다. 프로덕션에 적합합니다. Proxmox VE에서 Ceph 클라이언트 또는 전체 Ceph 클러스터를 실행하는 경우 이 레포지토리를 사용하세요.<br>
+<strong>[/etc/apt/sources.list.d/ceph.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">enterprise</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">ceph</span><span class="o">-</span><span class="n">squid</span> <span class="n">bookworm</span> <span class="n">enterprise</span>
+</pre></div>
+</div>
+<br>
+</section>
+<section id="ceph-squid-no-subscription-repository">
+<h3>03-1-6 Ceph Squid No-Subscription Repository<a class="headerlink" href="#ceph-squid-no-subscription-repository" title="Link to this heading">#</a></h3>
+<p>이 Ceph 레포지토리에는 엔터프라이즈 레포지토리로 이동하기 전과 테스트 레포지토리로 이동한 후의 Ceph 19.2 Squid 패키지가 포함되어 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/alert.svg" /> 참고<br>
+프로덕션 머신에는 엔터프라이즈 리포지토리를 사용하는 것이 좋습니다.
+<br></p>
+</div></blockquote>
+<p><strong>[/etc/apt/sources.list.d/ceph.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">ceph</span><span class="o">-</span><span class="n">squid</span> <span class="n">bookworm</span> <span class="n">no</span><span class="o">-</span><span class="n">subscription</span>
+</pre></div>
+</div>
+<br>
+</section>
+<section id="ceph-squid-test-repository">
+<h3>03-1-7 Ceph Squid Test Repository<a class="headerlink" href="#ceph-squid-test-repository" title="Link to this heading">#</a></h3>
+<p>이 Ceph 레포지토리에는 메인 레포지토리로 이동하기 전의 Ceph 19.2 Squid 패키지가 포함되어 있습니다. 이 레포지토리는 Proxmox VE에서 새로운 Ceph 릴리스를 테스트하는 데 사용됩니다.<br></p>
+<p><strong>[/etc/apt/sources.list.d/ceph.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">ceph</span><span class="o">-</span><span class="n">squid</span> <span class="n">bookworm</span> <span class="n">test</span>
+</pre></div>
+</div>
+<br>
+</section>
+<section id="ceph-reef-enterprise-repository">
+<h3>03-1-8 Ceph Reef Enterprise Repository<a class="headerlink" href="#ceph-reef-enterprise-repository" title="Link to this heading">#</a></h3>
+<p>이 레포지토리에는 엔터프라이즈용 Proxmox VE Ceph 18.2 Reef 패키지가 있습니다. 프로덕션에 적합합니다. 이 레포지토리는 Proxmox VE에서 Ceph 클라이언트 또는 전체 Ceph 클러스터를 실행하는 경우 사용합니다.</p>
+<p><strong>[/etc/apt/sources.list.d/ceph.list 파일]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">enterprise</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">ceph</span><span class="o">-</span><span class="n">reef</span> <span class="n">bookworm</span> <span class="n">enterprise</span>
+
+</pre></div>
+</div>
 </section>
 </section>
-<section id="id4">
-<h2>03-2 시스템 소프트웨어 업데이트<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h2>03-2 시스템 소프트웨어 업데이트<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <p>버트온은 모든 저장소에 대해 정기적으로 업데이트를 제공합니다. 업데이트를 진행하려면 GUI 또는 다음 CLI 명령을 사용하세요:</p>
 <blockquote>
 <div><p class="rubric" id="apt-get-update">apt-get update</p>
 <p class="rubric" id="apt-get-dist-upgrade">apt-get dist-upgrade</p>
 </div></blockquote>
 </section>
-<section id="id5">
-<h2>03-3 펌웨어 업데이트<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h2>03-3 펌웨어 업데이트<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p>펌웨어 업데이트는 베어메탈 서버에서 버트온을 실행할 때 적용해야 합니다. 게스트 환경에서 펌웨어 업데이트 구성이 적절한지 여부(ex: 디바이스 패스스루 사용 시)는 사용자의 설정에 따라 크게 달라지므로 본 문서의 범위를 벗어납니다.<br></p>
 <p>정기적인 소프트웨어 업데이트 외에도 안정적이고 안전한 운영을 위해서는 펌웨어 업데이트도 중요합니다.
 펌웨어 업데이트를 가능한 한 빨리 또는 완전히 적용하려면 사용 가능한 옵션을 조합하여 활용하는 것이 좋습니다.<br></p>
 <p>일반적으로 펌웨어라는 용어는 언어적으로 마이크로코드(CPU용)와 펌웨어(기타 디바이스용)로 구분됩니다.</p>
-<section id="id6">
-<h3>03-3-1 영구 펌웨어<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>03-3-1 영구 펌웨어<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>이 섹션은 모든 장치에 적합합니다. BIOS/UEFI 업데이트에 일반적으로 포함되는 업데이트된 마이크로코드는 마더보드에 저장되는 반면, 다른 펌웨어는 해당 장치에 저장됩니다. 이 영구적인 방법은 특히 CPU에 중요하며, 부팅 시 가능한 빨리 업데이트된 마이크로코드를 정기적으로 로드할 수 있게 합니다.</p>
 <p>이는 모든 디바이스에 적용됩니다. 일반적으로 BIOS/UEFI 업데이트에 포함되는 업데이트된 마이크로코드는 마더보드에 저장되며, 다른 펌웨어는 해당 디바이스에 저장됩니다. 이 영구적인 방식은 특히 CPU에 중요한데, 부팅 시 가능한 한 빨리 업데이트된 마이크로코드를 정기적으로 로드할 수 있기 때문입니다.</p>
 <p><strong>주의:</strong><br />
@@ -409,27 +501,27 @@ EspLocation=/boot/efi</p>
 </div></blockquote>
 <p>이렇게 설정함으로써 fwupd가 EFI 시스템 파티션의 위치를 정확히 인식할 수 있게 됩니다. 이는 펌웨어 업데이트 프로세스가 올바르게 작동하는 데 필수적입니다.</p>
 </section>
+<section id="id6">
+<h3>03-3-2 런타임 펌웨어 파일<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+</section>
+</section>
 <section id="id7">
-<h3>03-3-2 런타임 펌웨어 파일<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-</section>
-</section>
-<section id="id8">
-<h2>03-4 네트워크 구성<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<h2>03-4 네트워크 구성<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <p>버트온은 Linux 네트워크 스택을 사용합니다. 이를 통해 노드에서 유연하게 네트워크를 설정할 수 있습니다. 설정은 GUI를 통해 수행하거나 전체 네트워크 구성이 포함된 <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>  파일을 직접 편집하여 수행할 수 있습니다. 전체 형식 설명은 <code class="docutils literal notranslate"><span class="pre">interfaces(5)</span></code> 매뉴얼 페이지에서 확인할 수 있습니다. 모든 버트온 관리 도구는 사용자의 직접적인 수정 사항을 유지하려고 노력하지만, 오류를 방지하기 위해 GUI 사용을 권장합니다.<br><br></p>
 <p>GuestOS를 기본 물리 네트워크에 연결하려면 Linux 브릿지 인터페이스(일반적으로 <code class="docutils literal notranslate"><span class="pre">vmbrX</span></code>라고 함)가 필요합니다. 이는 GuestOS와 물리 인터페이스가 연결되는 가상 스위치로 생각할 수 있습니다. 이 섹션에서는 <code class="docutils literal notranslate"><span class="pre">bond</span></code>를 통한 이중화, <code class="docutils literal notranslate"><span class="pre">VLAN</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">라우팅</span></code>및 <code class="docutils literal notranslate"><span class="pre">NAT</span></code> 설정과 같은 다양한 사용 사례에 맞게 네트워크를 설정하는 방법에 대한 예시를 제공합니다.<br><br></p>
 <p>**소프트웨어 정의 네트워크(SDN)**는 버트온 클러스터에서 더 복잡한 가상 네트워크를 구성하기 위한 옵션입니다.</p>
 <blockquote>
 <div><p>기본 Debian 도구인 <code class="docutils literal notranslate"><span class="pre">ifup</span></code> 및 <code class="docutils literal notranslate"><span class="pre">ifdown</span></code> 사용은 권장되지 않습니다. 이러한 도구들은 <code class="docutils literal notranslate"><span class="pre">ifdown</span> <span class="pre">vmbrX</span></code> 실행 시 모든 게스트 트래픽을 중단시키고, 이후 동일한 브릿지에서 <code class="docutils literal notranslate"><span class="pre">ifup</span></code>을 실행해도 게스트 연결을 복구하지 않는 등의 문제점이 있습니다.</p>
 </div></blockquote>
-<section id="id9">
-<h3>03-4-1 네트워크 변경 사항 적용<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h3>03-4-1 네트워크 변경 사항 적용<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>버트온은 변경 사항을 <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code> 파일에 직접 작성하지 않습니다. 대신 <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces.new</span></code>라는 임시 파일에 작성합니다. 이를 통해 여러 관련 변경 사항을 한 번에 수행할 수 있습니다. 또한 잘못된 네트워크 구성으로 인해 노드에 접근할 수 없게 되는 상황을 방지하기 위해, 최종적으로 변경 사항이 올바른지 확인할 수 있습니다.<br></p>
 <p><strong>ifupdown2를 사용한 네트워크 실시간 재 적용</strong></p>
 <p>권장되는 ifupdown2 패키지(Proxmox VE 7.0 이후 새 설치의 기본값)를 사용하면 재부팅 없이 네트워크 구성 변경 사항을 적용할 수 있습니다. GUI를 통해 네트워크 구성을 변경한 경우, <code class="docutils literal notranslate"><span class="pre">Apply</span> <span class="pre">Configuration</span></code> 버튼을 클릭하면 됩니다. 이 작업은 <code class="docutils literal notranslate"><span class="pre">interfaces.new</span></code> 임시 파일의 변경 사항을 <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>로 이동시키고 실시간으로 적용합니다.<br></p>
 <p><code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code> 파일을 직접 수동으로 변경한 경우, <code class="docutils literal notranslate"><span class="pre">ifreload</span> <span class="pre">-a</span></code>를 실행하여 적용할 수 있습니다.</p>
 </section>
-<section id="id10">
-<h3>03-4-2 명명 규칙<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>03-4-2 명명 규칙<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p>현재 다음과 같은 디바이스 이름 명명 규칙을 사용하고 있습니다:</p>
 <ul class="simple">
 <li><p>이더넷 장치: <code class="docutils literal notranslate"><span class="pre">en*</span></code></p>
@@ -489,8 +581,8 @@ EspLocation=/boot/efi</p>
 <p><strong>특정 명명 체계 버전 고정하기</strong><br>
 <strong>네트워크 장치 이름 재정의하기</strong><br></p>
 </section>
-<section id="id11">
-<h3>03-4-3 네트워크 구성 선택하기<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<section id="id10">
+<h3>03-4-3 네트워크 구성 선택하기<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p>현재 네트워크 구성과 리소스에 따라 브릿지, 라우팅 또는 마스커레이딩 네트워킹 설정 중에서 선택할 수 있습니다.</p>
 <p><strong>외부 게이트웨이를 통해 인터넷에 연결되는 사설 LAN의 버트온 서버</strong></p>
 <p>이 경우 <code class="docutils literal notranslate"><span class="pre">브릿지(Bridged)</span></code> 모델이 가장 적합하며, 이는 버트온 첫 설치의 기본 모드이기도 합니다. 각 GuestOS은 버트온 브릿지에 연결된 가상 인터페이스를 갖게 됩니다. 이는 게스트 네트워크 카드가 LAN의 새 스위치에 직접 연결된 것과 유사한 효과를 나타내며, 버트온 호스트가 스위치 역할을 수행합니다.</p>
@@ -500,8 +592,8 @@ EspLocation=/boot/efi</p>
 <p>이 경우 게스트 시스템에 대한 나가는 네트워크 액세스를 얻는 유일한 방법은 마스커레이딩을 사용하는 것입니다. 게스트에 대한 들어오는 네트워크 액세스의 경우 포트 포워딩을 구성해야 합니다.<br></p>
 <p>추가 유연성을 위해 VLAN(IEEE 802.1q) 및 “링크 집계”라고도 알려진 네트워크 본딩을 구성할 수 있습니다. 이렇게 하면 복잡하고 유연한 가상 네트워크를 구축할 수 있습니다.</p>
 </section>
-<section id="id12">
-<h3>3.4.4 브릿지를 사용한 기본 구성<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<section id="id11">
+<h3>3.4.4 브릿지를 사용한 기본 구성<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <p>브릿지는 소프트웨어로 구현된 물리적 네트워크 스위치와 같습니다. 모든 가상 게스트는 단일 브릿지를 공유하거나 네트워크 도메인을 분리하기 위해 여러 브릿지를 생성할 수 있습니다. 각 호스트는 최대 4094개의 브릿지를 가질 수 있습니다.</p>
 <p>설치 프로그램은 첫 번째 이더넷 카드에 연결된 vmbr0이라는 단일 브릿지를 생성합니다. /etc/network/interfaces의 해당 구성은 다음과 같을 수 있습니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
@@ -535,12 +627,12 @@ EspLocation=/boot/efi</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../02%20%EB%B2%84%ED%8A%B8%EC%98%A8%20%EC%84%A4%EC%B9%98.html"
+       href="../02%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">02 버트온 설치</p>
+        <p class="prev-next-title">02  Proxmox VE 설치</p>
       </div>
     </a>
 </div>
@@ -560,23 +652,28 @@ EspLocation=/boot/efi</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">03-1 패키지 저장소</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">03-1-1 버트온 제공 저장소</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-enterprise-repository">03-1-2 Proxmox Enterprise Repository</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-no-subscription-repository">03-1-3 Proxmox No-Subscription Repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">03-1 패키지 레포지토리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve">03-1-1 Proxmox VE의 레포지토리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-enterprise-repository">03-1-2 Proxmox VE Enterprise Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-no-subscription-repository">03-1-3 Proxmox VE No-Subscription Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-test-repository">03-1-4 Proxmox VE Test Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-squid-enterprise-repository">03-1-5 Ceph Squid Enterprise Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-squid-no-subscription-repository">03-1-6 Ceph Squid No-Subscription Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-squid-test-repository">03-1-7 Ceph Squid Test Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-reef-enterprise-repository">03-1-8 Ceph Reef Enterprise Repository</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">03-2 시스템 소프트웨어 업데이트</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">03-3 펌웨어 업데이트</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">03-3-1 영구 펌웨어</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">03-3-2 런타임 펌웨어 파일</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">03-2 시스템 소프트웨어 업데이트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">03-3 펌웨어 업데이트</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">03-3-1 영구 펌웨어</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">03-3-2 런타임 펌웨어 파일</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">03-4 네트워크 구성</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">03-4-1 네트워크 변경 사항 적용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">03-4-2 명명 규칙</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">03-4-3 네트워크 구성 선택하기</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.4.4 브릿지를 사용한 기본 구성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">03-4 네트워크 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">03-4-1 네트워크 변경 사항 적용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">03-4-2 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">03-4-3 네트워크 구성 선택하기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.4.4 브릿지를 사용한 기본 구성</a></li>
 </ul>
 </li>
 </ul>

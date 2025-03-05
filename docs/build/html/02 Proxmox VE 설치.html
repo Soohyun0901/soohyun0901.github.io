@@ -423,7 +423,7 @@ USB 플래시 드라이브를 사용하는 것이 더 빠른 옵션이므로 Pro
 </pre></div>
 </div>
 <p>dev/XYZ를 올바른 장치 이름으로 바꾸고 입력 파일 이름(<strong>if</strong>) 경로를 조정해야 합니다.<br></p>
-<p><strong><img alt="" src="_images/img2.svg" />올바른 USB 장치 이름 찾기</strong><br>
+<p><strong><img alt="" src="_images/img2.svg" /> 올바른 USB 장치 이름 찾기</strong><br>
 USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습니다. 첫 번째는 플래시 드라이브를 연결하기 전과 연결한 후의 <strong>dmesg</strong> 명령 출력의 마지막 줄을 비교하는 것입니다. 두 번째 방법은 <strong>lsblk</strong> 명령의 출력을 비교하는 것입니다. 터미널을 열고 실행합니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># lsblk</span>
 </pre></div>
@@ -534,7 +534,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <p>Proxmox VE는 <strong>ZFS</strong>에도 설치할 수 있습니다. ZFS는 여러 소프트웨어 RAID 레벨을 제공하므로 하드웨어 RAID 컨트롤러가 없는 시스템을 위한 옵션입니다. 옵션 대화 상자에서 대상 디스크를 선택해야 하며, <em>Advanced Options</em>에서 더 많은 ZFS 관련 설정을 변경할 수 있습니다.</p>
 <p>경고 하드웨어 RAID 위에 ZFS는 지원되지 않으며 데이터가 손실될 수 있습니다.</p>
 <blockquote>
-<div><p><img alt="" src="_images/alert.svg" /> 하드웨어 RAID 위에 ZFS를 사용하는 것은 지원되지 않으며 데이터 손실을 초래할 수 있습니다.</p>
+<div><p><img alt="" src="_images/notes.svg" /> 하드웨어 RAID 위에 ZFS를 사용하는 것은 지원되지 않으며 데이터 손실을 초래할 수 있습니다.</p>
 </div></blockquote>
 </section>
 <section id="id11">
@@ -576,7 +576,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <h2>02-4  설치 후 관리 인터페이스 액세스<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
 <p>시스템을 성공적으로 설치하고 재부팅한 후 Proxmox VE 웹 인터페이스를 사용하여 추가 구성을 할 수 있습니다.<br></p>
 <blockquote>
-<div><p><img alt="" src="_images/alert.svg" /> 기본적으로 Proxmox VE 웹 인터페이스 접속은 <strong>포트 8006</strong> 을 사용합니다.</p>
+<div><p><img alt="" src="_images/notes.svg" /> 기본적으로 Proxmox VE 웹 인터페이스 접속은 <strong>포트 8006</strong> 을 사용합니다.</p>
 </div></blockquote>
 <ol class="arabic simple">
 <li><p>설치 당시 입력한 Proxmox VE IP주소 + 포트 8006을 입력합니다.</p></li>
@@ -594,7 +594,6 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 </section>
 <section id="id16">
 <h2>02-5  파일시스템 구성 고급 옵션<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
-<br>
 <section id="lvm">
 <h3>02-5-1  고급 LVM 구성 옵션<a class="headerlink" href="#lvm" title="Link to this heading">#</a></h3>
 <p>설치 프로그램은 <strong>pve</strong>라는 볼륨 그룹(VG)을 생성하고, <strong>ext4</strong> 또는 <strong>xfs</strong>를 사용하는 경우 <strong>root</strong>, <strong>data</strong> 및 <strong>swap</strong>이라는 추가 논리 볼륨(LV)을 생성합니다. 이러한 볼륨의 크기를 제어하려면:<br></p>
@@ -611,7 +610,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <li><p>기본값은 설치된 메모리의 크기(최소 4GB, 최대 8GB)입니다. 결과 값은 <strong>hdsize/8</strong>보다 클 수 없습니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="_images/alert.svg" /> 0으로 설정하면 swap 볼륨이 생성되지 않습니다.</p>
+<div><p><img alt="" src="_images/notes.svg" /> 0으로 설정하면 swap 볼륨이 생성되지 않습니다.</p>
 </div></blockquote>
 </li>
 <li><p>maxroot</p>
@@ -626,7 +625,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 여기서 <strong>datasize</strong>는 <strong>maxvz</strong>보다 클 수 없습니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="_images/alert.svg" /> 참고<br> LVM 씬의 경우, 데이터 풀은 데이터 크기가 4GB보다 큰 경우에만 생성됩니다.<br>
+<div><p><img alt="" src="_images/notes.svg" /> 참고<br> LVM 씬의 경우, 데이터 풀은 데이터 크기가 4GB보다 큰 경우에만 생성됩니다.<br>
 0으로 설정하면 데이터 볼륨이 생성되지 않으며 스토리지 구성이 그에 따라 조정됩니다.</p>
 </div></blockquote>
 </li>
@@ -636,7 +635,8 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <li><p>128GB 이상의 스토리지를 사용할 수 있는 경우 기본값은 16GB이며, 그렇지 않은 경우 hdsize/8이 사용됩니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="_images/alert.svg" /> LVM은 스냅샷 생성을 위해 VG에 여유 공간이 필요합니다(lvmthin 스냅샷에는 필요하지 않음).<br><br></p>
+<div><p><img alt="" src="_images/notes.svg" /> LVM은 스냅샷 생성을 위해 VG에 여유 공간이 필요합니다(lvmthin 스냅샷에는 필요하지 않음).
+<br></p>
 </div></blockquote>
 </li>
 </ul>
