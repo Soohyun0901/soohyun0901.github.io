@@ -321,6 +321,9 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.4.2. 명명 규칙</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.4.3. 네트워크 구성 선택하기</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.4.4. 브릿지를 사용한 기본 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.4.5 라우팅 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iptables-nat">3.4.6 iptables를 사용한 마스커레이딩(NAT)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-bond">3.4.7 Linux Bond</a></li>
 </ul>
 </li>
 </ul>
@@ -623,8 +626,9 @@ EspLocation=/boot/efi</p>
 </section>
 <section id="id11">
 <h3>3.4.4. 브릿지를 사용한 기본 구성<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>브리지는 소프트웨어로 구현된 물리적 네트워크 스위치와 같습니다. 모든 가상 게스트가 하나의 브리지를 공유하거나 네트워크 도메인을 분리하기 위해 여러 개의 브리지를 만들 수 있습니다. 각 호스트는 최대 4094개의 브리지를 가질 수 있습니다.</p>
-<p>설치 프로그램은 첫 번째 이더넷 카드에 연결되는 vmbr0이라는 단일 브리지를 생성합니다. etc/네트워크/인터페이스의 해당 구성은 다음과 같이 보일 수 있습니다:</p>
+<p>브릿지는 소프트웨어로 구현된 물리 네트워크 스위치와 같습니다. 모든 가상 게스트가 하나의 브릿지를 공유하거나 네트워크 도메인을 분리하기 위해 여러 개의 브릿지를 만들 수 있습니다. 각 호스트는 최대 4094개의 브릿지를 가질 수 있습니다.<br>
+<img alt="" src="../_images/img12.svg" /> <br></p>
+<p>설치 프로그램은 첫 번째 이더넷 카드에 연결되는 <strong>vmbr0</strong>이라는 단일 브릿지를 생성합니다. <strong>/etc/network/interfaces</strong>의 해당 구성은 다음과 같이 보일 수 있습니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
 <span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
 
@@ -639,7 +643,184 @@ EspLocation=/boot/efi</p>
     <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<p>가상 머신은 물리적 네트워크에 직접 연결된 것처럼 작동합니다. 반면 네트워크는 이러한 모든 VM을 네트워크에 연결하는 네트워크 케이블이 하나만 있더라도 각 가상 머신이 자체 MAC을 가지고 있는 것처럼 인식합니다.</p>
+<p>가상 머신은 마치 물리 네트워크에 직접 연결된 것처럼 동작합니다. 네트워크는 모든 가상 머신을 네트워크에 연결하는 네트워크 케이블이 하나만 있어도 각 가상 머신에 고유한 MAC이 있는 것으로 간주합니다.<br></p>
+</section>
+<section id="id12">
+<h3>3.4.5 라우팅 구성<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>대부분의 호스팅 제공업체는 위의 설정을 지원하지 않습니다. 보안상의 이유로 단일 인터페이스에서 여러 MAC 주소를 감지하는 즉시 네트워킹을 비활성화합니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/notes.svg" /> 참고<br>
+일부 호스팅 제공업체는 관리 인터페이스를 통해 추가 MAC을 등록할 수 있도록 허용합니다. 이렇게 하면 문제를 피할 수 있지만 각 VM에 대해 MAC을 등록해야 하므로 구성이 번거로울 수 있습니다.
+단일 인터페이스를 통해 모든 트래픽을 ‘라우팅’하면 이 문제를 피할 수 있습니다. 이렇게 하면 모든 네트워크 패킷이 동일한 MAC 주소를 사용하도록 할 수 있습니다.</p>
+</div></blockquote>
+<p><img alt="" src="../_images/img13.svg" /> <br>
+일반적인 시나리오는 공용 IP(예시로는 <strong>198.51.100.5</strong>로 가정)와 VM을 위한 추가 IP(<strong>203.0.113.16/28</strong>)이 있는 경우입니다. 이러한 상황에는 다음 설정을 권장합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="n">auto</span> <span class="n">eno0</span>
+<span class="n">iface</span> <span class="n">eno0</span> <span class="n">inet</span> <span class="n">static</span>
+        <span class="n">address</span>  <span class="mf">198.51.100.5</span><span class="o">/</span><span class="mi">29</span>
+        <span class="n">gateway</span>  <span class="mf">198.51.100.1</span>
+        <span class="n">post</span><span class="o">-</span><span class="n">up</span> <span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">ip_forward</span>
+        <span class="n">post</span><span class="o">-</span><span class="n">up</span> <span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">eno0</span><span class="o">/</span><span class="n">proxy_arp</span>
+
+
+<span class="n">auto</span> <span class="n">vmbr0</span>
+<span class="n">iface</span> <span class="n">vmbr0</span> <span class="n">inet</span> <span class="n">static</span>
+        <span class="n">address</span>  <span class="mf">203.0.113.17</span><span class="o">/</span><span class="mi">28</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">ports</span> <span class="n">none</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">stp</span> <span class="n">off</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<br>
+</section>
+<section id="iptables-nat">
+<h3>3.4.6 iptables를 사용한 마스커레이딩(NAT)<a class="headerlink" href="#iptables-nat" title="Link to this heading">#</a></h3>
+<p>마스커레이딩을 사용하면 개인 IP 주소만 있는 게스트가 발신 트래픽에 호스트 IP 주소를 사용하여 네트워크에 액세스할 수 있습니다. 각 발신 패킷은 호스트에서 발신한 것처럼 보이도록 <strong>iptables</strong>에 의해 재작성되고, 그에 따라 응답이 원래 발신자에게 라우팅되도록 재작성됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="n">auto</span> <span class="n">eno1</span>
+<span class="c1">#real IP address</span>
+<span class="n">iface</span> <span class="n">eno1</span> <span class="n">inet</span> <span class="n">static</span>
+        <span class="n">address</span>  <span class="mf">198.51.100.5</span><span class="o">/</span><span class="mi">24</span>
+        <span class="n">gateway</span>  <span class="mf">198.51.100.1</span>
+
+<span class="n">auto</span> <span class="n">vmbr0</span>
+<span class="c1">#private sub network</span>
+<span class="n">iface</span> <span class="n">vmbr0</span> <span class="n">inet</span> <span class="n">static</span>
+        <span class="n">address</span>  <span class="mf">10.10.10.1</span><span class="o">/</span><span class="mi">24</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">ports</span> <span class="n">none</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">stp</span> <span class="n">off</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
+
+        <span class="n">post</span><span class="o">-</span><span class="n">up</span>   <span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">ip_forward</span>
+        <span class="n">post</span><span class="o">-</span><span class="n">up</span>   <span class="n">iptables</span> <span class="o">-</span><span class="n">t</span> <span class="n">nat</span> <span class="o">-</span><span class="n">A</span> <span class="n">POSTROUTING</span> <span class="o">-</span><span class="n">s</span> <span class="s1">&#39;10.10.10.0/24&#39;</span> <span class="o">-</span><span class="n">o</span> <span class="n">eno1</span> <span class="o">-</span><span class="n">j</span> <span class="n">MASQUERADE</span>
+        <span class="n">post</span><span class="o">-</span><span class="n">down</span> <span class="n">iptables</span> <span class="o">-</span><span class="n">t</span> <span class="n">nat</span> <span class="o">-</span><span class="n">D</span> <span class="n">POSTROUTING</span> <span class="o">-</span><span class="n">s</span> <span class="s1">&#39;10.10.10.0/24&#39;</span> <span class="o">-</span><span class="n">o</span> <span class="n">eno1</span> <span class="o">-</span><span class="n">j</span> <span class="n">MASQUERADE</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/notes.svg" /> 참고<br>
+방화벽이 활성화된 일부 마스커레이드 설정에서는 나가는 연결에 컨트랙트 영역이 필요할 수 있습니다. 그렇지 않으면 방화벽이 <strong>마스커레이드</strong>가 아닌 VM 브릿지의 <strong>포스트라우팅</strong>을 선호하기 때문에 나가는 연결을 차단할 수 있습니다.</p>
+</div></blockquote>
+<p><strong>/etc/network/interfaces</strong>에 이 줄을 추가하면 이 문제를 해결할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">post</span><span class="o">-</span><span class="n">up</span>   <span class="n">iptables</span> <span class="o">-</span><span class="n">t</span> <span class="n">raw</span> <span class="o">-</span><span class="n">I</span> <span class="n">PREROUTING</span> <span class="o">-</span><span class="n">i</span> <span class="n">fwbr</span><span class="o">+</span> <span class="o">-</span><span class="n">j</span> <span class="n">CT</span> <span class="o">--</span><span class="n">zone</span> <span class="mi">1</span>
+<span class="n">post</span><span class="o">-</span><span class="n">down</span> <span class="n">iptables</span> <span class="o">-</span><span class="n">t</span> <span class="n">raw</span> <span class="o">-</span><span class="n">D</span> <span class="n">PREROUTING</span> <span class="o">-</span><span class="n">i</span> <span class="n">fwbr</span><span class="o">+</span> <span class="o">-</span><span class="n">j</span> <span class="n">CT</span> <span class="o">--</span><span class="n">zone</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="linux-bond">
+<h3>3.4.7 Linux Bond<a class="headerlink" href="#linux-bond" title="Link to this heading">#</a></h3>
+<p>본딩(NIC 티밍 또는 링크 집계라고도 함)은 여러 NIC를 단일 네트워크 장치에 바인딩하는 기술입니다. 네트워크 내결함성 확보, 성능 향상 또는 두 가지 목표를 함께 달성하는 등 다양한 목표를 달성할 수 있습니다.<br>
+파이버 채널(FC)과 같은 고속 하드웨어와 관련 스위칭 하드웨어는 상당히 비쌀 수 있습니다. 링크 집계를 수행하면 두 개의 NIC를 하나의 논리적 인터페이스로 표시하여 속도를 두 배로 높일 수 있습니다. 이는 대부분의 스위치에서 지원되는 기본 Linux 커널 기능입니다. 노드에 이더넷 포트가 여러 개 있는 경우 네트워크 케이블을 다른 스위치로 연결하여 장애 지점을 분산할 수 있으며, 네트워크 문제 발생 시 본딩된 연결이 한 케이블 또는 다른 케이블로 페일오버됩니다.<br></p>
+<p>집계된 링크는 라이브 마이그레이션의 지연을 개선하고 Proxmox VE 클러스터 노드 간의 데이터 복제 속도를 향상시킬 수 있습니다.<br></p>
+<p>본딩에는 7가지 모드가 있습니다:</p>
+<ul class="simple">
+<li><p><strong>Round-robin (balance-rr)</strong></p>
+<ul>
+<li><p>사용 가능한 첫 번째 네트워크 인터페이스(NIC) 슬레이브부터 마지막 슬레이브까지 순차적인 순서로 네트워크 패킷을 전송합니다.</p></li>
+<li><p>이 모드는 부하 분산 및 내결함성을 제공합니다.</p></li>
+</ul>
+</li>
+<li><p><strong>Active-backup (active-backup)</strong></p>
+<ul>
+<li><p>본드에서 하나의 NIC 슬레이브만 활성화됩니다. 활성 슬레이브에 장애가 발생하는 경우에만 다른 슬레이브가 활성화됩니다.</p></li>
+<li><p>네트워크 스위치의 왜곡을 방지하기 위해 단일 논리적 본드 인터페이스의 MAC 주소는 하나의 NIC(포트)에서만 외부에 표시됩니다.</p></li>
+<li><p>이 모드는 내결함성을 제공합니다.</p></li>
+</ul>
+</li>
+<li><p><strong>XOR (balance-xor)</strong></p>
+<ul>
+<li><p>[(소스 MAC 주소와 대상 MAC 주소를 XOR한) 모듈로 NIC 슬레이브 수]를 기준으로 네트워크 패킷을 전송합니다. 이 모드는 각 대상 MAC 주소에 대해 동일한 NIC 슬레이브를 선택합니다.</p></li>
+<li><p>이 모드는 부하 분산 및 내결함성을 제공합니다.</p></li>
+</ul>
+</li>
+<li><p><strong>브로드캐스트 (broadcast)</strong></p>
+<ul>
+<li><p>모든 슬레이브 네트워크 인터페이스에서 네트워크 패킷을 전송합니다.</p></li>
+<li><p>이 모드는 내결함성을 제공합니다.</p></li>
+</ul>
+</li>
+<li><p><strong>IEEE 802.3ad Dynamic link aggregation (802.3ad)(LACP)</strong></p>
+<ul>
+<li><p>동일한 속도 및 이중 설정을 공유하는 집계 그룹을 생성합니다.</p></li>
+<li><p>802.3ad 사양에 따라 활성 애그리게이터 그룹의 모든 슬레이브 네트워크 인터페이스를 활용합니다.</p></li>
+</ul>
+</li>
+<li><p><strong>적응형 전송 부하 분산 (balance-tlb)</strong></p>
+<ul>
+<li><p>특별한 네트워크 스위치 지원이 필요하지 않은 Linux 본딩 드라이버 모드입니다.</p></li>
+<li><p>나가는 네트워크 패킷 트래픽은 각 네트워크 인터페이스 슬레이브의 현재 부하(속도에 따라 계산됨)에 따라 분산됩니다. 들어오는 트래픽은 현재 지정된 하나의 슬레이브 네트워크 인터페이스에서 수신됩니다.</p></li>
+<li><p>이 수신 슬레이브에 장애가 발생하면 다른 슬레이브가 장애가 발생한 수신 슬레이브의 MAC 주소를 이어받습니다.</p></li>
+</ul>
+</li>
+<li><p><strong>적응형 부하 분산 (balance-alb)</strong></p>
+<ul>
+<li><p>PV4 트래픽에 대한 balance-tlb와 수신 부하 분산(rlb)을 포함하며, 특별한 네트워크 스위치 지원이 필요하지 않습니다. 수신 부하 분산은 ARP 협상을 통해 이루어집니다.</p></li>
+<li><p>본딩 드라이버는 로컬 시스템에서 보내는 ARP 응답을 가로채서 소스 하드웨어 주소를 단일 논리적 본딩 인터페이스의 NIC 슬레이브 중 하나의 고유 하드웨어 주소로 덮어쓰므로 서로 다른 네트워크 피어가 네트워크 패킷 트래픽에 다른 MAC 주소를 사용합니다.
+<br>
+스위치가 LACP(IEEE 802.3ad) 프로토콜을 지원하는 경우 해당 본딩 모드(802.3ad)를 사용하는 것이 좋습니다. 그렇지 않은 경우에는 일반적으로 active-backup 모드를 사용해야 합니다.<br></p></li>
+</ul>
+</li>
+</ul>
+<p>클러스터 네트워크(<strong>Corosync</strong>)의 경우 여러 네트워크로 구성하는 것이 좋습니다. Corosync는 네트워크 중 하나를 사용할 수 없게 되는 경우 자체적으로 네트워크 간에 전환할 수 있으므로 네트워크 이중화를 위한 본드가 필요하지 않습니다.<br></p>
+<p>다음 본딩 구성은 분산/공유 스토리지 네트워크로 사용할 수 있습니다. 이 경우 속도가 빨라지고 네트워크가 내결함성을 갖게 된다는 이점이 있습니다.<br><br></p>
+<p><strong>[예시: 고정 IP로 본딩 사용]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="n">iface</span> <span class="n">eno1</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">iface</span> <span class="n">eno2</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">iface</span> <span class="n">eno3</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">auto</span> <span class="n">bond0</span>
+<span class="n">iface</span> <span class="n">bond0</span> <span class="n">inet</span> <span class="n">static</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">slaves</span> <span class="n">eno1</span> <span class="n">eno2</span>
+      <span class="n">address</span>  <span class="mf">192.168.1.2</span><span class="o">/</span><span class="mi">24</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">miimon</span> <span class="mi">100</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">mode</span> <span class="mf">802.3</span><span class="n">ad</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">xmit</span><span class="o">-</span><span class="nb">hash</span><span class="o">-</span><span class="n">policy</span> <span class="n">layer2</span><span class="o">+</span><span class="mi">3</span>
+
+<span class="n">auto</span> <span class="n">vmbr0</span>
+<span class="n">iface</span> <span class="n">vmbr0</span> <span class="n">inet</span> <span class="n">static</span>
+        <span class="n">address</span>  <span class="mf">10.10.10.2</span><span class="o">/</span><span class="mi">24</span>
+        <span class="n">gateway</span>  <span class="mf">10.10.10.1</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">ports</span> <span class="n">eno3</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">stp</span> <span class="n">off</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<br>
+<p>또 다른 가능성은 본딩을 브릿지 포트로 직접 사용하는 것입니다. 이는 게스트 네트워크에 내결함성을 부여하는 데 사용할 수 있습니다.<br>
+<img alt="" src="../_images/img14.svg" /> <br></p>
+<p><strong>[예시: 브릿지 포트로 본딩 사용]</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="n">iface</span> <span class="n">eno1</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">iface</span> <span class="n">eno2</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">auto</span> <span class="n">bond0</span>
+<span class="n">iface</span> <span class="n">bond0</span> <span class="n">inet</span> <span class="n">manual</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">slaves</span> <span class="n">eno1</span> <span class="n">eno2</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">miimon</span> <span class="mi">100</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">mode</span> <span class="mf">802.3</span><span class="n">ad</span>
+      <span class="n">bond</span><span class="o">-</span><span class="n">xmit</span><span class="o">-</span><span class="nb">hash</span><span class="o">-</span><span class="n">policy</span> <span class="n">layer2</span><span class="o">+</span><span class="mi">3</span>
+
+<span class="n">auto</span> <span class="n">vmbr0</span>
+<span class="n">iface</span> <span class="n">vmbr0</span> <span class="n">inet</span> <span class="n">static</span>
+        <span class="n">address</span>  <span class="mf">10.10.10.2</span><span class="o">/</span><span class="mi">24</span>
+        <span class="n">gateway</span>  <span class="mf">10.10.10.1</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">ports</span> <span class="n">bond0</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">stp</span> <span class="n">off</span>
+        <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>
@@ -705,6 +886,9 @@ EspLocation=/boot/efi</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.4.2. 명명 규칙</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.4.3. 네트워크 구성 선택하기</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.4.4. 브릿지를 사용한 기본 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.4.5 라우팅 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iptables-nat">3.4.6 iptables를 사용한 마스커레이딩(NAT)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-bond">3.4.7 Linux Bond</a></li>
 </ul>
 </li>
 </ul>
