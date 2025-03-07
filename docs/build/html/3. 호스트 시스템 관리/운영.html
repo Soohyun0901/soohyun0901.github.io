@@ -623,8 +623,8 @@ EspLocation=/boot/efi</p>
 </section>
 <section id="id11">
 <h3>3.4.4. 브릿지를 사용한 기본 구성<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>브릿지는 소프트웨어로 구현된 물리적 네트워크 스위치와 같습니다. 모든 가상 게스트는 단일 브릿지를 공유하거나 네트워크 도메인을 분리하기 위해 여러 브릿지를 생성할 수 있습니다. 각 호스트는 최대 4094개의 브릿지를 가질 수 있습니다.</p>
-<p>설치 프로그램은 첫 번째 이더넷 카드에 연결된 vmbr0이라는 단일 브릿지를 생성합니다. /etc/network/interfaces의 해당 구성은 다음과 같을 수 있습니다:</p>
+<p>브리지는 소프트웨어로 구현된 물리적 네트워크 스위치와 같습니다. 모든 가상 게스트가 하나의 브리지를 공유하거나 네트워크 도메인을 분리하기 위해 여러 개의 브리지를 만들 수 있습니다. 각 호스트는 최대 4094개의 브리지를 가질 수 있습니다.</p>
+<p>설치 프로그램은 첫 번째 이더넷 카드에 연결되는 vmbr0이라는 단일 브리지를 생성합니다. etc/네트워크/인터페이스의 해당 구성은 다음과 같이 보일 수 있습니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">lo</span>
 <span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
 
