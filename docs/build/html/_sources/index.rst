@@ -13,8 +13,8 @@ VirtOn[버트온] 통합 가이드
    :caption: 목차
    :hidden:
 
-   01 소개 
-   02 Proxmox VE 설치
-   03 호스트 시스템 관리/운영
+   1. 소개 
+   2. Proxmox VE 설치
+   3. 호스트 시스템 관리/운영
 
 
