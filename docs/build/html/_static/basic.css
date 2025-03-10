@@ -321,7 +321,7 @@ p.sidebar-title {
 nav.contents,
 aside.topic,
 div.admonition, div.topic, blockquote {
-    clear: left;
+    clear: right;
 }
 
 /* -- topics ---------------------------------------------------------------- */
