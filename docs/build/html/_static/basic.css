@@ -10,7 +10,7 @@ div.clearer {
 
 div.section::after {
     display: block;
-    content: attr(jb-print-docs-body);
+    content: '';
     clear: left;
 }
 
