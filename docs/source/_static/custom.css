@@ -1,15 +1,15 @@
 :root {
-    font-family: 'NanumSquareNeo-bRg' !important;
+    font-family: 'NanumSquareNeo' !important;
 
 }
 .body {
-    font-family: 'NanumSquareNeo-bRg' !important; 
+    font-family: 'NanumSquareNeo' !important; 
     background-color: #fff; 
     font-size: 1rem !important;
 }
 
 .h1 {
-    font-family: 'NanumSquareNeo-bRg' !important;
+    font-family: 'NanumSquareNeo' !important;
     font-size: 2.5rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -17,7 +17,7 @@
 }
 
 .h2 {
-    font-family: 'NanumSquareNeoVariable' !important;
+    font-family: 'NanumSquareNeo' !important;
     font-size: 2rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
