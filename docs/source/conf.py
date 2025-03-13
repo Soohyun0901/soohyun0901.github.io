@@ -17,8 +17,6 @@ release = '1.0'
 extensions = ['myst_parser',
               'sphinx.ext.githubpages'
 ]
-extensions.append("sphinx_wagtail_theme")
-
 templates_path = ['_templates']
 exclude_patterns = []
 
