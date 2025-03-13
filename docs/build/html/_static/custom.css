@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'NanumSquareNeo' !important;
-    src: url('../../fonts/NanumSquareNeo-bRg.ttf') format('truetype');
+    src: url('../../fonts/NanumSquareNeoTTF-bRg.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
