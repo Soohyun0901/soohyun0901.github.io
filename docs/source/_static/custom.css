@@ -1,21 +1,21 @@
 @font-face {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     src: url('../../fonts/NanumSquareNeo-aLt.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
 }
 :root {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
 
 }
 body {
-    font-family: 'NanumSquareNeo' !important; 
+    font-family: 'NanumSquare' !important; 
     background-color: #fff; 
     font-size: 1rem !important;
 }
 
 h1 {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     font-size: 2.5rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -23,7 +23,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     font-size: 2rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -31,7 +31,7 @@ h2 {
 }
 
 h3 {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     font-size: 1.75rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -39,7 +39,7 @@ h3 {
 }
 
 h4 {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     font-size: 1.5rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -47,7 +47,7 @@ h4 {
 }
 
 h5 {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     font-size: 1.25rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -55,7 +55,7 @@ h5 {
 }
 
 h6 {
-    font-family: 'NanumSquareNeo' !important;
+    font-family: 'NanumSquare' !important;
     font-size: 1rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
