@@ -18,6 +18,10 @@ body {
     color: #234ded !important;
 }
 
+.bold {
+    font-weight: 600 !important;
+}
+
 h1 {
     font-family: 'NanumSquare' !important;
     font-size: 2.5rem !important;
