@@ -314,6 +314,36 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quorum">5.6. 쿼럼(Quorum)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.7. 클러스터 네트워크</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.7.1. 네트워크 요구 사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.7.2. 클러스터 네트워크 분리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corosync">5.7.3. Corosync 주소</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.8. Corosync 이중화</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.8.1. 기존 클러스터에 이중화 링크 추가하기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-ssh">5.9. Proxmox VE 클러스터에서 SSH의 역할</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh">5.9.1. SSH 설정</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.10.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.10.1.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.10.2.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.10.3.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.10.4.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.11.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.11.1.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.11.2.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.11.3.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">5.12.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">5.13.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">5.14.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">5.14.1.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">5.14.2.</a></li>
 </ul>
 </li>
 </ul>
@@ -574,6 +604,312 @@ GUI를 사용하면 <span class="point">Cluster Join</span> 대화 상자의 해
 <div><p><img alt="" src="_images/alert.svg" /> 여전히 corosync.conf에서 전송을 <span class="point">udp</span> 또는 <span class="point">udpu</span>로 설정하여 멀티캐스트 또는 레거시 유니캐스트를 활성화할 수 있지만, 이렇게 하면 모든 암호화 및 중복 지원이 비활성화됩니다. 따라서 이는 권장되지 않습니다. 5.7.2 별도의 클러스터 네트워크 매개변수 없이 클러스터를 생성할 때, corosync 클러스터 네트워크는 일반적으로 웹 인터페이스 및 VM의 네트워크와 공유됩니다. 설정에 따라 스토리지 트래픽도 동일한 네트워크를 통해 전송될 수 있습니다. corosync는 시간에 민감한 실시간 응용 프로그램이므로 이를 변경하는 것이 좋습니다. 새 네트워크 설정 먼저 새 네트워크 인터페이스를 설정해야 합니다. 이는 물리적으로 분리된 네트워크에 있어야 합니다. 네트워크가 클러스터 네트워크 요구 사항을 충족하는지 확인하십시오.</p>
 </div></blockquote>
 </section>
+<section id="id14">
+<h3>5.7.2. 클러스터 네트워크 분리<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>매개변수 없이 클러스터를 생성하는 경우, 일반적으로 corosync 클러스터 네트워크는 웹 인터페이스 및 가상 머신의 네트워크와 공유됩니다. 설정에 따라 스토리지 트래픽도 동일한 네트워크를 통해 전송될 수 있습니다. corosync는 시간이 중요한 실시간 애플리케이션이므로 이를 변경하는 것이 좋습니다.<br></p>
+<p><span class="point"><img alt="" src="_images/check.svg" /> 새 네트워크 설정</span><br>
+먼저 새 네트워크 인터페이스를 설정해야 합니다. 이 인터페이스는 물리적으로 분리된 네트워크에 있어야 합니다. 네트워크가 클러스터 네트워크 요구 사항을 충족하는지 확인하세요.<br><br></p>
+<p><span class="point"><img alt="" src="_images/check.svg" /> 클러스터 생성 시 분리 </span><br>
+이는 새 클러스터를 만들 때 사용하는 <span class=“point”>pvecm create</span> 명령의 <span class=“point”>linkX</span> 매개변수를 통해 가능합니다.<br></p>
+<p>10.10.10.1/25에 고정 주소가 있는 추가 NIC를 설정하고 이 인터페이스를 통해 모든 클러스터 통신을 송수신하려는 경우 다음과 같이 실행합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvecm</span> <span class="n">create</span> <span class="n">test</span> <span class="o">--</span><span class="n">link0</span> <span class="mf">10.10.10.1</span>
+</pre></div>
+</div>
+<p>모든 것이 제대로 작동하는지 확인하려면 다음을 실행합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">status</span> <span class="n">corosync</span>
+</pre></div>
+</div>
+<p>그런 다음 위와 같이 진행하여 클러스터 네트워크가 분리된 노드를 추가합니다.<br><br></p>
+<p><span class="point"><img alt="" src="_images/check.svg" /> 클러스터 생성 후 분리</span><br>
+이미 클러스터를 생성한 상태에서 전체 클러스터를 재구축하지 않고 통신을 다른 네트워크로 전환하려는 경우 이 작업을 수행할 수 있습니다. 이 변경으로 인해 클러스터에서 짧은 기간 동안 쿼럼이 손실될 수 있는데, 노드가 corosync를 다시 시작하고 새 네트워크에 차례로 올라와야 하기 때문입니다.<br>
+먼저 corosync.conf 파일을 수정하는 방법을 확인하세요. 그런 다음 파일을 열면 다음과 유사한 파일이 표시됩니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span> <span class="p">{</span>
+  <span class="n">debug</span><span class="p">:</span> <span class="n">off</span>
+  <span class="n">to_syslog</span><span class="p">:</span> <span class="n">yes</span>
+<span class="p">}</span>
+
+<span class="n">nodelist</span> <span class="p">{</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">due</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="n">due</span>
+  <span class="p">}</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">tre</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="n">tre</span>
+  <span class="p">}</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">uno</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="n">uno</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="n">quorum</span> <span class="p">{</span>
+  <span class="n">provider</span><span class="p">:</span> <span class="n">corosync_votequorum</span>
+<span class="p">}</span>
+
+<span class="n">totem</span> <span class="p">{</span>
+  <span class="n">cluster_name</span><span class="p">:</span> <span class="n">testcluster</span>
+  <span class="n">config_version</span><span class="p">:</span> <span class="mi">3</span>
+  <span class="n">ip_version</span><span class="p">:</span> <span class="n">ipv4</span><span class="o">-</span><span class="mi">6</span>
+  <span class="n">secauth</span><span class="p">:</span> <span class="n">on</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="n">interface</span> <span class="p">{</span>
+    <span class="n">linknumber</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><span class=“point”>ringX_addr</span>은 실제로 corosync <span class=“point”>링크 주소</span>를 지정합니다. “ring”이라는 이름은 이전 버전과의 호환성을 위해 유지되는 이전 corosync 버전의 잔재입니다.</p>
+</div></blockquote>
+<br>
+가장 먼저 해야 할 일은 노드 항목에 <span class=“point”>이름</span> 속성이 아직 표시되지 않는 경우 추가하는 것입니다. 이 속성은 노드 이름과 <span class=“point”>일치해야</span> 합니다.
+<p>그런 다음 모든 노드의 <span class=“point”>ring0_addr</span> 속성에 있는 모든 주소를 새 주소로 바꿉니다. 여기에는 일반 IP 주소나 호스트 이름을 사용할 수 있습니다. 호스트명을 사용하는 경우 모든 노드에서 호스트명을 확인할 수 있는지 확인하세요(링크 주소 유형 참조).<br>
+이 예에서는 클러스터 통신을 10.10.10.0/25 네트워크로 전환하고자 하므로 각 노드의 <span class=“point”>ring0_addr</span>을 각각 변경합니다.</p>
+<blockquote>
+<div><p>동일한 절차를 사용하여 다른 <span class=“point”>ringX_addr</span> 값도 변경할 수 있습니다. 그러나 한 번에 하나의 링크 주소만 변경하는 것이 문제 발생 시 복구가 더 쉽기 때문에 권장합니다.</p>
+</div></blockquote>
+<br>
+<span class=“point”>config_version</span> 속성을 변경한 후 새 구성 파일은 다음과 같아야 합니다:
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span> <span class="p">{</span>
+  <span class="n">debug</span><span class="p">:</span> <span class="n">off</span>
+  <span class="n">to_syslog</span><span class="p">:</span> <span class="n">yes</span>
+<span class="p">}</span>
+
+<span class="n">nodelist</span> <span class="p">{</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">due</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="mf">10.10.10.2</span>
+  <span class="p">}</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">tre</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="mf">10.10.10.3</span>
+  <span class="p">}</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">uno</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="mf">10.10.10.1</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="n">quorum</span> <span class="p">{</span>
+  <span class="n">provider</span><span class="p">:</span> <span class="n">corosync_votequorum</span>
+<span class="p">}</span>
+
+<span class="n">totem</span> <span class="p">{</span>
+  <span class="n">cluster_name</span><span class="p">:</span> <span class="n">testcluster</span>
+  <span class="n">config_version</span><span class="p">:</span> <span class="mi">4</span>
+  <span class="n">ip_version</span><span class="p">:</span> <span class="n">ipv4</span><span class="o">-</span><span class="mi">6</span>
+  <span class="n">secauth</span><span class="p">:</span> <span class="n">on</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="n">interface</span> <span class="p">{</span>
+    <span class="n">linknumber</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<br>
+<p>그런 다음 변경된 모든 정보가 올바른지 최종 확인한 후 저장하고 다시 한 번 corosync.conf 파일 편집 섹션에 따라 변경 사항을 적용합니다.<br>
+변경 사항은 실시간으로 적용되므로 corosync를 반드시 다시 시작할 필요는 없습니다. 다른 설정도 변경했거나 corosync가 불만을 표시하는 경우 선택적으로 재시작을 트리거할 수 있습니다.<br>
+단일 노드에서 실행합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">restart</span> <span class="n">corosync</span>
+</pre></div>
+</div>
+<p>이제 모든 것이 정상인지 확인합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">status</span> <span class="n">corosync</span>
+</pre></div>
+</div>
+<p>corosync가 다시 작동하기 시작하면 다른 모든 노드에서도 다시 시작하세요. 그러면 새 네트워크에서 하나씩 클러스터 멤버십에 참여하게 됩니다.
+<br><br></p>
+</section>
+<section id="corosync">
+<h3>5.7.3. Corosync 주소<a class="headerlink" href="#corosync" title="Link to this heading">#</a></h3>
+<p>corosync 링크 주소(이전 버전과의 호환성을 위해 <span class=“point”>corosync.conf</span>에서 <span class=“point”>ringX_addr</span>로 표시됨)는 두 가지 방법으로 지정할 수 있습니다:</p>
+<ul class="simple">
+<li><p><span class=“point”>IPv4/v6 주소</span>를 직접 사용할 수 있습니다. 정적이고 일반적으로 부주의하게 변경되지 않으므로 이 방법을 권장합니다.</p></li>
+<li><p><span class=“point”>호스트 이름</span>은 <span class=“point”>getaddrinfo</span>를 사용하여 확인되므로 기본적으로 사용 가능한 경우 IPv6 주소가 먼저 사용됩니다(<span class=“point”>man gai.conf</span>도 참조하세요). 특히 기존 클러스터를 IPv6로 업그레이드할 때는 이 점을 염두에 두세요.</p></li>
+</ul>
+<blockquote>
+<div><p>호스트명은 corosync나 corosync가 실행되는 노드를 건드리지 않고도 확인 주소가 변경될 수 있으므로 corosync에 미치는 영향을 고려하지 않고 주소를 변경하는 상황이 발생할 수 있으므로 주의해서 사용해야 합니다.</p>
+</div></blockquote>
+<br>
+호스트명을 선호하는 경우 corosync 전용의 정적 호스트명을 별도로 사용하는 것이 좋습니다. 또한 클러스터의 모든 노드가 모든 호스트 이름을 올바르게 확인할 수 있는지 확인하세요.<br>
+Proxmox VE 5.1부터 지원되는 동안 호스트명은 진입 시점에 확인됩니다. 확인된 IP만 구성에 저장됩니다.<br>
+이전 버전에서 클러스터에 참여한 노드는 여전히 <span class=“point”>corosync.conf</span>에서 확인되지 않은 호스트 이름을 사용할 가능성이 높습니다. 위에서 언급한 대로 IP 또는 별도의 호스트 네임으로 대체하는 것이 좋습니다.<br><br>
+</section>
+</section>
+<section id="id15">
+<h2>5.8. Corosync 이중화<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>corosync는 기본적으로 통합된 크로노스넷 계층을 통해 중복 네트워킹을 지원합니다(레거시 udp/udpu 전송에서는 지원되지 않음). 클러스터를 생성하거나 새 노드를 추가하는 동안 GUI에서 <span class=“point”>pvecm</span>의 <span class=“point”>–linkX</span> 매개변수를 통해 <span class=“point”>Link 1</span>로 지정하거나 <span class=“point”>corosync.conf</span>에 둘 이상의 <span class=“point”>ringX_addr</span>을 지정하여 둘 이상의 링크 주소를 지정하여 활성화할 수 있습니다.<br></p>
+<blockquote>
+<div><p>유용한 장애 조치를 제공하려면 모든 링크가 자체 물리적 네트워크 연결에 있어야 합니다.</p>
+</div></blockquote>
+<br>
+링크는 우선순위 설정에 따라 사용됩니다. 이 우선 순위는 <span class=“point”>corosync.conf</span>의 해당 인터페이스 섹션에서 <span class=“point”>knet_link_priority</span>를 설정하여 구성하거나, <span class=“point”>pvecm</span>으로 클러스터를 생성할 때 <span class=“point”>우선 순위</span> 매개 변수를 사용하여 구성할 수 있습니다:
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvecm create CLUSTERNAME --link0 10.10.10.1,priority=15 --link1 10.20.20.1,priority=20</span>
+</pre></div>
+</div>
+<br>
+우선순위를 수동으로 구성하지 않은 경우(또는 두 링크의 우선순위가 동일한 경우), 링크는 번호 순서대로 사용되며 낮은 번호가 더 높은 우선순위를 갖습니다.<br>
+모든 링크가 작동하더라도 우선순위가 가장 높은 링크에만 코로싱크 트래픽이 표시됩니다. 링크 우선순위는 혼합할 수 없으므로 우선순위가 다른 링크는 서로 통신할 수 없습니다.<br>
+우선순위가 낮은 링크는 우선순위가 높은 모든 링크가 실패하지 않는 한 트래픽을 볼 수 없으므로 다른 작업(VM, 스토리지 등)에 사용되는 네트워크를 우선순위가 낮은 링크로 지정하는 것이 유용한 전략이 될 수 있습니다. 최악의 경우 지연 시간이 길거나 혼잡한 연결이 전혀 연결되지 않는 것보다 나을 수도 있습니다.<br><br>
+<section id="id16">
+<h3>5.8.1. 기존 클러스터에 이중화 링크 추가하기<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>실행 중인 구성에 새 링크를 추가하려면 먼저 corosync.conf 파일을 편집하는 방법을 확인하세요.<br>
+그런 다음 <span class=“point”>노드 목록</span> 섹션의 모든 노드에 새 <span class=“point”>ringX_addr</span>을 추가합니다. 추가하는 모든 노드에서 <span class=“point”>X</span>가 동일해야 하며 각 노드마다 고유해야 합니다.<br>
+마지막으로 <span class=“point”>토템</span> 섹션에 아래 그림과 같이 새 <span class=“point”>인터페이스</span>를 추가하고 X를 위에서 선택한 링크 번호로 바꿉니다.<br>
+번호가 1번인 링크를 추가했다고 가정하면 새 구성 파일은 다음과 같이 보일 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span> <span class="p">{</span>
+  <span class="n">debug</span><span class="p">:</span> <span class="n">off</span>
+  <span class="n">to_syslog</span><span class="p">:</span> <span class="n">yes</span>
+<span class="p">}</span>
+
+<span class="n">nodelist</span> <span class="p">{</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">due</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="mf">10.10.10.2</span>
+    <span class="n">ring1_addr</span><span class="p">:</span> <span class="mf">10.20.20.2</span>
+  <span class="p">}</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">tre</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="mf">10.10.10.3</span>
+    <span class="n">ring1_addr</span><span class="p">:</span> <span class="mf">10.20.20.3</span>
+  <span class="p">}</span>
+
+  <span class="n">node</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">uno</span>
+    <span class="n">nodeid</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">quorum_votes</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">ring0_addr</span><span class="p">:</span> <span class="mf">10.10.10.1</span>
+    <span class="n">ring1_addr</span><span class="p">:</span> <span class="mf">10.20.20.1</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="n">quorum</span> <span class="p">{</span>
+  <span class="n">provider</span><span class="p">:</span> <span class="n">corosync_votequorum</span>
+<span class="p">}</span>
+
+<span class="n">totem</span> <span class="p">{</span>
+  <span class="n">cluster_name</span><span class="p">:</span> <span class="n">testcluster</span>
+  <span class="n">config_version</span><span class="p">:</span> <span class="mi">4</span>
+  <span class="n">ip_version</span><span class="p">:</span> <span class="n">ipv4</span><span class="o">-</span><span class="mi">6</span>
+  <span class="n">secauth</span><span class="p">:</span> <span class="n">on</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="n">interface</span> <span class="p">{</span>
+    <span class="n">linknumber</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+  <span class="n">interface</span> <span class="p">{</span>
+    <span class="n">linknumber</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="proxmox-ve-ssh">
+<h2>5.9. Proxmox VE 클러스터에서 SSH의 역할<a class="headerlink" href="#proxmox-ve-ssh" title="Link to this heading">#</a></h2>
+<p>Proxmox VE는 다양한 기능에 SSH 터널을 활용합니다.</p>
+<ul class="simple">
+<li><p>콘솔/셸 세션 프록시(노드 및 게스트)</p>
+<ul>
+<li><p>노드 A에 연결되어 있는 상태에서 노드 B의 셸을 사용하는 경우, 노드 A의 터미널 프록시에 연결되며, 이 터미널 프록시는 비대화형 SSH 터널을 통해 노드 B의 로그인 셸에 연결됩니다.</p></li>
+</ul>
+</li>
+<li><p><span class=“point”>보안 모드</span>에서 VM 및 CT 메모리와 로컬 스토리지 마이그레이션.</p>
+<ul>
+<li><p>마이그레이션하는 동안 마이그레이션 정보를 교환하고 메모리 및 디스크 콘텐츠를 전송하기 위해 소스 노드와 대상 노드 간에 하나 이상의 SSH 터널이 설정됩니다.</p></li>
+</ul>
+</li>
+<li><p>스토리지 복제
+<br><br></p></li>
+</ul>
+<section id="ssh">
+<h3>5.9.1. SSH 설정<a class="headerlink" href="#ssh" title="Link to this heading">#</a></h3>
+<p>Proxmox VE 시스템에서는 SSH 구성/설정이 다음과 같이 변경됩니다:</p>
+<ul class="simple">
+<li><p><span class=“point”>root</span> 사용자의 SSH 클라이언트 구성이 <span class=“point”>ChaCha20</span>보다 <span class=“point”>AES</span>를 선호하도록 설정됩니다.</p></li>
+<li><p><span class=“point”>root</span> 사용자의 <span class=“point”>authorized_keys</span>
+/etc/pve/priv/authorized_keys에 연결되어 클러스터 내의 모든 인증된 키를 병합합니다.
+파일이 <span class=“point”></span></p></li>
+<li><p>비밀번호를 사용하여 root로 로그인할 수 있도록 <span class=“point”>sshd</span>
+를 구성합니다.</p></li>
+</ul>
+<blockquote>
+<div><p>구형 시스템에는 모든 노드 호스트 키의 병합된 버전이 포함된 /etc/pve/priv/known_hosts를 가리키는 심볼릭 링크로 /etc/ssh/ssh_known_hosts가 설정되어 있을 수도 있습니다. 이 시스템은 pve-cluster &lt;&lt;인서트 버전&gt;&gt;에서 명시적 호스트 키 고정으로 대체되었으며, 심볼릭 링크가 여전히 있는 경우 pvecm updatecerts –unmerge-known-hosts를 실행하여 구성을 해제할 수 있습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="id17">
+<h2>5.10.<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<section id="id18">
+<h3>5.10.1.<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+</section>
+<section id="id19">
+<h3>5.10.2.<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+</section>
+<section id="id20">
+<h3>5.10.3.<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+</section>
+<section id="id21">
+<h3>5.10.4.<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="id22">
+<h2>5.11.<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<section id="id23">
+<h3>5.11.1.<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+</section>
+<section id="id24">
+<h3>5.11.2.<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+</section>
+<section id="id25">
+<h3>5.11.3.<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="id26">
+<h2>5.12.<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+</section>
+<section id="id27">
+<h2>5.13.<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+</section>
+<section id="id28">
+<h2>5.14.<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<section id="id29">
+<h3>5.14.1.<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+</section>
+<section id="id30">
+<h3>5.14.2.<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -632,6 +968,36 @@ GUI를 사용하면 <span class="point">Cluster Join</span> 대화 상자의 해
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quorum">5.6. 쿼럼(Quorum)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.7. 클러스터 네트워크</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.7.1. 네트워크 요구 사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.7.2. 클러스터 네트워크 분리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corosync">5.7.3. Corosync 주소</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.8. Corosync 이중화</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.8.1. 기존 클러스터에 이중화 링크 추가하기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-ssh">5.9. Proxmox VE 클러스터에서 SSH의 역할</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh">5.9.1. SSH 설정</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.10.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.10.1.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.10.2.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.10.3.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.10.4.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.11.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.11.1.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.11.2.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.11.3.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">5.12.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">5.13.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">5.14.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">5.14.1.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">5.14.2.</a></li>
 </ul>
 </li>
 </ul>
