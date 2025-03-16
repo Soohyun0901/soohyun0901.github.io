@@ -274,7 +274,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -290,6 +292,20 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posix">6.1. POSIX 호환성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.2. 파일 접근 권한</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.3. 기술</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.4. 파일 시스템 레이아웃</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.4.1. 파일</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -301,6 +317,129 @@
                   
   <section id="proxmox-cluster-file-system-pmxcfs">
 <h1>6. Proxmox Cluster File System(pmxcfs)<a class="headerlink" href="#proxmox-cluster-file-system-pmxcfs" title="Link to this heading">#</a></h1>
+<p>Proxmox 클러스터 파일 시스템(“pmxcfs”)은 구성 파일을 저장하는 데이터베이스 기반 파일 시스템으로, <span class=“point”>corosync</span>를 사용하여 모든 클러스터 노드에 실시간으로 복제됩니다. 이를 사용하여 모든 Proxmox VE 관련 구성 파일을 저장합니다.<br>
+파일 시스템은 영구 데이터베이스 내의 모든 데이터를 디스크에 저장하지만 데이터의 사본은 RAM에 상주합니다. 이로 인해 최대 크기에 제한이 있으며 현재 128MB입니다. 이 정도면 수천 대의 가상 머신 구성을 저장하기에 충분합니다.<br>
+이 시스템은 다음과 같은 이점을 제공합니다:</p>
+<ul class="simple">
+<li><p>모든 구성을 모든 노드에 실시간으로 원활하게 복제 가능</p></li>
+<li><p>강력한 일관성 검사를 통해 VM ID 중복을 방지</p></li>
+<li><p>노드가 쿼럼을 잃었을 때 읽기 전용으로 전환</p></li>
+<li><p>모든 노드에 대한 코로싱크 클러스터 구성 자동 업데이트</p></li>
+<li><p>분산 잠금 메커니즘 포함</p></li>
+</ul>
+<p><br><br></p>
+<section id="posix">
+<h2>6.1. POSIX 호환성<a class="headerlink" href="#posix" title="Link to this heading">#</a></h2>
+<p>파일 시스템은 FUSE를 기반으로 하므로 동작은 POSIX와 유사합니다. 그러나 일부 기능은 필요하지 않기 때문에 단순히 구현되지 않았습니다:</p>
+<ul class="simple">
+<li><p>일반 파일과 디렉터리는 생성할 수 있지만 심볼릭 링크는 생성할 수 없습니다.</p></li>
+<li><p>비어 있지 않은 디렉터리의 이름을 변경할 수 없습니다(이렇게 하면 VMID가 고유하다는 것을 더 쉽게 보장할 수 있기 때문입니다).</p></li>
+<li><p>파일 사용 권한을 변경할 수 없습니다(사용 권한은 경로를 기반으로 함).</p></li>
+<li><p><span class=“point”>O_EXCL</span> 생성은 원자적이지 않습니다(이전 NFS처럼).</p></li>
+<li><p><span class=“point”>O_TRUNC</span> 생성은 원자적이지 않음(FUSE 제한)
+<br><br></p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>6.2. 파일 접근 권한<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>모든 파일과 디렉터리는 사용자 <span class=“point”>root</span>가 소유하며 그룹 <span class=“point”>www-data</span>를 가집니다. root만 쓰기 권한이 있지만 <span class=“point”>www-data</span> 그룹은 대부분의 파일을 읽을 수 있습니다. 다음 경로 아래의 파일은 root만 액세스할 수 있습니다:<br></p>
+<ul class="simple">
+<li><p><span class=“point”>/etc/pve/priv/</span></p></li>
+<li><p><span class=“point”>/etc/pve/nodes/${NAME}/priv/</span>
+<br><br></p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>6.3. 기술<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>클러스터 통신에는 Corosync 클러스터 엔진을, 데이터베이스 파일에는 SQlite를 사용합니다. 파일 시스템은 FUSE를 사용하여 사용자 공간에서 구현됩니다.<br><br></p>
+</section>
+<section id="id3">
+<h2>6.4. 파일 시스템 레이아웃<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>파일 시스템은 다음 위치에 마운트됩니다:<br></p>
+<ul class="simple">
+<li><p><span class=“point”>/etc/pve</span>
+<br><br></p></li>
+</ul>
+<section id="id4">
+<h3>6.4.1. 파일<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>authkey.pub : 티켓 시스템에서 사용하는 공개 키</p></li>
+<li><p>ceph.conf : Ceph 구성 파일(참고: /etc/ceph/ceph.conf는 이에 대한 심볼릭 링크입니다)</p></li>
+<li><p>corosync.conf : Corosync 클러스터 구성 파일(Proxmox VE 4.x 이전에는 이 파일을 cluster.conf라고 불렀음)</p></li>
+<li><p>datacenter.cfg : Proxmox VE 데이터 센터 전체 구성(키보드 레이아웃, 프록시, …)</p></li>
+<li><p>domains.cfg : Proxmox VE 인증 도메인</p></li>
+<li><p>firewall/cluster.fw : 모든 노드에 적용되는 방화벽 구성</p></li>
+<li><p>firewall/<NAME>.fw : 개별 노드에 대한 방화벽 구성</p></li>
+<li><p>firewall/<VMID>.fw : VM 및 컨테이너용 방화벽 구성</p></li>
+<li><p>ha/crm_commands : 현재 CRM에서 수행 중인 HA 작업을 표시</p></li>
+<li><p>ha/manager_status : 클러스터의 HA 서비스에 관한 JSON 형식 정보</p></li>
+<li><p>ha/resources.cfg : 고가용성에서 관리하는 리소스 및 현재 상태</p></li>
+<li><p>nodes/<NAME>/config : 노드별 구성</p></li>
+<li><p>nodes/<NAME>/lxc/<VMID>.conf : LXC 컨테이너에 대한 VM 구성 데이터</p></li>
+<li><p>nodes/<NAME>/openvz/ : 컨테이너 구성 데이터에 사용되는 Proxmox VE 4.0 이전 버전(사용 중단, 곧 제거됨)</p></li>
+<li><p>nodes/<NAME>/pve-ssl.key : pve-ssl.pem에 대한 비공개 SSL 키</p></li>
+<li><p>nodes/<NAME>/pve-ssl.pem : 웹 서버용 공개 SSL 인증서(클러스터 CA가 서명)</p></li>
+<li><p>nodes/<NAME>/pveproxy-ssl.key : pveproxy-ssl.pem에 대한 비공개 SSL 키(선택 사항)</p></li>
+<li><p>nodes/<NAME>/pveproxy-ssl.pem : 웹 서버용 공개 SSL 인증서(체인)(선택 사항, pve-ssl.pem에 대한 재정의)</p></li>
+<li><p>nodes/<NAME>/qemu-server/<VMID>.conf : KVM VM의 VM 구성 데이터</p></li>
+<li><p>priv/authkey.key : 티켓 시스템에서 사용하는 개인 키</p></li>
+<li><p>priv/authorized_keys : 인증을 위한 클러스터 구성원의 SSH 키</p></li>
+<li><p>priv/ceph* : Ceph 인증 키 및 관련 기능</p></li>
+<li><p>priv/known_hosts : 확인을 위한 클러스터 구성원의 SSH 키</p></li>
+<li><p>priv/lock/* : 클러스터 전체의 안전한 운영을 위해 다양한 서비스에서 사용하는 잠금 파일</p></li>
+<li><p>priv/pve-root-ca.key : 클러스터 CA의 개인 키</p></li>
+<li><p>priv/shadow.cfg : PVE 영역 사용자를 위한 섀도 비밀번호 파일</p></li>
+<li><p>priv/storage/<STORAGE-ID>.pw : 스토리지의 비밀번호를 일반 텍스트로 포함</p></li>
+<li><p>priv/tfa.cfg : Base64로 인코딩된 2단계 인증 구성 파일</p></li>
+<li><p>priv/token.cfg : 모든 토큰의 API 토큰 비밀 정보</p></li>
+<li><p>pve-root-ca.pem : 클러스터 CA의 공개 인증서</p></li>
+<li><p>pve-www.key : CSRF 토큰 생성에 사용되는 개인 키</p></li>
+<li><p>sdn/* : 소프트웨어 정의 네트워킹(SDN)을 위한 공유 구성 파일</p></li>
+<li><p>status.cfg : Proxmox VE 외부 메트릭 서버 구성</p></li>
+<li><p>storage.cfg : Proxmox VE 스토리지 구성</p></li>
+<li><p>user.cfg : Proxmox VE 액세스 제어 구성(users/groups/…)</p></li>
+<li><p>virtual-guest/cpu-models.conf : 사용자 지정 CPU 모델 저장용</p></li>
+<li><p>vzdump.cron : 클러스터 전체 vzdump 백업 작업 일정</p></li>
+</ul>
+<p><span class="point">authkey.pub</span> : 티켓 시스템에서 사용하는 공개 키</p>
+<p><span class="point">ceph.conf</span> : Ceph 구성 파일(참고: /etc/ceph/ceph.conf는 이에 대한 심볼릭 링크입니다)</p>
+<p><span class="point">corosync.conf</span> : Corosync 클러스터 구성 파일(Proxmox VE 4.x 이전에는 이 파일을 cluster.conf라고 불렀음)</p>
+<p><span class="point">datacenter.cfg</span> : Proxmox VE 데이터 센터 전체 구성(키보드 레이아웃, 프록시, …)</p>
+<p><span class="point">domains.cfg</span> : Proxmox VE 인증 도메인</p>
+<p><span class="point">firewall/cluster.fw</span> : 모든 노드에 적용되는 방화벽 구성</p>
+<p><span class="point">firewall/<NAME>.fw</span> : 개별 노드에 대한 방화벽 구성</p>
+<p><span class="point">firewall/<VMID>.fw</span> : VM 및 컨테이너용 방화벽 구성</p>
+<p><span class="point">ha/crm_commands</span> : 현재 CRM에서 수행 중인 HA 작업을 표시</p>
+<p><span class="point">ha/manager_status</span> : 클러스터의 HA 서비스에 관한 JSON 형식 정보</p>
+<p><span class="point">ha/resources.cfg</span> : 고가용성에서 관리하는 리소스 및 현재 상태</p>
+<p><span class="point">nodes/<NAME>/config</span> : 노드별 구성</p>
+<p><span class="point">nodes/<NAME>/lxc/<VMID>.conf</span> : LXC 컨테이너에 대한 VM 구성 데이터</p>
+<p><span class="point">nodes/<NAME>/openvz/</span> : 컨테이너 구성 데이터에 사용되는 Proxmox VE 4.0 이전 버전(사용 중단, 곧 제거됨)</p>
+<p><span class="point">nodes/<NAME>/pve-ssl.key</span> : pve-ssl.pem에 대한 비공개 SSL 키</p>
+<p><span class="point">nodes/<NAME>/pve-ssl.pem</span> : 웹 서버용 공개 SSL 인증서(클러스터 CA가 서명)</p>
+<p><span class="point">nodes/<NAME>/pveproxy-ssl.key</span> : pveproxy-ssl.pem에 대한 비공개 SSL 키(선택 사항)</p>
+<p><span class="point">nodes/<NAME>/pveproxy-ssl.pem</span> : 웹 서버용 공개 SSL 인증서(체인)(선택 사항, pve-ssl.pem에 대한 재정의)</p>
+<p><span class="point">nodes/<NAME>/qemu-server/<VMID>.conf</span> : KVM VM의 VM 구성 데이터</p>
+<p><span class="point">priv/authkey.key</span> : 티켓 시스템에서 사용하는 개인 키</p>
+<p><span class="point">priv/authorized_keys</span> : 인증을 위한 클러스터 구성원의 SSH 키</p>
+<p><span class="point">priv/ceph*</span> : Ceph 인증 키 및 관련 기능</p>
+<p><span class="point">priv/known_hosts</span> : 확인을 위한 클러스터 구성원의 SSH 키</p>
+<p><span class="point">priv/lock/*</span> : 클러스터 전체의 안전한 운영을 위해 다양한 서비스에서 사용하는 잠금 파일</p>
+<p><span class="point">priv/pve-root-ca.key</span> : 클러스터 CA의 개인 키</p>
+<p><span class="point">priv/shadow.cfg</span> : PVE 영역 사용자를 위한 섀도 비밀번호 파일</p>
+<p><span class="point">priv/storage/<STORAGE-ID>.pw</span> : 스토리지의 비밀번호를 일반 텍스트로 포함</p>
+<p><span class="point">priv/tfa.cfg</span> : Base64로 인코딩된 2단계 인증 구성 파일</p>
+<p><span class="point">priv/token.cfg</span> : 모든 토큰의 API 토큰 비밀 정보</p>
+<p><span class="point">pve-root-ca.pem</span> : 클러스터 CA의 공개 인증서</p>
+<p><span class="point">pve-www.key</span> : CSRF 토큰 생성에 사용되는 개인 키</p>
+<p><span class="point">sdn/*</span> : 소프트웨어 정의 네트워킹(SDN)을 위한 공유 구성 파일</p>
+<p><span class="point">status.cfg</span> : Proxmox VE 외부 메트릭 서버 구성</p>
+<p><span class="point">storage.cfg</span> : Proxmox VE 스토리지 구성</p>
+<p><span class="point">user.cfg</span> : Proxmox VE 액세스 제어 구성(users/groups/…)</p>
+<p><span class="point">virtual-guest/cpu-models.conf</span> : 사용자 지정 CPU 모델 저장용</p>
+<p><span class="point">vzdump.cron</span> : 클러스터 전체 vzdump 백업 작업 일정</p>
+</section>
+</section>
 </section>
 
 
@@ -329,6 +468,28 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posix">6.1. POSIX 호환성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.2. 파일 접근 권한</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.3. 기술</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.4. 파일 시스템 레이아웃</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.4.1. 파일</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
