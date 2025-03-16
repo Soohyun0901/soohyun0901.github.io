@@ -18,6 +18,6 @@ VirtOn[버트온] 통합 가이드
    3. 호스트 시스템 관리/운영
    4. GUI
    5. 클러스터 관리자
-   
+   6. Proxmox Cluster File System(pmxcfs)
 
 
