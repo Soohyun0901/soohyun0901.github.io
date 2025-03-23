@@ -306,9 +306,18 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2. 스토리지 구성</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.1. 스토리지 풀</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">일반적인 스토리지 속성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.2.2. 일반적인 스토리지 속성</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.3. 볼륨</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.3.1. 볼륨 소유권</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.4. 명령줄 인터페이스 사용</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.4.1. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5. 디렉토리 백엔드</a></li>
 </ul>
             </nav>
         </div>
@@ -393,7 +402,7 @@
 <p><br><br></p>
 </section>
 <section id="id5">
-<h3>일반적인 스토리지 속성<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<h3>7.2.2. 일반적인 스토리지 속성<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>몇 가지 스토리지 속성은 여러 스토리지 유형에서 공통적입니다.</p>
 <ul class="simple">
 <li><p><span class="point">nodes</span></p>
@@ -449,6 +458,163 @@
 <p><br><br></p>
 </section>
 </section>
+<section id="id6">
+<h2>7.3. 볼륨<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>당사는 스토리지 데이터에 특별한 표기법을 사용합니다. 스토리지 풀에서 데이터를 할당하면 이러한 볼륨 식별자가 반환됩니다. 볼륨은 <span class="point">&lt;STORAGE_ID&gt;</span>와 그 뒤에 콜론으로 구분된 스토리지 유형에 따른 볼륨 이름으로 식별됩니다. 유효한 <span class="point">&lt;VOLUME_ID&gt;</span>는 다음과 같습니다:</p>
+<ul class="simple">
+<li><p>local:230/example-image.raw</p></li>
+<li><p>local:iso/debian-501-amd64-netinst.iso</p></li>
+<li><p>local:vztmpl/debian-5.0-joomla_1.5.9-1_i386.tar.gz</p></li>
+<li><p>iscsi-storage:0.0.2.scsi-14f504e46494c4500494b5042546d2d646744372d31616d61
+<span class="point">&lt;VOLUME_ID&gt;</span>의 파일 시스템 경로를 가져오려면 다음을 사용합니다:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvesm</span> <span class="n">경로</span> <span class="o">&lt;</span><span class="n">VOLUME_ID</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><br><br></p>
+<section id="id7">
+<h3>7.3.1. 볼륨 소유권<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><span class="point">image</span> 유형 볼륨에는 소유권 관계가 존재합니다. 이러한 각 볼륨은 VM 또는 컨테이너가 소유합니다. 예를 들어 <span class="point">local:230/example-image.raw</span> 볼륨은 VM 230이 소유합니다. 대부분의 스토리지 백엔드는 이 소유권 정보를 볼륨 이름에 인코딩합니다.<br></p>
+<p>VM 또는 컨테이너를 제거하면 시스템에서 해당 VM 또는 컨테이너가 소유한 모든 관련 볼륨도 제거됩니다.<br><br></p>
+</section>
+</section>
+<section id="id8">
+<h2>7.4. 명령줄 인터페이스 사용<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>스토리지 풀과 볼륨 식별자의 개념을 숙지하는 것이 좋지만, 실제로는 명령줄에서 이러한 낮은 수준의 작업을 수행할 필요는 없습니다. 일반적으로 볼륨 할당 및 제거는 VM 및 컨테이너 관리 도구에서 수행됩니다.<br></p>
+<p>그럼에도 불구하고 일반적인 스토리지 관리 작업을 수행할 수 있는 <span class="point">pvesm</span>(“Proxmox VE Storage Manager”)이라는 명령줄 도구가 있습니다.<br><br></p>
+<section id="id9">
+<h3>7.4.1. 예시<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>스토리지 풀 추가</p>
+<ul class="simple">
+<li><p><span class="point">pvesm add <TYPE> &lt;STORAGE_ID&gt; <OPTIONS></span></p></li>
+<li><p><span class="point">pvesm add dir &lt;STORAGE_ID&gt; –path <PATH></span></p></li>
+<li><p><span class="point">pvesm add nfs &lt;STORAGE_ID&gt; –path <PATH> –server <SERVER> –export <EXPORT></span></p></li>
+<li><p><span class="point">pvesm add lvm &lt;STORAGE_ID&gt; –vgname <VGNAME></span></p></li>
+<li><p><span class="point">pvesm add iscsi &lt;STORAGE_ID&gt; –portal &lt;HOST[:PORT]&gt; –target <TARGET></span></p></li>
+</ul>
+</li>
+<li><p>스토리지 풀 비활성화</p>
+<ul class="simple">
+<li><p><span class="point">pvesm set &lt;STORAGE_ID&gt; –disable 1</span></p></li>
+</ul>
+</li>
+<li><p>스토리지 풀 활성화</p>
+<ul class="simple">
+<li><p><span class="point">pvesm set &lt;STORAGE_ID&gt; –disable 0</span></p></li>
+</ul>
+</li>
+<li><p>스토리지 옵션 변경/설정</p>
+<ul class="simple">
+<li><p><span class="point">pvesm set &lt;STORAGE_ID&gt; <OPTIONS></span></p></li>
+<li><p><span class="point">pvesm set &lt;STORAGE_ID&gt; –shared 1</span></p></li>
+<li><p><span class="point">pvesm set local –format qcow2</span></p></li>
+<li><p><span class="point">pvesm set &lt;STORAGE_ID&gt; –content iso</span></p></li>
+</ul>
+</li>
+<li><p>스토리지 풀을 제거(데이터를 삭제하지 않으며, 연결을 끊거나 마운트 해제하지도 않습니다. 스토리지 구성만 제거합니다.)</p>
+<ul class="simple">
+<li><p><span class="point">pvesm remove &lt;STORAGE_ID&gt;</span></p></li>
+</ul>
+</li>
+<li><p>볼륨 할당</p>
+<ul class="simple">
+<li><p><span class="point">pvesm alloc &lt;STORAGE_ID&gt; <VMID> <name> <size> [–format &lt;raw|qcow2&gt;]</span></p></li>
+</ul>
+</li>
+<li><p>로컬 스토리지에 4G 볼륨을 할당(빈 문자열을 <NAME>으로 전달하면 이름이 자동으로 생성됩니다.)</p>
+<ul class="simple">
+<li><p><span class="point">pvesm alloc local <VMID> ‘’ 4G</span></p></li>
+</ul>
+</li>
+<li><p>여유 볼륨</p>
+<ul class="simple">
+<li><p><span class="point">pvesm free &lt;VOLUME_ID&gt;</span></p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 이렇게 하면 실제로 모든 볼륨 데이터가 삭제됩니다.</p>
+</div></blockquote>
+</li>
+<li><p>스토리지 상태 나열</p>
+<ul class="simple">
+<li><p><span class="point">pvesm status</span></p></li>
+</ul>
+</li>
+<li><p>스토리지 콘텐츠 나열</p>
+<ul class="simple">
+<li><p><span class="point">pvesm list &lt;STORAGE_ID&gt; [–vmid <VMID>]</span></p></li>
+</ul>
+</li>
+<li><p>VMID로 할당된 볼륨 나열</p>
+<ul class="simple">
+<li><p><span class="point">pvesm list &lt;STORAGE_ID&gt; –vmid <VMID></span></p></li>
+</ul>
+</li>
+<li><p>ISO 이미지 나열</p>
+<ul class="simple">
+<li><p><span class="point">pvesm list &lt;STORAGE_ID&gt; –content iso</span></p></li>
+</ul>
+</li>
+<li><p>컨테이너 템플릿 나열</p>
+<ul class="simple">
+<li><p><span class="point">pvesm list &lt;STORAGE_ID&gt; –content vztmpl</span></p></li>
+</ul>
+</li>
+<li><p>볼륨의 파일 시스템 경로 표시</p>
+<ul class="simple">
+<li><p><span class="point">pvesm path &lt;VOLUME_ID&gt;</span></p></li>
+</ul>
+</li>
+<li><p>local:103/vm-103-disk-0.qcow2 볼륨을 파일 대상으로 내보내기.<br>(이것은 주로 내부적으로 pvesm 가져오기와 함께 사용됩니다. 스트림 형식 qcow2+size는 qcow2 형식과 다릅니다. 따라서 내보낸 파일을 단순히 VM에 첨부할 수 없습니다. 이는 다른 형식에도 적용됩니다.)</p>
+<ul class="simple">
+<li><p><span class="point">pvesm export local:103/vm-103-disk-0.qcow2 qcow2+size target –with-snapshots 1</span></p></li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+</section>
+</section>
+<section id="id10">
+<h2>7.5. 디렉토리 백엔드<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <span class="point">dir</span></p></li>
+</ul>
+<p>Proxmox VE는 로컬 디렉터리 또는 로컬에 마운트된 공유를 스토리지로 사용할 수 있습니다. 디렉터리는 파일 수준 스토리지이므로 가상 디스크 이미지, 컨테이너, 템플릿, ISO 이미지 또는 백업 파일과 같은 모든 콘텐츠 유형을 저장할 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 표준 리눅스 <span class="point">/etc/fstab</span>을 통해 추가 스토리지를 마운트한 다음 해당 마운트 지점에 대한 디렉터리 스토리지를 정의할 수 있습니다. 이렇게 하면 Linux에서 지원하는 모든 파일 시스템을 사용할 수 있습니다.</p>
+</div></blockquote>
+<p>이 백엔드는 기본 디렉터리가 POSIX와 호환된다고 가정하지만 다른 것은 가정하지 않습니다. 즉, 스토리지 수준에서 스냅샷을 만들 수 없다는 뜻입니다. 그러나 해당 형식은 내부적으로 스냅샷을 지원하기 때문에 <span class="point">qcow2</span> 파일 형식을 사용하는 VM 이미지에 대한 해결 방법이 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 일부 스토리지 유형은 <span class="point">O_DIRECT</span>를 지원하지 않으므로 이러한 스토리지에는 캐시 모드를 <span class="point">사용할 수 없습니다</span>. 대신 캐시 모드 <span class="point">writeback</span>을 사용하면 됩니다.</p>
+</div></blockquote>
+<p>미리 정의된 디렉토리 레이아웃을 사용하여 서로 다른 콘텐츠 유형을 서로 다른 하위 디렉터리에 저장합니다. 이 레이아웃은 모든 파일 수준 스토리지 백엔드에서 사용됩니다.<br><br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> 디렉토리 레이아웃</span><br></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><strong>콘텐츠 유형</strong></p></th>
+<th class="head text-left"><p><strong>하위 디렉토리</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>VM 이미지</p></td>
+<td class="text-left"><p><span class="point">images/<VMID>/</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ISO 이미지</p></td>
+<td class="text-left"><p><span class="point">template/iso/</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>컨테이너 템플릿</p></td>
+<td class="text-left"><p><span class="point">template/cache/</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>백업 파일</p></td>
+<td class="text-left"><p><span class="point">dump/</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>스니펫 파일</p></td>
+<td class="text-left"><p><span class="point">snippets/</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 </section>
 
 
@@ -503,9 +669,18 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2. 스토리지 구성</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.1. 스토리지 풀</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">일반적인 스토리지 속성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.2.2. 일반적인 스토리지 속성</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.3. 볼륨</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.3.1. 볼륨 소유권</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.4. 명령줄 인터페이스 사용</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.4.1. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5. 디렉토리 백엔드</a></li>
 </ul>
   </nav></div>
 
