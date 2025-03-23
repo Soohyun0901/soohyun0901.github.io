@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>7. Proxmox VE 스토리지.md &#8212; virton-documents 1.0 documentation</title>
+    <title>7. Proxmox VE 스토리지 &#8212; virton-documents 1.0 documentation</title>
   
   
   
@@ -153,7 +153,7 @@
 <li class="toctree-l1"><a class="reference internal" href="4.%20GUI.html">4. GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%20%EA%B4%80%EB%A6%AC%EC%9E%90.html">5. 클러스터 관리자</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6.%20Proxmox%20Cluster%20File%20System%28pmxcfs%29.html">6. Proxmox Cluster File System(pmxcfs)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Proxmox VE 스토리지.md</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Proxmox VE 스토리지</a></li>
 <li class="toctree-l1"><a class="reference internal" href="8.%20%ED%95%98%EC%9D%B4%ED%8D%BC%EC%BB%A8%EB%B2%84%EC%A7%80%EB%93%9C%20Ceph%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0.html">8. 하이퍼컨버지드 Ceph 클러스터</a></li>
 </ul>
 
@@ -290,7 +290,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>7. Proxmox VE 스토리지.md</h1>
+    <h1>7. Proxmox VE 스토리지</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -306,6 +306,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2. 스토리지 구성</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.1. 스토리지 풀</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">일반적인 스토리지 속성</a></li>
 </ul>
 </li>
 </ul>
@@ -319,8 +320,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="proxmox-ve-md">
-<h1>7. Proxmox VE 스토리지.md<a class="headerlink" href="#proxmox-ve-md" title="Link to this heading">#</a></h1>
+  <section id="proxmox-ve">
+<h1>7. Proxmox VE 스토리지<a class="headerlink" href="#proxmox-ve" title="Link to this heading">#</a></h1>
 <p>Proxmox VE 스토리지 모델은 매우 유연합니다. 가상 머신 이미지는 하나 또는 여러 개의 로컬 스토리지 또는 NFS 또는 iSCSI(NAS, SAN)와 같은 공유 스토리지에 저장할 수 있습니다. 제한이 없으며 원하는 만큼 스토리지 풀을 구성할 수 있습니다. 데비안 리눅스에서 사용 가능한 모든 스토리지 기술을 사용할 수 있습니다.<br></p>
 <p>공유 스토리지에 VM을 저장할 때의 주요 이점 중 하나는 클러스터의 모든 노드가 VM 디스크 이미지에 직접 액세스할 수 있으므로 다운타임 없이 실행 중인 머신을 라이브 마이그레이션할 수 있다는 점입니다. 이 경우 VM 이미지 데이터를 복사할 필요가 없으므로 라이브 마이그레이션이 매우 빠릅니다.<br></p>
 <p>스토리지 라이브러리(패키지 <span class="point">libpve-storage-perl</span>)는 유연한 플러그인 시스템을 사용하여 모든 스토리지 유형에 공통 인터페이스를 제공합니다. 향후 추가 스토리지 유형을 포함하도록 쉽게 채택할 수 있습니다.<br><br></p>
@@ -354,11 +355,11 @@
 </section>
 <section id="id3">
 <h2>7.2. 스토리지 구성<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>모든 Proxmox VE 관련 스토리지 구성은 /etc/pve/storage.cfg의 단일 텍스트 파일에 저장됩니다. 이 파일은 /etc/pve/ 내에 있으므로 모든 클러스터 노드에 자동으로 배포됩니다. 따라서 모든 노드가 동일한 스토리지 구성을 공유하게 됩니다.<br></p>
+<p>모든 Proxmox VE 관련 스토리지 구성은 <span class="point">/etc/pve/storage.cfg</span>의 단일 텍스트 파일에 저장됩니다. 이 파일은 <span class="point">/etc/pve/</span> 내에 있으므로 모든 클러스터 노드에 자동으로 배포됩니다. 따라서 모든 노드가 동일한 스토리지 구성을 공유하게 됩니다.<br></p>
 <p>스토리지 구성 공유는 모든 노드에서 동일한 “공유” 스토리지에 액세스할 수 있기 때문에 공유 스토리지에 적합합니다. 그러나 로컬 스토리지 유형에도 유용합니다. 이 경우 로컬 스토리지는 모든 노드에서 사용할 수 있지만 물리적으로 다르며 완전히 다른 콘텐츠를 가질 수 있습니다.<br><br></p>
 <section id="id4">
 <h3>7.2.1. 스토리지 풀<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>각 스토리지 풀에는 &lt;유형&gt;이 있으며, &lt;STORAGE_ID&gt;로 고유하게 식별됩니다. 풀 구성은 다음과 같습니다:</p>
+<p>각 스토리지 풀에는 <span class="point"><type></span>이 있으며, <span class="point">&lt;STORAGE_ID&gt;</span>로 고유하게 식별됩니다. 풀 구성은 다음과 같습니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">유형</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STORAGE_ID</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">프로퍼티</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">값</span>
         <span class="o">&lt;</span><span class="n">프로퍼티</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">값</span>
@@ -366,8 +367,86 @@
         <span class="o">...</span>
 </pre></div>
 </div>
-<p><type>: &lt;STORAGE_ID&gt; 줄은 풀 정의를 시작하고 그 뒤에 속성 목록이 이어집니다. 대부분의 속성에는 값이 필요합니다. 일부 속성에는 합리적인 기본값이 있으며, 이 경우 값을 생략할 수 있습니다.<br></p>
-<p>더 자세히 알아보려면 설치 후 기본 스토리지 구성을 살펴보세요. 여기에는 /var/lib/vz 디렉터리를 가리키며 항상 사용 가능한 로컬이라는 이름의 특수 로컬 스토리지 풀이 하나 포함되어 있습니다. 설치 시 선택한 스토리지 유형에 따라 Proxmox VE 설치 관리자가 추가 스토리지 항목을 생성합니다.<br><br></p>
+<p><span class="point"><type>: &lt;STORAGE_ID&gt;</span> 줄은 풀 정의를 시작하고 그 뒤에 속성 목록이 이어집니다. 대부분의 속성에는 값이 필요합니다. 일부 속성에는 합리적인 기본값이 있으며, 이 경우 값을 생략할 수 있습니다.<br></p>
+<p>더 자세히 알아보려면 설치 후 기본 스토리지 구성을 살펴보세요. 여기에는 <span class="point">/var/lib/vz</span> 디렉터리를 가리키며 항상 사용 가능한 <span class="point">local</span>이라는 이름의 특수 로컬 스토리지 풀이 하나 포함되어 있습니다. 설치 시 선택한 스토리지 유형에 따라 Proxmox VE 설치 프로그램이 추가 스토리지 항목을 생성합니다.<br><br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> 기본 스토리지 구성(/etc/pve/storage.cfg)</span><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">:</span> <span class="n">local</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">vz</span>
+        <span class="n">content</span> <span class="n">iso</span><span class="p">,</span><span class="n">vztmpl</span><span class="p">,</span><span class="n">backup</span>
+
+<span class="c1"># default image store on LVM based installation</span>
+<span class="n">lvmthin</span><span class="p">:</span> <span class="n">local</span><span class="o">-</span><span class="n">lvm</span>
+        <span class="n">thinpool</span> <span class="n">data</span>
+        <span class="n">vgname</span> <span class="n">pve</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+
+<span class="c1"># default image store on ZFS based installation</span>
+<span class="n">zfspool</span><span class="p">:</span> <span class="n">local</span><span class="o">-</span><span class="n">zfs</span>
+        <span class="n">pool</span> <span class="n">rpool</span><span class="o">/</span><span class="n">data</span>
+        <span class="n">sparse</span>
+        <span class="n">content</span> <span class="n">images</span><span class="p">,</span><span class="n">rootdir</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 정확히 동일한 기본 스토리지를 가리키는 여러 스토리지 구성은 문제가 될 수 있습니다. 이러한 <span class="point">별칭(aliase)</span> 스토리지 구성은 정확히 동일한 디스크 이미지를 가리키는 두 개의 서로 다른 볼륨 ID(<span class="point">volid</span>)로 이어질 수 있습니다. Proxmox VE는 이미지의 볼륨 ID가 가리키는 이미지가 고유할 것으로 예상합니다. <span class="point">별칭(aliase)</span> 스토리지 구성에 다른 콘텐츠 유형을 선택하는 것은 괜찮을 수 있지만 권장하지는 않습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="id5">
+<h3>일반적인 스토리지 속성<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>몇 가지 스토리지 속성은 여러 스토리지 유형에서 공통적입니다.</p>
+<ul class="simple">
+<li><p><span class="point">nodes</span></p>
+<ul>
+<li><p>이 스토리지를 사용할 수 있거나 액세스할 수 있는 클러스터 노드 이름 목록입니다. 이 속성을 사용하여 스토리지 액세스를 제한된 노드 집합으로 제한할 수 있습니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">content</span></p>
+<ul>
+<li><p>스토리지가 가상 디스크 이미지, cdrom iso 이미지, 컨테이너 템플릿 또는 컨테이너 root 디렉터리 등 여러 콘텐츠 유형을 지원할 수 있습니다. 모든 스토리지 유형이 모든 콘텐츠 유형을 지원하는 것은 아닙니다. 이 속성을 설정하여 이 스토리지가 사용되는 용도를 선택할 수 있습니다.</p></li>
+<li><p><span class="point">images</span> : QEMU/KVM VM 이미지</p></li>
+<li><p><span class="point">rootdir</span> : 컨테이너 데이터 저장</p></li>
+<li><p><span class="point">vztmpl</span> : 컨테이너 템플릿</p></li>
+<li><p><span class="point">backup</span> : 백업 파일(<span class="point">vzdump</span>)</p></li>
+<li><p><span class="point">iso</span> : ISO 이미지</p></li>
+<li><p><span class="point">snippets</span> : 스니펫 파일(예: 게스트 후크 스크립트)</p></li>
+</ul>
+</li>
+<li><p><span class="point">shared</span></p>
+<ul>
+<li><p>모든 노드(또는 <span class="point">nodes</span> 옵션에 나열된 모든 노드)에 동일한 콘텐츠가 있는 단일 저장소임을 나타냅니다. 다른 노드에서 로컬 스토리지의 콘텐츠에 자동으로 액세스할 수 있게 하는 것이 아니라 이미 공유된 스토리지를 그렇게 표시할 뿐입니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">disable</span></p>
+<ul>
+<li><p>이 플래그를 사용하면 스토리지를 완전히 비활성화할 수 있습니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">maxfiles</span></p>
+<ul>
+<li><p>더 이상 사용되지 않습니다. 대신 <span class="point">prune-backups</span>를 사용하세요. VM당 최대 백업 파일 수입니다. 무제한의 경우 <span class="point">0</span>을 사용합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">prune-backups</span></p>
+<ul>
+<li><p>백업 보존 옵션입니다. 자세한 내용은 백업 보존을 참조하십시오.</p></li>
+</ul>
+</li>
+<li><p><span class="point">format</span></p>
+<ul>
+<li><p>기본 이미지 형식(<span class="point">raw|qcow2|vmdk</span>)</p></li>
+</ul>
+</li>
+<li><p><span class="point">preallocation</span></p>
+<ul>
+<li><p>파일 기반 스토리지의 <span class="point">raw</span> 및 <span class="point">qcow2</span> 이미지에 대한 사전 할당 모드(<span class="point">off|metadata|falloc|full</span>). 기본값은 <span class="point">metadata</span>이며, <span class="point">raw</span> 이미지의 경우 <span class="point">off</span>로 처리됩니다. 네트워크 저장소를 대용량 <span class="point">qcow2</span> 이미지와 함께 사용할 때는 <span class="point">off</span>를 사용하면 시간 초과를 피하는 데 도움이 됩니다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 서로 다른 Proxmox VE 클러스터에서 동일한 스토리지 풀을 사용하는 것은 바람직하지 않습니다. 일부 스토리지 작업에는 스토리지에 대한 독점 액세스가 필요하므로 적절한 잠금이 필요합니다. 이 기능은 클러스터 내에서 구현되지만 다른 클러스터 간에는 작동하지 않습니다.</p>
+</div></blockquote>
+<p><br><br></p>
 </section>
 </section>
 </section>
@@ -424,6 +503,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2. 스토리지 구성</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.1. 스토리지 풀</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">일반적인 스토리지 속성</a></li>
 </ul>
 </li>
 </ul>
