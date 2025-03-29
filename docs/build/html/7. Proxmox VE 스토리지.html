@@ -647,17 +647,17 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><span class="point"><VMID></span></p>
+<li><p><span class="point">&lt;VMID&gt;</span></p>
 <ul>
 <li><p>이것은 소유자 VM을 지정합니다.</p></li>
 </ul>
 </li>
-<li><p><span class="point"><NAME></span></p>
+<li><p><span class="point">&lt;NAME&gt;</span></p>
 <ul>
 <li><p>공백이 없는 임의의 이름(ascii)일 수 있습니다. 백엔드에서는 기본적으로 disk-[N]을 사용하며, 여기서 [N]은 정수로 대체되어 이름을 고유하게 만듭니다.</p></li>
 </ul>
 </li>
-<li><p><span class="point"><FORMAT></span></p>
+<li><p><span class="point">&lt;FORMAT&gt;</span></p>
 <ul>
 <li><p>이미지 포맷을 지정합니다(raw|qcow2|vmdk).</p></li>
 </ul>
@@ -675,8 +675,8 @@
 <h3>7.5.3. 스토리지 기능<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>위에서 언급했듯이 대부분의 파일 시스템은 기본적으로 스냅샷을 지원하지 않습니다. 이 문제를 해결하기 위해 이 백엔드는 qcow2 내부 스냅샷 기능을 사용할 수 있습니다.<br></p>
 <p>클론에도 동일하게 적용됩니다. 백엔드는 qcow2 기본 이미지 기능을 사용하여 클론을 생성합니다.<br></p>
-<p><span class="point"><img alt="" src="_images/info.png" /> 백엔드 디렉터리에 대한 스토리지 기능</span><br>
-|콘텐츠 유형|이미지 포맷|공유|스냅샷|클론|
+<p><span class="point"><img alt="" src="_images/info.png" /> 백엔드 디렉터리에 대한 스토리지 기능</span><br></p>
+<p>|콘텐츠 유형|이미지 포맷|공유|스냅샷|클론|
 |:—:|:—:|:–:|:—:|:—:|:—:|
 | - images<br>- rootdir<br> vztmpl<br> iso<br> backup<br> snippets<br>|</p>
 </section>
