@@ -676,11 +676,27 @@
 <p>위에서 언급했듯이 대부분의 파일 시스템은 기본적으로 스냅샷을 지원하지 않습니다. 이 문제를 해결하기 위해 이 백엔드는 qcow2 내부 스냅샷 기능을 사용할 수 있습니다.<br></p>
 <p>클론에도 동일하게 적용됩니다. 백엔드는 qcow2 기본 이미지 기능을 사용하여 클론을 생성합니다.<br></p>
 <p><span class="point"><img alt="" src="_images/info.png" /> 백엔드 디렉터리에 대한 스토리지 기능</span><br></p>
-<div style="text-align:center;">
-|콘텐츠 유형|이미지 포맷|공유|스냅샷|클론|
-|:---:|:---:|:---:|:---:|:---:|
-|- images<br>- rootdir<br>- vztmpl<br> iso<br> backup<br> snippets<br>|raw<br> qcow2<br> vmdk<br> subvol<br>|no|qcow2|qcow2|
+<center>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>- images<br>- rootdir<br>- vztmpl<br> iso<br> backup<br> snippets<br></p></td>
+<td class="text-center"><p>raw<br> qcow2<br> vmdk<br> subvol<br></p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>qcow2</p></td>
+<td class="text-center"><p>qcow2</p></td>
+</tr>
+</tbody>
+</table>
 </div>
+</center>
 </section>
 </section>
 </section>
