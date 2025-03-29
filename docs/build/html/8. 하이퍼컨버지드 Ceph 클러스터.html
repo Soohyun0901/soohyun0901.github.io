@@ -49,7 +49,7 @@
     <link rel="icon" href="_static/virton-favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="7. Proxmox VE 스토리지.md" href="7.%20Proxmox%20VE%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80.html" />
+    <link rel="prev" title="7. Proxmox VE 스토리지" href="7.%20Proxmox%20VE%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80.html" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
   </head>
@@ -152,7 +152,7 @@
 <li class="toctree-l1"><a class="reference internal" href="4.%20GUI.html">4. GUI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%20%EA%B4%80%EB%A6%AC%EC%9E%90.html">5. 클러스터 관리자</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6.%20Proxmox%20Cluster%20File%20System%28pmxcfs%29.html">6. Proxmox Cluster File System(pmxcfs)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.%20Proxmox%20VE%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80.html">7. Proxmox VE 스토리지.md</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.%20Proxmox%20VE%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80.html">7. Proxmox VE 스토리지</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">8. 하이퍼컨버지드 Ceph 클러스터</a></li>
 </ul>
 
@@ -276,7 +276,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -292,6 +294,42 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.1. 소개</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.2. 기술</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.3. 안정적인 Ceph 클러스터를 위한 권장 사항</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.4. 초기 Ceph 설치 및 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.4.1. 웹 기반 마법사 사용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-cli">8.4.2. Ceph 패키지의 CLI 설치</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-ceph">8.4.3. CLI를 통한 초기 Ceph 구성</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.5. Ceph 모니터</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5.1. 모니터 만들기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.2. 모니터 삭제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.6. Ceph 매니저</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.6.1. 관리자 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#destroy-manager">8.6.2. Destroy Manager</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-osds">8.7. Ceph OSDs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#osd">8.7.1. OSD 만들기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">8.7.2. OSD 삭제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-pools">8.8. Ceph Pools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">8.8.1. 풀 만들기 및 편집</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">8.8.2. 삭제 코딩 풀</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -303,6 +341,373 @@
                   
   <section id="ceph">
 <h1>8. 하이퍼컨버지드 Ceph 클러스터<a class="headerlink" href="#ceph" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>8.1. 소개<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p><img alt="" src="_images/img33.png" /><br>
+Proxmox VE는 컴퓨팅 및 스토리지 시스템을 통합합니다. 즉, 클러스터 내에서 동일한 물리적 노드를 컴퓨팅(VM 및 컨테이너 처리)과 복제 스토리지에 모두 사용할 수 있습니다. 컴퓨팅 및 스토리지 리소스의 기존 사일로를 단일 하이퍼 컨버지드 어플라이언스로 묶을 수 있습니다. 별도의 스토리지 네트워크(SAN)와 네트워크 연결 스토리지(NAS)를 통한 연결이 사라집니다. 오픈 소스 소프트웨어 정의 스토리지 플랫폼인 Ceph와 통합된 Proxmox VE는 하이퍼바이저 노드에서 직접 Ceph 스토리지를 실행하고 관리할 수 있습니다.<br>
+Ceph는 뛰어난 성능, 안정성 및 확장성을 제공하도록 설계된 분산 객체 저장소 및 파일 시스템입니다.</p>
+<p><span class="point"><img alt="" src="_images/info.png" /> Proxmox VE에서 Ceph의 장점</span><br></p>
+<ul class="simple">
+<li><p>CLI 및 GUI를 통한 간편한 설정 및 관리</p></li>
+<li><p>씬 프로비저닝</p></li>
+<li><p>스냅샷 지원</p></li>
+<li><p>자체 복구</p></li>
+<li><p>엑사바이트 수준으로 확장 가능</p></li>
+<li><p>블록, 파일 시스템 및 개체 스토리지 제공</p></li>
+<li><p>다양한 성능 및 중복성 특성을 가진 풀 설정</p></li>
+<li><p>데이터가 복제되어 내결함성이 있음</p></li>
+<li><p>일반 하드웨어에서 실행</p></li>
+<li><p>하드웨어 RAID 컨트롤러가 필요 없음</p></li>
+<li><p>오픈 소스</p></li>
+</ul>
+<p>소규모에서 중규모 배포의 경우 Proxmox VE 클러스터 노드에 직접 RADOS 블록 장치(RBD) 또는 CephFS를 사용하기 위한 Ceph 서버를 설치할 수 있습니다(Ceph RADOS 블록 장치(RBD) 참조). 최신 하드웨어에는 CPU 성능과 RAM이 많으므로 동일한 노드에서 스토리지 서비스와 가상 게스트를 실행할 수 있습니다.</p>
+<p>관리를 간소화하기 위해 Proxmox VE는 내장된 웹 인터페이스나 <span class="point">pveceph</span> 명령줄 도구를 사용하여 Proxmox VE 노드에 Ceph 서비스를 설치하고 관리할 수 있는 기본 통합 기능을 제공합니다. <br><br></p>
+</section>
+<section id="id2">
+<h2>8.2. 기술<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p><span class="point"><img alt="" src="_images/info.png" /> Ceph는 RBD 저장소로 사용하기 위해 여러 Daemon으로 구성되어 있습니다.</span><br></p>
+<ul class="simple">
+<li><p>Ceph Monitor(ceph-mon 또는 MON)</p></li>
+<li><p>Ceph Manager(ceph-mgr 또는 MGS)</p></li>
+<li><p>Ceph Metadata Service(ceph-mds 또는 MDS)</p></li>
+<li><p>Ceph Object Storage Daemon(ceph-osd 또는 OSD)</p></li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id3">
+<h2>8.3. 안정적인 Ceph 클러스터를 위한 권장 사항<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>하이퍼 컨버지드 Proxmox + Ceph 클러스터를 구축하려면 설정에 최소 3개(바람직하게는) 동일한 서버를 사용해야 합니다.<br>
+Ceph 웹사이트의 권장 사항도 확인하세요.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 아래 권장 사항은 하드웨어 선택을 위한 대략적인 지침으로 간주해야 합니다. 따라서 여전히 특정 요구 사항에 맞게 조정하는 것이 필수적입니다. 설정을 테스트하고 상태와 성능을 지속적으로 모니터링해야 합니다.</p>
+</div></blockquote>
+<br>
+<span class="point">![](../source/_static/img/info.png) CPU</span><br>
+Ceph 서비스는 두 가지 범주로 분류할 수 있습니다.
+<ul class="simple">
+<li><p>높은 CPU 기본 주파수와 여러 코어의 이점을 활용하는 집중적인 CPU 사용. 해당 범주의 멤버는 다음과 같습니다.</p>
+<ul>
+<li><p>Object Storage Daemon(OSD) 서비스</p></li>
+<li><p>CephFS에 사용되는 Meta Data Service(MDS)</p></li>
+</ul>
+</li>
+<li><p>다중 CPU 코어가 필요하지 않은 적당한 CPU 사용. 이는 다음과 같습니다.</p>
+<ul>
+<li><p>Monitor(MON) 서비스</p></li>
+<li><p>Manager(MGR) 서비스</p></li>
+</ul>
+</li>
+</ul>
+<p>간단한 경험칙으로, 안정적이고 지속적인 Ceph 성능에 필요한 최소한의 리소스를 제공하기 위해 각 Ceph 서비스에 최소한 하나의 CPU 코어(또는 스레드)를 할당해야 합니다.<br></p>
+<p>예를 들어, Ceph 모니터, Ceph 관리자 및 6개의 Ceph OSD 서비스를 노드에서 실행하려는 경우 기본적이고 안정적인 성능을 목표로 할 때 Ceph 전용으로 8개의 CPU 코어를 예약해야 합니다.<br></p>
+<p>OSD의 CPU 사용은 주로 디스크 성능에 따라 달라집니다. 디스크의 가능한 <span class="point">IOPS</span>(초당 IO 작업)가 높을수록 OSD 서비스에서 더 많은 CPU를 활용할 수 있습니다. 100,000 이상의 높은 IOPS 부하를 밀리초 미만의 지연 시간으로 영구적으로 유지할 수 있는 NVMe와 같은 최신 엔터프라이즈 SSD 디스크의 경우 각 OSD는 여러 CPU 스레드를 사용할 수 있습니다. 예를 들어 NVMe 지원 OSD당 4~6개의 CPU 스레드가 사용되는 것은 매우 고성능 디스크에 적합합니다.<br><br>
+<span class="point"><img alt="" src="_images/info.png" /> Memory</span><br>
+특히 하이퍼 컨버지드 설정에서 메모리 소비는 신중하게 계획하고 모니터링해야 합니다. 가상 머신과 컨테이너의 예상 메모리 사용량 외에도 Ceph가 우수하고 안정적인 성능을 제공할 수 있도록 충분한 메모리를 확보해야 합니다.<br></p>
+<p>경험적으로 약 <span class="point">1TiB의 데이터</span>에 대해 OSD에서 <span class="point">1GiB의 메모리</span>를 사용합니다. 정상적인 조건에서는 사용량이 적을 수 있지만 복구, 리밸런싱 또는 백필링과 같은 중요한 작업에서는 가장 많이 사용합니다. 즉, 정상적인 작업에서 이미 사용 가능한 메모리를 최대한 사용하지 말고 중단에 대처할 여유를 남겨야 합니다.<br></p>
+<p>OSD 서비스 자체는 추가 메모리를 사용합니다. 데몬의 Ceph BlueStore 백엔드는 기본적으로 <span class="point">3-5GiB의 메모리</span>(조정 가능)가 필요합니다.<br><br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> 네트워크</span><br>
+Ceph 트래픽에만 독점적으로 사용할 최소 10Gbps 이상의 네트워크 대역폭을 권장합니다. 10+ Gbps 스위치를 사용할 수 없는 경우 3~5개 노드 클러스터에 대한 메시형 네트워크 설정[17]도 옵션입니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 사항 특히 복구 중 트래픽 볼륨은 동일한 네트워크의 다른 서비스를 방해할 수 있으며, 특히 지연에 민감한 Proxmox VE 코로싱크 클러스터 스택이 영향을 받아 클러스터 쿼럼이 손실될 수 있습니다. Ceph 트래픽을 전용 및 물리적으로 분리된 네트워크로 이동하면 코로싱크뿐만 아니라 모든 가상 게스트가 제공하는 네트워킹 서비스에도 이러한 간섭이 발생하지 않습니다.</p>
+</div></blockquote>
+<p>대역폭 요구 사항을 추정하려면 디스크의 성능을 고려해야 합니다. 단일 HDD가 1Gb 링크를 포화시키지 못할 수 있지만 노드당 여러 HDD OSD도 이미 10Gbps를 포화시킬 수 있습니다. 최신 NVMe 연결 SSD를 사용하는 경우 단일 SSD가 이미 10Gbps 이상의 대역폭을 포화시킬 수 있습니다. 이러한 고성능 설정의 경우 최소 25Gbps를 권장하지만 기본 디스크의 전체 성능 잠재력을 활용하려면 40Gbps 또는 100Gbps 이상이 필요할 수 있습니다.<br>
+확실하지 않은 경우 고성능 설정에 대해 세 개의 (물리적) 별도 네트워크를 사용하는 것이 좋습니다.</p>
+<ul class="simple">
+<li><p>Ceph(내부) 클러스터 트래픽을 위한 매우 높은 대역폭(25Gbps 이상) 네트워크 하나</p></li>
+<li><p>Ceph 서버와 Ceph 클라이언트 스토리지 트래픽 간의 Ceph(공개) 트래픽을 위한 고대역폭(10Gbps 이상) 네트워크 하나. 필요에 따라 가상 게스트 트래픽과 VM 라이브 마이그레이션 트래픽을 호스팅하는 데 사용할 수도 있습니다.</p></li>
+<li><p>지연에 민감한 corosync 클러스터 통신을 위한 중간 대역폭(1Gbps) 하나.</p></li>
+</ul>
+<p><br><br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> 디스크</span><br>
+Ceph 클러스터의 크기를 계획할 때 복구 시간을 고려하는 것이 중요합니다. 특히 작은 클러스터의 경우 복구에 시간이 오래 걸릴 수 있습니다. 복구 시간을 줄이고 복구 중에 후속 실패 이벤트가 발생할 가능성을 최소화하기 위해 작은 설정에서 HDD 대신 SSD를 사용하는 것이 좋습니다.<br></p>
+<p>일반적으로 SSD는 회전 디스크보다 더 많은 IOPS를 제공합니다. 이를 염두에 두고 더 높은 비용 외에도 풀의 클래스 기반 분리를 구현하는 것이 합리적일 수 있습니다. OSD 속도를 높이는 또 다른 방법은 저널 또는 DB/<span class="point">W</span>rite-<span class="point">A</span>head-<span class="point">L</span>og 장치로 더 빠른 디스크를 사용하는 것입니다(Ceph OSD 만들기 참조). 여러 OSD에 더 빠른 디스크를 사용하는 경우 OSD와 WAL/DB(또는 저널) 디스크 간에 적절한 균형을 선택해야 합니다. 그렇지 않으면 더 빠른 디스크가 모든 연결된 OSD의 병목 현상이 됩니다.<br></p>
+<p>디스크 유형 외에도 Ceph는 노드당 균일한 크기와 균일하게 분산된 양의 디스크에서 최상의 성능을 발휘합니다. 예를 들어, 각 노드 내에 4개의 500GB 디스크가 단일 1TB와 3개의 250GB 디스크를 혼합한 설정보다 더 좋습니다.<br></p>
+<p>또한 OSD 수와 단일 OSD 용량의 균형을 맞춰야 합니다. 용량이 많을수록 스토리지 밀도가 높아지지만, 단일 OSD 장애로 인해 Ceph가 한 번에 더 많은 데이터를 복구해야 한다는 의미이기도 합니다.
+<br><br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> RAID 피하기</span><br>
+Ceph는 데이터 객체 중복성과 디스크에 대한 여러 병렬 쓰기(OSD)를 자체적으로 처리하므로 RAID 컨트롤러를 사용해도 일반적으로 성능이나 가용성이 향상되지 않습니다. 반대로 Ceph는 중간에 추상화 없이 전체 디스크를 자체적으로 처리하도록 설계되었습니다. RAID 컨트롤러는 Ceph 워크로드를 위해 설계되지 않았으며 쓰기 및 캐싱 알고리즘이 Ceph의 알고리즘과 간섭할 수 있으므로 상황을 복잡하게 만들고 때로는 성능을 저하시킬 수도 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> RAID 컨트롤러는 사용하지 마십시오. 대신 호스트 버스 어댑터(HBA)를 사용하십시오.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="id4">
+<h2>8.4. 초기 Ceph 설치 및 구성<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3>8.4.1. 웹 기반 마법사 사용<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p><img alt="" src="_images/img34.png" /><br></p>
+<p>Proxmox VE를 사용하면 Ceph에 대한 사용하기 쉬운 설치 마법사를 활용할 수 있습니다. 클러스터 노드 중 하나를 클릭하고 메뉴 트리에서 Ceph 섹션으로 이동합니다. Ceph가 아직 설치되지 않은 경우 설치하라는 메시지가 표시됩니다.
+마법사는 여러 섹션으로 나뉘며, 각 섹션을 성공적으로 완료해야 Ceph를 사용할 수 있습니다.<br></p>
+<p>먼저 설치할 Ceph 버전을 선택해야 합니다. 다른 노드의 버전을 선호하거나 Ceph를 처음 설치하는 노드인 경우 최신 버전을 선호합니다.<br></p>
+<p>설치를 시작하면 마법사가 Proxmox VE의 Ceph 저장소에서 필요한 모든 패키지를 다운로드하여 설치합니다.</p>
+<p><img alt="" src="_images/img35.png" /><br>
+설치 단계를 마치면 구성을 만들어야 합니다. 이 단계는 클러스터당 한 번만 필요합니다. 이 구성은 Proxmox VE의 클러스터형 <span class="point">구성 파일 시스템(pmxcfs)</span>을 통해 나머지 모든 클러스터 멤버에게 자동으로 배포되기 때문입니다.<br></p>
+<p>구성 단계에는 다음 설정이 포함됩니다.</p>
+<ul class="simple">
+<li><p><span class="point">Public Network:</span></p>
+<ul>
+<li><p>이 네트워크는 공용 스토리지 통신(예: Ceph RBD 백업 디스크를 사용하는 가상 머신 또는 CephFS 마운트) 및 다양한 Ceph 서비스 간 통신에 사용됩니다. 이 설정은 필수입니다.<br> Ceph 트래픽을 Proxmox VE 클러스터 통신(corosync) 및 가상 게스트의 전면(공용) 네트워크에서 분리하는 것이 좋습니다. 그렇지 않으면 Ceph의 고대역폭 IO 트래픽이 다른 저지연 종속 서비스에 간섭을 일으킬 수 있습니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Cluster Network:</span></p>
+<ul>
+<li><p>OSD 복제 및 하트비트 트래픽도 분리하도록 지정합니다. 이 설정은 선택 사항입니다.<br> 물리적으로 분리된 네트워크를 사용하는 것이 좋습니다. Ceph 공용 및 가상 게스트 네트워크의 부담을 덜어주고 Ceph 성능을 크게 개선할 수 있기 때문입니다.<br> Ceph 클러스터 네트워크는 나중에 다른 물리적으로 분리된 네트워크로 구성하여 이동할 수 있습니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="_images/img36.png" /><br></p>
+<p>고급 옵션으로 간주되므로 무엇을 하는지 알고 있는 경우에만 변경해야 하는 두 가지 옵션이 더 있습니다.</p>
+<ul class="simple">
+<li><p><span class="point">Number of replicas:</span></p>
+<ul>
+<li><p>개체가 복제되는 빈도를 정의합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Minimum replicas:</span></p>
+<ul>
+<li><p>I/O가 완료로 표시되기 위해 필요한 최소 복제본 수를 정의합니다.</p></li>
+</ul>
+</li>
+</ul>
+<p>또한 첫 번째 모니터 노드를 선택해야 합니다. 이 단계는 필수입니다.<br>
+이제 마지막 단계로 성공 페이지가 표시되고 진행 방법에 대한 추가 지침이 표시됩니다. 이제 시스템에서 Ceph를 사용할 준비가 되었습니다. 시작하려면 추가 모니터, OSD 및 최소 하나의 풀을 만들어야 합니다.<br></p>
+<p>이 장의 나머지 부분에서는 Proxmox VE 기반 Ceph 설정을 최대한 활용하는 방법을 안내합니다. 여기에는 앞서 언급한 팁과 새로운 Ceph 클러스터에 유용한 추가 기능인 CephFS가 포함됩니다.<br><br></p>
+</section>
+<section id="ceph-cli">
+<h3>8.4.2. Ceph 패키지의 CLI 설치<a class="headerlink" href="#ceph-cli" title="Link to this heading">#</a></h3>
+<p>웹 인터페이스에서 제공되는 권장 Proxmox VE Ceph 설치 마법사 대신, 각 노드에서 다음 CLI 명령을 사용할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>이렇게 하면 <span class="point">/etc/apt/sources.list.d/ceph.list</span>에 <span class="point">apt</span> 패키지 저장소가 설정되고 필요한 소프트웨어가 설치됩니다.<br><br></p>
+</section>
+<section id="cli-ceph">
+<h3>8.4.3. CLI를 통한 초기 Ceph 구성<a class="headerlink" href="#cli-ceph" title="Link to this heading">#</a></h3>
+<p>Proxmox VE Ceph 설치 마법사(권장)를 사용하거나 한 노드에서 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">init</span> <span class="o">--</span><span class="n">network</span> <span class="mf">10.10.10.0</span><span class="o">/</span><span class="mi">24</span>
+</pre></div>
+</div>
+<p>이렇게 하면 Ceph 전용 네트워크가 있는 <span class="point">/etc/pve/ceph.conf</span>에 초기 구성이 생성됩니다. 이 파일은 pmxcfs를 사용하여 모든 Proxmox VE 노드에 자동으로 배포됩니다. 이 명령은 또한 해당 파일을 가리키는 <span class="point">/etc/ceph/ceph.conf</span>에 심볼릭 링크를 생성합니다. 따라서 구성 파일을 지정할 필요 없이 Ceph 명령을 간단히 실행할 수 있습니다.</p>
+<p><br><br></p>
+</section>
+</section>
+<section id="id6">
+<h2>8.5. Ceph 모니터<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p><img alt="" src="_images/img37.png" /><br>
+Ceph Monitor(MON)는 클러스터 맵의 마스터 사본을 유지합니다. 고가용성을 위해서는 최소 3개의 모니터가 필요합니다. 설치 마법사를 사용한 경우 하나의 모니터가 이미 설치되어 있습니다. 클러스터가 소규모에서 중규모인 한 3개 이상의 모니터는 필요하지 않습니다. 정말 큰 클러스터에만 이보다 더 많은 모니터가 필요합니다.<br><br></p>
+<section id="id7">
+<h3>8.5.1. 모니터 만들기<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>모니터를 배치하려는 각 노드에서(3개의 모니터 권장) GUI에서 <span class="point">Ceph → Monitor</span> 탭을 사용하거나 다음을 실행하여 모니터를 만듭니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">mon</span> <span class="n">create</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id8">
+<h3>8.5.2. 모니터 삭제<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>GUI를 통해 Ceph Monitor를 제거하려면 먼저 트리 뷰에서 노드를 선택하고 <span class="point">Ceph → Monitor</span> 패널로 이동합니다. MON을 선택하고 <span class="point">Destroy</span> 버튼을 클릭합니다.<br></p>
+<p>CLI를 통해 Ceph Monitor를 제거하려면 먼저 MON이 실행 중인 노드에 연결합니다. 그런 다음 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">mon</span> <span class="n">destroy</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 정족수를 위해서는 최소 3개의 쿼럼이 필요합니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="id9">
+<h2>8.6. Ceph 매니저<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>Manager 데몬은 모니터와 함께 실행됩니다. 클러스터를 모니터링하기 위한 인터페이스를 제공합니다. Ceph luminous가 출시된 이후로 최소한 하나의 ceph-mgr 데몬이 필요합니다.<br><br></p>
+<section id="id10">
+<h3>8.6.1. 관리자 생성<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>여러 관리자를 설치할 수 있지만, 주어진 시간에 활성화되는 관리자는 하나뿐입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">mgr</span> <span class="n">create</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 모니터 노드에 Ceph Manager를 설치하는 것이 좋습니다. 고가용성을 위해 두 개 이상의 매니저를 설치합니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="destroy-manager">
+<h3>8.6.2. Destroy Manager<a class="headerlink" href="#destroy-manager" title="Link to this heading">#</a></h3>
+<p>GUI를 통해 Ceph Manager를 제거하려면 먼저 트리 뷰에서 노드를 선택하고 <span class="point">Ceph → Monitor</span> 패널로 이동합니다. Manager를 선택하고 <span class="point">Destroy</span> 버튼을 클릭합니다.<br></p>
+<p>CLI를 통해 Ceph Monitor를 제거하려면 먼저 Manager가 실행 중인 노드에 연결합니다. 그런 다음 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">mgr</span> <span class="n">destroy</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> Manager는 하드 종속성이 아니지만 Ceph 클러스터에 필수적입니다. PG 자동 확장, 장치 상태 모니터링, 원격 측정 등과 같은 중요한 기능을 처리하기 때문입니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="ceph-osds">
+<h2>8.7. Ceph OSDs<a class="headerlink" href="#ceph-osds" title="Link to this heading">#</a></h2>
+<p><img alt="" src="_images/img38.png" /><br></p>
+<p>Ceph <span class="point">O</span>bject <span class="point">S</span>torage <span class="point">D</span>aemon은 네트워크를 통해 Ceph의 객체를 저장합니다. 물리적 디스크당 하나의 OSD를 사용하는 것이 좋습니다.</p>
+<section id="osd">
+<h3>8.7.1. OSD 만들기<a class="headerlink" href="#osd" title="Link to this heading">#</a></h3>
+<p>Proxmox VE 웹 인터페이스나 pveceph를 사용하여 CLI를 통해 OSD를 만들 수 있습니다. 예:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">osd</span> <span class="n">create</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">X</span><span class="p">]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 최소 3개의 노드와 최소 12개의 OSD가 있는 Ceph 클러스터를 노드에 균등하게 분산하는 것이 좋습니다.</p>
+</div></blockquote>
+<p>디스크가 이전에 사용 중이었다면(예: ZFS 또는 OSD로) 먼저 해당 사용의 모든 흔적을 삭제해야 합니다. 파티션 테이블, 부트 섹터 및 기타 남은 OSD를 제거하려면 다음 명령을 사용할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span><span class="o">-</span><span class="n">volume</span> <span class="n">lvm</span> <span class="n">zap</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">--</span><span class="n">destroy</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 위 명령은 디스크의 모든 데이터를 삭제합니다!</p>
+</div></blockquote>
+<br>
+<span class="point">![](../source/_static/img/info.png) Ceph Bluestore</span><br>
+<p>Ceph Kraken 릴리스부터 Bluestore라는 새로운 Ceph OSD 스토리지 유형이 도입되었습니다[20]. 이는 Ceph Luminous 이후로 OSD를 생성할 때의 기본값입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">osd</span> <span class="n">create</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">X</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><span class="point"><img alt="" src="_images/info.png" /> Block.db 및 block.wal</span><br>
+OSD에 별도의 DB/WAL 장치를 사용하려면 <span class="point">-db_dev</span> 및 <span class="point">-wal_dev</span> 옵션을 통해 지정할 수 있습니다. 별도로 지정하지 않으면 WAL이 DB와 ​​함께 배치됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">osd</span> <span class="n">create</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">-</span><span class="n">db_dev</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">-</span><span class="n">wal_dev</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">Z</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>각각 <span class="point">-db_size</span> 및 <span class="point">-wal_size</span> 매개변수를 사용하여 해당 크기를 직접 선택할 수 있습니다. 지정되지 않은 경우 다음 값이 순서대로 사용됩니다.</p>
+<ul class="simple">
+<li><p>ceph 구성의 bluestore_block_{db,wal}_size…</p>
+<ul>
+<li><p>… database, section <span class="point"></span>osd</p></li>
+<li><p>… database, section <span class="point"></span>global</p></li>
+<li><p>… file, section <span class="point"></span>osd</p></li>
+<li><p>… file, section <span class="point"></span>global</p></li>
+</ul>
+</li>
+<li><p>OSD 크기의 10% (DB)/1% (WAL)</p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> DB는 BlueStore의 내부 메타데이터를 저장하고 WAL은 BlueStore의 내부 저널 또는 미리 쓰기 로그입니다. 더 나은 성능을 위해 빠른 SSD 또는 NVRAM을 사용하는 것이 좋습니다.</p>
+</div></blockquote>
+<br>
+<span class="point">![](../source/_static/img/info.png) Ceph Filestore</span><br>
+<p>Ceph Luminous 이전에는 Filestore가 Ceph OSD의 기본 스토리지 유형으로 사용되었습니다. Ceph Nautilus부터 Proxmox VE는 더 이상 <span class="point">pveceph</span>로 이러한 OSD를 만드는 것을 지원하지 않습니다. 여전히 filestore OSD를 만들려면 <span class="point">ceph-volume</span>을 직접 사용하세요.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span><span class="o">-</span><span class="n">volume</span> <span class="n">lvm</span> <span class="n">create</span> <span class="o">--</span><span class="n">filestore</span> <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">--</span><span class="n">journal</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id11">
+<h3>8.7.2. OSD 삭제<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>GUI를 통해 OSD를 제거하려면 먼저 트리 뷰에서 Proxmox VE 노드를 선택하고 <span class="point">Ceph → OSD</span> 패널로 이동합니다. 그런 다음 삭제할 OSD를 선택하고 <span class="point">OUT</span> 버튼을 클릭합니다. OSD 상태가 <span class="point">in</span>에서 <span class="point">out</span>으로 변경되면 <span class="point">STOP</span> 버튼을 클릭합니다. 마지막으로 상태가 <span class="point">up</span>에서 <span class="point">down</span>으로 변경되면 <span class="point">More</span> 드롭다운 메뉴에서 <span class="point">Destroy</span>를 선택합니다.<br></p>
+<p>CLI를 통해 OSD를 제거하려면 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="n">out</span> <span class="o">&lt;</span><span class="n">ID</span><span class="o">&gt;</span>
+<span class="n">systemctl</span> <span class="n">stop</span> <span class="n">ceph</span><span class="o">-</span><span class="n">osd</span><span class="o">@&lt;</span><span class="n">ID</span><span class="o">&gt;.</span><span class="n">service</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 첫 번째 명령은 Ceph에 데이터 배포에 OSD를 포함하지 않도록 지시합니다. 두 번째 명령은 OSD 서비스를 중지합니다. 이 때까지는 데이터가 손실되지 않습니다.</p>
+</div></blockquote>
+<p>다음 명령은 OSD를 삭제합니다. <span class="point">-cleanup </span> 옵션을 지정하여 파티션 테이블을 추가로 삭제합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">osd</span> <span class="n">destroy</span> <span class="o">&lt;</span><span class="n">ID</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 위 명령은 디스크의 모든 데이터를 삭제합니다!</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="ceph-pools">
+<h2>8.8. Ceph Pools<a class="headerlink" href="#ceph-pools" title="Link to this heading">#</a></h2>
+<p><img alt="" src="_images/img39.png" /><br></p>
+<p>풀은 객체를 저장하기 위한 논리적 그룹입니다. 배치 그룹(<span class="point">PG, pg_num</span>)이라고 하는 객체 컬렉션을 보관합니다.</p>
+<section id="id12">
+<h3>8.8.1. 풀 만들기 및 편집<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p><span class="point">Ceph → Pools</span>에서 Proxmox VE 호스트의 명령줄이나 웹 인터페이스에서 풀을 만들고 편집할 수 있습니다.<br></p>
+<p>옵션을 지정하지 않으면 OSD에 오류가 발생해도 데이터 손실이 발생하지 않도록 기본값인 <span class="point">PG 128개, 복제본 크기 3개, 복제본 최소 크기 2개</span>를 설정합니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> <span class="point">최소 크기를 1로 설정하지 마세요.</span> 최소 크기가 1인 복제 풀은 복제본이 1개만 있는 경우 객체에 대한 I/O를 허용하여 데이터 손실, 불완전한 PG 또는 찾을 수 없는 객체로 이어질 수 있습니다.</p>
+</div></blockquote>
+<p>PG-Autoscaler를 활성화하거나 설정에 따라 PG 번호를 계산하는 것이 좋습니다. 공식과 PG 계산기를 온라인에서 찾을 수 있습니다. Ceph Nautilus부터는 설정 후에 PG 수를 변경할 수 있습니다.<br></p>
+<p>PG 자동 확장기는 백그라운드에서 풀의 PG 수를 자동으로 확장할 수 있습니다. <span class="point">대상 크기</span> 또는 <span class="point">대상 비율</span> 고급 매개변수를 설정하면 PG 자동 확장기가 더 나은 결정을 내리는 데 도움이 됩니다.<br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> CLI에서 풀을 만드는 예</span><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">pool</span> <span class="n">create</span> <span class="o">&lt;</span><span class="n">pool</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">add_storages</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 풀에 대한 스토리지를 자동으로 정의하려면 웹 인터페이스에서 ‘Add as Storage(스토리지로 추가)’ 확인란을 선택한 상태로 유지하거나 풀을 만들 때 명령줄 옵션 <span class="point">–add_storages</span>를 사용합니다.
+<br></p>
+</div></blockquote>
+<p><span class="point"><img alt="" src="_images/info.png" /> Pool 옵션</span><br>
+<img alt="" src="_images/img40.png" /><br></p>
+<p>다음 옵션은 풀 생성 시 사용할 수 있으며, 풀을 편집할 때도 부분적으로 사용할 수 있습니다.</p>
+<ul class="simple">
+<li><p><span class="point">Name</span></p>
+<ul>
+<li><p>풀의 이름입니다. 고유해야 하며 나중에 변경할 수 없습니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Size</span></p>
+<ul>
+<li><p>객체당 복제본 수입니다. Ceph는 항상 이 수의 객체 사본을 가지려고 합니다. <span class="point">기본값: 3</span>.</p></li>
+</ul>
+</li>
+<li><p><span class="point">PG Autoscale Mode</span></p>
+<ul>
+<li><p>풀의 자동 PG 크기 조정 모드입니다. 경고로 설정하면 풀의 PG 수가 최적이 아닐 때 경고 메시지를 생성합니다. <span class="point">기본값: warn(경고)</span>.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Add as Storage</span></p>
+<ul>
+<li><p>새 풀을 사용하여 VM 또는 컨테이너 저장소를 구성합니다. <span class="point">기본값: true</span>(생성 시에만 표시됨).
+<br></p></li>
+</ul>
+</li>
+</ul>
+<p><span class="point"><img alt="" src="_images/info.png" /> 고급 옵션</span><br></p>
+<ul class="simple">
+<li><p><span class="point">Min. Size</span></p>
+<ul>
+<li><p>객체당 복제본의 최소 수입니다. Ceph는 PG의 복제본 수가 이 수보다 적을 경우 풀에서 I/O를 거부합니다. <span class="point">기본값: 2</span>.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Crush Rule</span></p>
+<ul>
+<li><p>클러스터에서 객체 배치를 매핑하는 데 사용할 규칙입니다. 이러한 규칙은 클러스터 내에서 데이터를 배치하는 방법을 정의합니다. 장치 기반 규칙에 대한 자세한 내용은 Ceph CRUSH 및 장치 클래스를 참조하세요.</p></li>
+</ul>
+</li>
+<li><p><span class="point"># of PGs</span></p>
+<ul>
+<li><p>풀이 처음에 가져야 하는 배치 그룹 수. <span class="point">기본값: 128</span>.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Target Ratio</span></p>
+<ul>
+<li><p>풀에서 예상되는 데이터 비율입니다. PG 자동 스케일러는 다른 비율 세트에 대한 비율을 사용합니다. 둘 다 설정된 경우 <span class="point">Target Size</span>보다 우선합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Target Size</span></p>
+<ul>
+<li><p>풀에서 예상되는 데이터 양입니다. PG 자동 스케일러는 이 크기를 사용하여 최적의 PG 수를 추정합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">Min. # of PGs</span></p>
+<ul>
+<li><p>배치 그룹의 최소 수입니다. 이 설정은 해당 풀의 PG 수 하한을 미세 조정하는 데 사용됩니다. PG 자동 스케일러는 이 임계값 아래의 PG를 병합하지 않습니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id13">
+<h3>8.8.2. 삭제 코딩 풀<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>삭제 코딩(EC)은 일정량의 데이터 손실을 복구할 수 있는 ‘전방 오류 정정’ 코드의 한 형태입니다. 삭제 코딩 풀은 복제 풀에 비해 더 많은 사용 가능한 공간을 제공할 수 있지만, 이는 성능의 대가입니다.<br></p>
+<p>비교를 위해: 클래식 복제 풀에서는 데이터의 여러 복제본이 저장되는 반면(<span class="point">size</span>) 삭제 코딩 풀에서는 데이터가 추가<span class="point">m</span>  코딩(checking) 청크와 함께 <span class="point">k</span> 데이터 청크로 분할됩니다. 이러한 코딩 청크는 데이터 청크가 누락된 경우 데이터를 다시 만드는 데 사용할 수 있습니다.<br></p>
+<p>코딩 청크 수 m은 데이터를 잃지 않고 손실될 수 있는 OSD 수를 정의합니다. 저장된 총 객체 수는<span class="point"> k + m</span>입니다.
+<br><br></p>
+</section>
+</section>
 </section>
 
 
@@ -322,7 +727,7 @@
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">7. Proxmox VE 스토리지.md</p>
+        <p class="prev-next-title">7. Proxmox VE 스토리지</p>
       </div>
     </a>
 </div>
@@ -331,6 +736,50 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.1. 소개</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.2. 기술</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.3. 안정적인 Ceph 클러스터를 위한 권장 사항</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.4. 초기 Ceph 설치 및 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.4.1. 웹 기반 마법사 사용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-cli">8.4.2. Ceph 패키지의 CLI 설치</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-ceph">8.4.3. CLI를 통한 초기 Ceph 구성</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.5. Ceph 모니터</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5.1. 모니터 만들기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.2. 모니터 삭제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.6. Ceph 매니저</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.6.1. 관리자 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#destroy-manager">8.6.2. Destroy Manager</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-osds">8.7. Ceph OSDs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#osd">8.7.1. OSD 만들기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">8.7.2. OSD 삭제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-pools">8.8. Ceph Pools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">8.8.1. 풀 만들기 및 편집</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">8.8.2. 삭제 코딩 풀</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
