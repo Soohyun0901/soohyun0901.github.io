@@ -326,8 +326,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-pools">8.8. Ceph Pools</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">8.8.1. 풀 만들기 및 편집</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">8.8.2. 삭제 코딩 풀</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">8.3.3. 풀 삭제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pg">8.3.4. PG 자동 스케일러</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-crush">8.9. Ceph CRUSH 및 장치 클래스</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">8.10. Ceph 클라이언트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">8.11.</a></li>
 </ul>
             </nav>
         </div>
@@ -706,7 +711,164 @@ OSD에 별도의 DB/WAL 장치를 사용하려면 <span class="point">-db_dev</s
 <p>비교를 위해: 클래식 복제 풀에서는 데이터의 여러 복제본이 저장되는 반면(<span class="point">size</span>) 삭제 코딩 풀에서는 데이터가 추가<span class="point">m</span>  코딩(checking) 청크와 함께 <span class="point">k</span> 데이터 청크로 분할됩니다. 이러한 코딩 청크는 데이터 청크가 누락된 경우 데이터를 다시 만드는 데 사용할 수 있습니다.<br></p>
 <p>코딩 청크 수 m은 데이터를 잃지 않고 손실될 수 있는 OSD 수를 정의합니다. 저장된 총 객체 수는<span class="point"> k + m</span>입니다.
 <br><br></p>
+<p><span class="point"><img alt="" src="_images/info.png" /> EC 풀 만들기</span><br>
+EC(Erasure coded) 풀은 <span class="point">pveceph</span> CLI 툴링으로 만들 수 있습니다. EC 풀을 계획할 때는 복제된 풀과 다르게 작동한다는 사실을 고려해야 합니다.<br></p>
+<p>EC 풀의 기본 <span class="point">min_size</span>는 <span class="point">m</span> 매개변수에 따라 달라집니다. <span class="point">m = 1</span>이면 EC 풀의 <span class="point">min_size</span>는 <span class="point">k</span>가 됩니다. <span class="point">m &gt; 1</span>이면 <span class="point">min_size</span>는 <span class="point">k + 1</span>이 됩니다. Ceph 설명서에서는 <span class="point">k + 2</span>의 보수적인 <span class="point">min_size</span>를 권장합니다.<br></p>
+<p><span class="point">min_size</span>보다 적은 OSD가 사용 가능한 경우 충분한 OSD가 다시 사용 가능할 때까지 풀에 대한 모든 IO가 차단됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 삭제 코드화된 풀을 계획할 때는 min_size를 주시하세요. min_size는 사용 가능한 OSD 수를 정의하기 때문입니다. 그렇지 않으면 IO가 차단됩니다.</p>
+</div></blockquote>
+<p>예를 들어 k = 2이고 m = 1인 EC 풀은 size = 3, min_size = 2가 되며 OSD 하나가 실패해도 작동 상태를 유지합니다. 풀이 k = 2, m = 2로 구성된 경우, 크기는 4이고 min_size = 3이며 OSD 하나가 손실되어도 작동 상태를 유지합니다.<br></p>
+<p>새 EC 풀을 만들려면 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">pool</span> <span class="n">create</span> <span class="o">&lt;</span><span class="n">pool</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">erasure</span><span class="o">-</span><span class="n">coding</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>선택적 매개변수는 <span class="point">failure-domain</span> 및 <span class="point">device-class</span>입니다. 풀에서 사용하는 EC 프로필 설정을 변경해야 하는 경우 새 프로필이 있는 새 풀을 만들어야 합니다.<br></p>
+<p>그러면 새 EC 풀과 RBD omap 및 기타 메타데이터를 저장하는 데 필요한 복제 풀이 생성됩니다. 결국 <span class="point"><pool name>-data</span> 및 <span class="point"><pool name>-metadata</span> 풀이 생성됩니다. 기본 동작은 일치하는 스토리지 구성도 생성하는 것입니다. 이 동작을 원하지 않는 경우 <span class="point">–add_storages 0</span> 매개변수를 제공하여 비활성화할 수 있습니다. 스토리지 구성을 수동으로 구성할 때는 <span class="point">data-pool</span> 매개변수를 설정해야 한다는 점에 유의하세요. 그런 다음에야 EC 풀이 데이터 개체를 저장하는 데 사용됩니다. 예:</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 옵션 매개변수 <span class="point">–size, –min_size</span> 및 <span class="point">–crush_rule</span>은 복제된 메타데이터 풀에 사용되지만 삭제된 코드화된 데이터 풀에는 사용되지 않습니다. 데이터 풀에서 <span class="point">min_size</span>를 변경해야 하는 경우 나중에 변경할 수 있습니다. 삭제된 코드화된 풀에서는 <span class="point">size</span> 및 <span class="point">crush_rule</span> 매개변수를 변경할 수 없습니다.</p>
+</div></blockquote>
+<p>EC 프로필을 추가로 사용자 지정해야 하는 경우 Ceph 도구로 직접 생성하고 프로필 매개변수와 함께 사용할 프로필을 지정하여 수행할 수 있습니다.<br></p>
+<p>예:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">pool</span> <span class="n">create</span> <span class="o">&lt;</span><span class="n">pool</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">erasure</span><span class="o">-</span><span class="n">coding</span> <span class="n">profile</span><span class="o">=&lt;</span><span class="n">profile</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<br>
+<span class="point">![](../source/_static/img/info.png) EC 풀을 저장소로 추가</span><br>
+<p>기존 EC 풀을 Proxmox VE에 저장소로 추가할 수 있습니다. <span class="point">RBD</span> 풀을 추가하는 것과 같은 방식으로 작동하지만 추가 <span class="point">data-pool</span> 옵션이 필요합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvesm</span> <span class="n">add</span> <span class="n">rbd</span> <span class="o">&lt;</span><span class="n">storage</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">pool</span> <span class="o">&lt;</span><span class="n">replicated</span><span class="o">-</span><span class="n">pool</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">pool</span> <span class="o">&lt;</span><span class="n">ec</span><span class="o">-</span><span class="n">pool</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 로컬 Proxmox VE 클러스터에서 관리하지 않는 외부 Ceph 클러스터에 대해 <span class="point">keyring</span> 및 <span class="point">monhost</span> 옵션을 추가하는 것을 잊지 마세요.</p>
+</div></blockquote>
+<p><br><br></p>
 </section>
+<section id="id14">
+<h3>8.3.3. 풀 삭제<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>GUI를 통해 풀을 삭제하려면 트리 뷰에서 노드를 선택하고 <span class="point">Ceph → Pools</span> 패널로 이동합니다. 삭제할 풀을 선택하고 <span class="point">Destroy</span> 버튼을 클릭합니다. 풀 삭제를 확인하려면 풀 이름을 입력해야 합니다.<br></p>
+<p>다음 명령을 실행하여 풀을 삭제합니다. <span class="point">-remove_storages</span>를 지정하여 연관된 스토리지도 제거합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">pool</span> <span class="n">destroy</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 풀 삭제는 백그라운드에서 실행되므로 시간이 다소 걸릴 수 있습니다. 이 프로세스 전체에서 클러스터의 데이터 사용량이 감소하는 것을 알 수 있습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="pg">
+<h3>8.3.4. PG 자동 스케일러<a class="headerlink" href="#pg" title="Link to this heading">#</a></h3>
+<p>PG 자동 스케일러를 사용하면 클러스터가 각 풀에 저장된 (예상) 데이터 양을 고려하고 적절한 pg_num 값을 자동으로 선택할 수 있습니다. Ceph Nautilus부터 사용할 수 있습니다.<br></p>
+<p>조정을 적용하려면 PG 자동 스케일러 모듈을 활성화해야 할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">mgr</span> <span class="n">module</span> <span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="o">&gt;</span><span class="n">enable</span><span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;</span> <span class="n">pg_autoscaler</span>
+</pre></div>
+</div>
+<p>자동 스케일러는 풀별로 구성되며 다음과 같은 모드가 있습니다.</p>
+<ul class="simple">
+<li><p><span class="point">warn</span></p>
+<ul>
+<li><p>제안된 <span class="point">pg_num</span> 값이 현재 값과 너무 다르면 상태 경고가 발생합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">on</span></p>
+<ul>
+<li><p>수동 상호 작용 없이 <span class="point">pg_num</span>이 자동으로 조정됩니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">off</span></p>
+<ul>
+<li><p>자동 <span class="point">pg_num</span> 조정은 수행되지 않으며 PG 수가 최적이 아닌 경우 경고가 발생하지 않습니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><span class="point">target_size, target_size_ratio</span> 및 <span class="point">pg_num_min</span> 옵션을 사용하여 향후 데이터 저장을 용이하게 하기 위해 스케일링 계수를 조정할 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 기본적으로 자동 스케일러는 풀의 PG 수가 3배 이상 차이가 나는 경우 풀의 PG 수를 조정하는 것을 고려합니다. 이는 데이터 배치에 상당한 변화를 가져오고 클러스터에 높은 부하를 초래할 수 있습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="ceph-crush">
+<h2>8.9. Ceph CRUSH 및 장치 클래스<a class="headerlink" href="#ceph-crush" title="Link to this heading">#</a></h2>
+<p><img alt="" src="_images/img41.png" /><br>
+CRUSH(<span class="point">Controlled Replication Under Scalable Hashing</span>, 확장 가능한 해싱 하의 제어된 복제) 알고리즘은 Ceph의 기반입니다.<br></p>
+<p>CRUSH는 데이터를 저장하고 검색할 위치를 계산합니다. 여기에는 중앙 인덱싱 서비스가 필요 없다는 장점이 있습니다. CRUSH는 풀에 대한 OSD, 버킷(장치 위치) 및 규칙 세트(데이터 복제) 맵을 사용하여 작동합니다.<br></p>
+<p>이 맵은 다른 복제 계층을 반영하도록 변경할 수 있습니다. 원하는 분포를 유지하면서 개체 복제본을 분리할 수 있습니다(예: 장애 도메인).<br></p>
+<p>일반적인 구성은 다른 Ceph 풀에 대해 다른 디스크 클래스를 사용하는 것입니다. 이러한 이유로 Ceph는 쉬운 규칙 세트 생성에 대한 필요성을 수용하기 위해 luminous를 사용하여 장치 클래스를 도입했습니다.<br></p>
+<p>장치 클래스는 <span class="point">ceph osd tree</span> 출력에서 ​​볼 수 있습니다. 이러한 클래스는 자체 루트 버킷을 나타내며 아래 명령을 통해 확인할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="n">crush</span> <span class="n">tree</span> <span class="o">--</span><span class="n">show</span><span class="o">-</span><span class="n">shadow</span>
+</pre></div>
+</div>
+<p>위 명령의 출력 예:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ID</span>  <span class="n">CLASS</span> <span class="n">WEIGHT</span>  <span class="n">TYPE</span> <span class="n">NAME</span>
+<span class="o">-</span><span class="mi">16</span>  <span class="n">nvme</span> <span class="mf">2.18307</span> <span class="n">root</span> <span class="n">default</span><span class="o">~</span><span class="n">nvme</span>
+<span class="o">-</span><span class="mi">13</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>     <span class="n">host</span> <span class="n">sumi1</span><span class="o">~</span><span class="n">nvme</span>
+ <span class="mi">12</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>         <span class="n">osd</span><span class="mf">.12</span>
+<span class="o">-</span><span class="mi">14</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>     <span class="n">host</span> <span class="n">sumi2</span><span class="o">~</span><span class="n">nvme</span>
+ <span class="mi">13</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>         <span class="n">osd</span><span class="mf">.13</span>
+<span class="o">-</span><span class="mi">15</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>     <span class="n">host</span> <span class="n">sumi3</span><span class="o">~</span><span class="n">nvme</span>
+ <span class="mi">14</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>         <span class="n">osd</span><span class="mf">.14</span>
+ <span class="o">-</span><span class="mi">1</span>       <span class="mf">7.70544</span> <span class="n">root</span> <span class="n">default</span>
+ <span class="o">-</span><span class="mi">3</span>       <span class="mf">2.56848</span>     <span class="n">host</span> <span class="n">sumi1</span>
+ <span class="mi">12</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>         <span class="n">osd</span><span class="mf">.12</span>
+ <span class="o">-</span><span class="mi">5</span>       <span class="mf">2.56848</span>     <span class="n">host</span> <span class="n">sumi2</span>
+ <span class="mi">13</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>         <span class="n">osd</span><span class="mf">.13</span>
+ <span class="o">-</span><span class="mi">7</span>       <span class="mf">2.56848</span>     <span class="n">host</span> <span class="n">sumi3</span>
+ <span class="mi">14</span>  <span class="n">nvme</span> <span class="mf">0.72769</span>         <span class="n">osd</span><span class="mf">.14</span>
+</pre></div>
+</div>
+<p>특정 장치 클래스에만 객체를 분산하도록 풀에 지시하려면 먼저 장치 클래스에 대한 규칙 세트를 만들어야 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="n">crush</span> <span class="n">rule</span> <span class="n">create</span><span class="o">-</span><span class="n">replicated</span> <span class="o">&lt;</span><span class="n">rule</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">failure</span><span class="o">-</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">class</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>장치 클래스</p></th>
+<th class="head text-center"><p>설명</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><rule-name></p></td>
+<td class="text-center"><p>풀에 연결하기 위한 규칙의 이름(GUI 및 CLI에서 볼 수 있음)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><root></p></td>
+<td class="text-center"><p>어느 crush root에 속해야 하는지(기본 Ceph root “default”)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><failure-domain></p></td>
+<td class="text-center"><p>어느 failure-domain에 객체를 배포해야 하는지(일반적으로 host)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><class></p></td>
+<td class="text-center"><p>어떤 유형의 OSD 백업 저장소를 사용할지(예: nvme, ssd, hdd)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+규칙이 CRUSH 맵에 있으면 풀에 규칙 세트를 사용하도록 지시할 수 있습니다.
+````
+ceph osd pool set <pool-name> crush_rule <rule-name>
+```
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 풀에 이미 객체가 있는 경우 이를 적절히 이동해야 합니다. 설정에 따라 클러스터에 큰 성능 영향을 미칠 수 있습니다. 대안으로 새 풀을 만들고 디스크를 별도로 이동할 수 있습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="id15">
+<h2>8.10. Ceph 클라이언트<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p><img alt="" src="_images/img42.png" /><br>
+이전 섹션의 설정에 따라 Proxmox VE를 구성하여 이러한 풀을 사용하여 VM 및 컨테이너 이미지를 저장할 수 있습니다. GUI를 사용하여 새 <span class="point">RBD</span> 스토리지를 추가하기만 하면 됩니다(Ceph RADOS 블록 디바이스(RBD) 섹션 참조).<br>
+또한 키링을 외부 Ceph 클러스터의 미리 정의된 위치에 복사해야 합니다. Ceph가 Proxmox 노드 자체에 설치된 경우 이 작업은 자동으로 수행됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 파일 이름은 <span class="point">&lt;storage_id&gt; + `.keyring</span>이어야 하며, 여기서 <span class="point">&lt;storage_id&gt;</span>는 <span class="point">/etc/pve/storage.cfg</span>에서 <span class="point">rbd:</span> 뒤에 나오는 표현식입니다. 다음 예에서 <span class="point">my-ceph-storage</span>는 <span class="point">&lt;storage_id&gt;: </span>입니다.</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">priv</span><span class="o">/</span><span class="n">ceph</span>
+<span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ceph</span><span class="o">/</span><span class="n">ceph</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">admin</span><span class="o">.</span><span class="n">keyring</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">priv</span><span class="o">/</span><span class="n">ceph</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">storage</span><span class="o">.</span><span class="n">keyring</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id16">
+<h2>8.11.<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -774,8 +936,13 @@ OSD에 별도의 DB/WAL 장치를 사용하려면 <span class="point">-db_dev</s
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-pools">8.8. Ceph Pools</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">8.8.1. 풀 만들기 및 편집</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">8.8.2. 삭제 코딩 풀</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">8.3.3. 풀 삭제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pg">8.3.4. PG 자동 스케일러</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-crush">8.9. Ceph CRUSH 및 장치 클래스</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">8.10. Ceph 클라이언트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">8.11.</a></li>
 </ul>
   </nav></div>
 
