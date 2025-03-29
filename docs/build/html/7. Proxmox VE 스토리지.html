@@ -349,6 +349,13 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">7.9.3. 스토리지 기능</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zfs">7.10. 로컬 ZFS 풀</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">7.10.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">7.10.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">7.10.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">7.10.4. 예시</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -1165,6 +1172,113 @@
 <p><br><br></p>
 </section>
 </section>
+<section id="zfs">
+<h2>7.10. 로컬 ZFS 풀<a class="headerlink" href="#zfs" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <span class="point"> zfspool </span></p></li>
+</ul>
+<p>이 백엔드를 사용하면 로컬 ZFS 풀(또는 해당 풀 내부의 ZFS 파일 시스템)에 액세스할 수 있습니다.</p>
+<p><br><br></p>
+<section id="id27">
+<h3>7.10.1. 구성<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>백엔드는 일반적인 스토리지 속성인 <span class="point">content, nodes, disable</span> 및 다음과 같은 ZFS 특정 속성을 지원합니다:</p>
+<ul class="simple">
+<li><p><span class="point"> pool </span></p>
+<ul>
+<li><p>ZFS 풀/파일 시스템을 선택합니다. 모든 할당은 해당 풀 내에서 이루어집니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point"> blocksize </span></p>
+<ul>
+<li><p>ZFS 블록 크기 매개변수를 설정합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point"> sparse </span></p>
+<ul>
+<li><p>ZFS 씬 프로비저닝을 사용합니다. 스파스 볼륨은 예약이 볼륨 크기와 같지 않은 볼륨입니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point"> mountpoint </span></p>
+<ul>
+<li><p>ZFS 풀/파일 시스템의 마운트 지점입니다. 이 값을 변경해도 <span class="point"> ZFS </span>에서 보는 데이터 세트의 <span class="point">mountpoint</span> 속성에는 영향을 주지 않습니다. 기본값은 <span class="point">/<pool></span>입니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><span class="point"><img alt="" src="_images/info.png" /> 구성 예제(/etc/pve/storage.cfg) </span><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zfspool</span><span class="p">:</span> <span class="n">vmdata</span>
+        <span class="n">pool</span> <span class="n">tank</span><span class="o">/</span><span class="n">vmdata</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+        <span class="n">sparse</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id28">
+<h3>7.10.2. 파일 명명 체계<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>백엔드에서는 VM 이미지에 대해 다음과 같은 명명 체계를 사용합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span>      <span class="o">//</span> <span class="n">일반</span> <span class="n">VM</span> <span class="n">이미지</span>
+<span class="n">base</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span>    <span class="o">//</span> <span class="n">템플릿</span> <span class="n">VM</span> <span class="n">이미지</span><span class="p">(</span><span class="n">읽기</span> <span class="n">전용</span><span class="p">)</span>
+<span class="n">subvol</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span>  <span class="o">//</span> <span class="n">서브볼륨</span><span class="p">(</span><span class="n">컨테이너용</span> <span class="n">ZFS</span> <span class="n">파일</span> <span class="n">시스템</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><span class="point"> <VMID> </span></p>
+<ul>
+<li><p>소유자 VM을 지정합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point"> <NAME> </span></p>
+<ul>
+<li><p>공백이 없는 임의의 이름(<span class="point"> ascii</span>)일 수 있습니다. 백엔드에서는 기본적으로 <span class="point">disk[N]</span>을 사용하며, 여기서 <span class="point">[N]</span>은 정수로 대체되어 이름을 고유하게 만듭니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id29">
+<h3>7.10.3. 스토리지 기능<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>ZFS는 스냅샷 및 복제와 관련하여 가장 진보된 스토리지 유형일 것입니다. 백엔드는 VM 이미지(포맷 <span class="point">raw</span>)와 컨테이너 데이터(포맷 <span class="point">subvol</span>) 모두에 ZFS 데이터세트를 사용합니다. ZFS 속성은 상위 데이터 세트에서 상속되므로 상위 데이터 세트의 기본값을 간단히 설정할 수 있습니다.</p>
+<p><span class="point"><img alt="" src="_images/info.png" /> 백엔드 zfs의 스토리지 기능</span><br></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• rootdir <br></p></td>
+<td class="text-center"><p>• raw <br>• subvol <br></p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id30">
+<h3>7.10.4. 예시<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>VM 이미지를 저장하기 위해 별도의 ZFS 파일 시스템을 생성하는 것이 좋습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># zfs create tank/vmdata</span>
+</pre></div>
+</div>
+<p>새로 할당된 파일 시스템에서 압축을 사용하도록 설정합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># zfs set compression=on tank/vmdata</span>
+</pre></div>
+</div>
+<p>다음을 사용하여 사용 가능한 ZFS 파일 시스템 목록을 확인할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm zfsscan</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
 </section>
 
 
@@ -1260,6 +1374,13 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">7.9.1. 구성</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">7.9.2. 파일 명명 규칙</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">7.9.3. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zfs">7.10. 로컬 ZFS 풀</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">7.10.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">7.10.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">7.10.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">7.10.4. 예시</a></li>
 </ul>
 </li>
 </ul>
