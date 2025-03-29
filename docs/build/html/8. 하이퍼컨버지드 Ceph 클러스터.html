@@ -338,6 +338,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">8.11.3. CephFS 삭제</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">8.12. Ceph 유지 관리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">8.12.1. OSD 교체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trim-discard">8.12.2. Trim/Discard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">8.12.3. 스크러빙 및 심층 스크러빙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-ceph-hci">8.12.4. Proxmox VE + Ceph HCI 클러스터 종료</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">8.13. Ceph 모니터링 및 문제 해결</a></li>
 </ul>
             </nav>
         </div>
@@ -926,31 +934,95 @@ CephFS를 깔끔하게 제거하려면 다음 단계가 필요합니다.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>여기서 <STORAGE-NAME>은 Proxmox VE의 CephFS 스토리지 이름입니다.</p></li>
+<li><p>여기서 <span class="point"><STORAGE-NAME></span>은 Proxmox VE의 CephFS 스토리지 이름입니다.</p></li>
 </ul>
 </li>
-<li><p>이제 중지하거나 삭제하여 해당 CephFS에 대해 실행 중인 메타데이터 서버(MDS)가 없는지 확인합니다.<br> 이 작업은 웹 인터페이스나 명령줄 인터페이스를 통해 수행할 수 있습니다. 명령줄 인터페이스를 사용하는 경우 다음 명령을 실행합니다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">stop</span> <span class="o">--</span><span class="n">service</span> <span class="n">mds</span><span class="o">.</span><span class="n">NAME</span>     <span class="o">//</span>
+<li><p>이제 중지하거나 삭제하여 해당 CephFS에 대해 실행 중인 메타데이터 서버(<span class="point">MDS</span>)가 없는지 확인합니다.<br> 이 작업은 웹 인터페이스나 명령줄 인터페이스를 통해 수행할 수 있습니다. 명령줄 인터페이스를 사용하는 경우 다음 명령을 실행합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">stop</span> <span class="o">--</span><span class="n">service</span> <span class="n">mds</span><span class="o">.</span><span class="n">NAME</span>     <span class="o">//</span> <span class="n">중지하거나</span>
+<span class="n">pveceph</span> <span class="n">mds</span> <span class="n">destroy</span> <span class="n">NAME</span>                 <span class="o">//</span> <span class="n">제거합니다</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><span class="point">활성 MDS</span>가 중지되거나 제거되면 대기 서버가 자동으로 활성으로 승격되므로 먼저 모든 대기 서버를 중지하는 것이 가장 좋습니다.</p>
+</li>
+<li><p>이제 CephFS를 아래 명령어로 제거할 수 있습니다. 이렇게 하면 기본 Ceph 풀이 자동으로 제거되고 pve 구성에서 저장소가 제거됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pveceph</span> <span class="n">fs</span> <span class="n">destroy</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">remove</span><span class="o">-</span><span class="n">storages</span> <span class="o">--</span><span class="n">remove</span><span class="o">-</span><span class="n">pools</span>
 </pre></div>
 </div>
 </li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="n">pveceph</span> <span class="n">mds</span> <span class="n">destroy</span> <span class="n">NAME</span>
-<span class="n">제거합니다</span><span class="o">.</span>
-
-<span class="n">활성</span> <span class="n">MDS가</span> <span class="n">중지되거나</span> <span class="n">제거되면</span> <span class="n">대기</span> <span class="n">서버가</span> <span class="n">자동으로</span> <span class="n">활성으로</span> <span class="n">승격되므로</span> <span class="n">먼저</span> <span class="n">모든</span> <span class="n">대기</span> <span class="n">서버를</span> <span class="n">중지하는</span> <span class="n">것이</span> <span class="n">가장</span> <span class="n">좋습니다</span><span class="o">.</span>
-
-<span class="n">이제</span> <span class="n">CephFS를</span>
-
-<span class="n">pveceph</span> <span class="n">fs</span> <span class="n">destroy</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">remove</span><span class="o">-</span><span class="n">storages</span> <span class="o">--</span><span class="n">remove</span><span class="o">-</span><span class="n">pools</span>
-<span class="n">로</span> <span class="n">제거할</span> <span class="n">수</span> <span class="n">있습니다</span><span class="o">.</span> <span class="n">이렇게</span> <span class="n">하면</span> <span class="n">기본</span> <span class="n">Ceph</span> <span class="n">풀이</span> <span class="n">자동으로</span> <span class="n">제거되고</span> <span class="n">pve</span> <span class="n">구성에서</span> <span class="n">저장소가</span> <span class="n">제거됩니다</span><span class="o">.</span>
-
-<span class="n">이러한</span> <span class="n">단계를</span> <span class="n">거치면</span> <span class="n">CephFS가</span> <span class="n">완전히</span> <span class="n">제거되고</span> <span class="n">다른</span> <span class="n">CephFS</span> <span class="n">인스턴스가</span> <span class="n">있는</span> <span class="n">경우</span> <span class="n">중지된</span> <span class="n">메타데이터</span> <span class="n">서버를</span> <span class="n">다시</span> <span class="n">시작하여</span> <span class="n">대기</span> <span class="n">서버로</span> <span class="n">작동할</span> <span class="n">수</span> <span class="n">있습니다</span><span class="o">.</span>
+<p>이러한 단계를 거치면 CephFS가 완전히 제거되고 다른 CephFS 인스턴스가 있는 경우 중지된 메타데이터 서버를 다시 시작하여 대기 서버로 작동할 수 있습니다.<br><br></p>
+</section>
+</section>
+<section id="id18">
+<h2>8.12. Ceph 유지 관리<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h3>8.12.1. OSD 교체<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>Ceph에서 가장 일반적인 유지 관리 작업 중 하나는 OSD의 디스크를 교체하는 것입니다. 디스크가 이미 실패 상태인 경우 OSD 제거의 단계를 진행할 수 있습니다. Ceph는 가능한 경우 나머지 OSD에 해당 사본을 다시 만듭니다. 이 재조정은 OSD 실패가 감지되거나 OSD가 적극적으로 중지되는 즉시 시작됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell.png" /> 풀의 기본 크기/최소 크기(3/2)를 사용하면 복구는 ‘크기 + 1’ 노드가 사용 가능할 때만 시작됩니다. 그 이유는 Ceph 객체 밸런서 CRUSH가 `실패 도메인’으로 전체 노드를 기본으로 설정하기 때문입니다.</p>
+</div></blockquote>
+<p>GUI에서 작동하는 디스크를 교체하려면 OSD 제거의 단계를 진행합니다. 유일한 추가 사항은 클러스터가 HEALTH_OK를 표시할 때까지 기다렸다가 OSD를 중지하여 제거하면 됩니다.<br>
+명령줄에서 다음 명령을 사용합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="n">out</span> <span class="n">osd</span><span class="o">.&lt;</span><span class="nb">id</span><span class="o">&gt;</span>
 </pre></div>
 </div>
+<p>아래 명령을 사용하여 OSD를 안전하게 제거할 수 있는지 확인할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="n">safe</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">destroy</span> <span class="n">osd</span><span class="o">.&lt;</span><span class="nb">id</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>위의 확인에서 OSD를 제거해도 안전하다고 알려지면 다음 명령을 사용하여 계속할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">stop</span> <span class="n">ceph</span><span class="o">-</span><span class="n">osd</span><span class="o">@&lt;</span><span class="nb">id</span><span class="o">&gt;.</span><span class="n">service</span>
+<span class="n">pveceph</span> <span class="n">osd</span> <span class="n">destroy</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>이전 디스크를 새 디스크로 교체하고 OSD 만들기에서 설명한 것과 동일한 절차를 사용합니다.<br><br></p>
 </section>
+<section id="trim-discard">
+<h3>8.12.2. Trim/Discard<a class="headerlink" href="#trim-discard" title="Link to this heading">#</a></h3>
+<p>VM 및 컨테이너에서 정기적으로 <span class="point">fstrim(discard)</span>을 실행하는 것이 좋습니다. 이렇게 하면 파일 시스템에서 더 이상 사용하지 않는 데이터 블록이 해제됩니다. 데이터 사용량과 리소스 부하가 줄어듭니다. 대부분의 최신 운영 체제는 이러한 discard 명령을 디스크에 정기적으로 실행합니다. 가상 머신에서 디스크 discard 옵션을 사용하도록 설정하기만 하면 됩니다.<br><br></p>
+</section>
+<section id="id20">
+<h3>8.12.3. 스크러빙 및 심층 스크러빙<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>Ceph는 배치 그룹을 <span class="point">scrubbing</span>하여 데이터 무결성을 보장합니다. Ceph는 PG의 모든 개체의 상태를 확인합니다. 스크러빙에는 일일 저가 메타데이터 검사와 주간 심층 데이터 검사의 두 가지 형태가 있습니다. 주간 심층 스크러빙은 개체를 읽고 체크섬을 사용하여 데이터 무결성을 보장합니다. 실행 중인 스크러빙이 비즈니스(성능) 요구 사항을 방해하는 경우 스크러빙이 실행되는 시간을 조정할 수 있습니다.<br><br></p>
+</section>
+<section id="proxmox-ve-ceph-hci">
+<h3>8.12.4. Proxmox VE + Ceph HCI 클러스터 종료<a class="headerlink" href="#proxmox-ve-ceph-hci" title="Link to this heading">#</a></h3>
+<p>Proxmox VE + Ceph 클러스터 전체를 종료하려면 먼저 모든 Ceph 클라이언트를 중지합니다. 이는 주로 VM과 컨테이너입니다. Ceph FS 또는 설치된 RADOS GW에 액세스할 수 있는 추가 클라이언트가 있는 경우 이러한 클라이언트도 중지합니다. 고가용성 게스트는 Proxmox VE 툴링을 통해 전원이 꺼지면 <span class="point">중지(stopped)</span> 상태로 전환됩니다.<br>
+모든 클라이언트, VM 및 컨테이너가 꺼지거나 더 이상 Ceph 클러스터에 액세스하지 않으면 Ceph 클러스터가 정상 상태인지 확인합니다. 웹 UI 또는 CLI를 통해:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="o">-</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>모든 자체 복구 작업을 비활성화하고 Ceph 클러스터에서 모든 클라이언트 IO를 일시 중지하려면 <span class="point">Ceph → OSD</span> 패널 또는 CLI를 통해 다음 OSD 플래그를 활성화합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="nb">set</span> <span class="n">noout</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="nb">set</span> <span class="n">norecover</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="nb">set</span> <span class="n">norebalance</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="nb">set</span> <span class="n">nobackfill</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="nb">set</span> <span class="n">nodown</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="nb">set</span> <span class="n">pause</span>
+</pre></div>
+</div>
+<p>모니터(MON) 없이 노드의 전원을 끄기 시작합니다. 이러한 노드가 꺼진 후 모니터가 있는 노드를 종료하여 계속합니다.<br></p>
+<p>클러스터의 전원을 켤 때 먼저 모니터(MON)가 있는 노드를 시작합니다. 모든 노드가 가동되고 실행되면 OSD 플래그를 다시 설정 해제하기 전에 모든 Ceph 서비스가 가동되고 실행 중인지 확인합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">osd</span> <span class="n">unset</span> <span class="n">pause</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="n">unset</span> <span class="n">nodown</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="n">unset</span> <span class="n">nobackfill</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="n">unset</span> <span class="n">norebalance</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="n">unset</span> <span class="n">norecover</span>
+<span class="n">ceph</span> <span class="n">osd</span> <span class="n">unset</span> <span class="n">noout</span>
+</pre></div>
+</div>
+<p>이제 게스트를 시작할 수 있습니다. 고가용성 게스트는 전원을 켜면 상태가 <span class="point">시작됨(started)</span>으로 변경됩니다.<br><br></p>
+</section>
+</section>
+<section id="id21">
+<h2>8.13. Ceph 모니터링 및 문제 해결<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>Ceph 도구를 사용하거나 Proxmox VE API를 통해 상태에 액세스하여 처음부터 Ceph 배포의 상태를 지속적으로 모니터링하는 것이 중요합니다.<br></p>
+<p>다음 Ceph 명령을 사용하여 클러스터가 정상인지(<span class="point">HEALTH_OK</span>), 경고가 있는지(<span class="point">HEALTH_WARN</span>) 또는 오류(<span class="point">HEALTH_ERR</span>)를 확인할 수 있습니다. 클러스터가 비정상 상태인 경우 아래의 상태 명령을 통해 현재 이벤트와 수행할 작업에 대한 개요도 확인할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pve</span><span class="c1"># ceph -s        // 단일 시간 출력</span>
+<span class="n">pve</span><span class="c1"># ceph -w        // 상태 변경 사항을 지속적으로 출력(중지하려면 CTRL+C를 누름)</span>
+</pre></div>
+</div>
+<p>더 자세한 보기를 위해 모든 Ceph 서비스에는 <span class="point">/var/log/ceph/</span>에 로그 파일이 있습니다. 더 자세한 정보가 필요한 경우 로그 수준을 조정할 수 있습니다.<br><br><br></p>
 </section>
 </section>
 
@@ -1030,6 +1102,14 @@ CephFS를 깔끔하게 제거하려면 다음 단계가 필요합니다.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">8.11.3. CephFS 삭제</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">8.12. Ceph 유지 관리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">8.12.1. OSD 교체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trim-discard">8.12.2. Trim/Discard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">8.12.3. 스크러빙 및 심층 스크러빙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-ceph-hci">8.12.4. Proxmox VE + Ceph HCI 클러스터 종료</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">8.13. Ceph 모니터링 및 문제 해결</a></li>
 </ul>
   </nav></div>
 
