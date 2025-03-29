@@ -595,7 +595,7 @@ OSD에 별도의 DB/WAL 장치를 사용하려면 <span class="point">-db_dev</s
 <div><p><img alt="" src="_images/bell.png" /> DB는 BlueStore의 내부 메타데이터를 저장하고 WAL은 BlueStore의 내부 저널 또는 미리 쓰기 로그입니다. 더 나은 성능을 위해 빠른 SSD 또는 NVRAM을 사용하는 것이 좋습니다.</p>
 </div></blockquote>
 <br>
-<span class="point">![](../source/_static/img/info.png) Ceph Filestore</span><br>
+<span class="point"> ![](../source/_static/img/info.png) Ceph Filestore</span><br>
 <p>Ceph Luminous 이전에는 Filestore가 Ceph OSD의 기본 스토리지 유형으로 사용되었습니다. Ceph Nautilus부터 Proxmox VE는 더 이상 <span class="point">pveceph</span>로 이러한 OSD를 만드는 것을 지원하지 않습니다. 여전히 filestore OSD를 만들려면 <span class="point">ceph-volume</span>을 직접 사용하세요.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span><span class="o">-</span><span class="n">volume</span> <span class="n">lvm</span> <span class="n">create</span> <span class="o">--</span><span class="n">filestore</span> <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="o">--</span><span class="n">journal</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sd</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span>
 </pre></div>
@@ -734,7 +734,7 @@ EC(Erasure coded) 풀은 <span class="point">pveceph</span> CLI 툴링으로 만
 </pre></div>
 </div>
 <br>
-<span class="point">![](../source/_static/img/info.png) EC 풀을 저장소로 추가</span><br>
+<span class="point"> ![](../source/_static/img/info.png) EC 풀을 저장소로 추가</span><br>
 <p>기존 EC 풀을 Proxmox VE에 저장소로 추가할 수 있습니다. <span class="point">RBD</span> 풀을 추가하는 것과 같은 방식으로 작동하지만 추가 <span class="point">data-pool</span> 옵션이 필요합니다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvesm</span> <span class="n">add</span> <span class="n">rbd</span> <span class="o">&lt;</span><span class="n">storage</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">pool</span> <span class="o">&lt;</span><span class="n">replicated</span><span class="o">-</span><span class="n">pool</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">pool</span> <span class="o">&lt;</span><span class="n">ec</span><span class="o">-</span><span class="n">pool</span><span class="o">&gt;</span>
 </pre></div>
@@ -760,7 +760,7 @@ EC(Erasure coded) 풀은 <span class="point">pveceph</span> CLI 툴링으로 만
 <h3>8.3.4. PG 자동 스케일러<a class="headerlink" href="#pg" title="Link to this heading">#</a></h3>
 <p>PG 자동 스케일러를 사용하면 클러스터가 각 풀에 저장된 (예상) 데이터 양을 고려하고 적절한 pg_num 값을 자동으로 선택할 수 있습니다. Ceph Nautilus부터 사용할 수 있습니다.<br></p>
 <p>조정을 적용하려면 PG 자동 스케일러 모듈을 활성화해야 할 수 있습니다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">mgr</span> <span class="n">module</span> <span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="o">&gt;</span><span class="n">enable</span><span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;</span> <span class="n">pg_autoscaler</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceph</span> <span class="n">mgr</span> <span class="n">module</span> <span class="n">enable</span> <span class="n">pg_autoscaler</span>
 </pre></div>
 </div>
 <p>자동 스케일러는 풀별로 구성되며 다음과 같은 모드가 있습니다.</p>
@@ -828,16 +828,16 @@ CRUSH(<span class="point">Controlled Replication Under Scalable Hashing</span>, 
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p><rule-name></p></td>
+<tr class="row-even"><td class="text-center"><p>&lt;rule-name&gt;</p></td>
 <td class="text-center"><p>풀에 연결하기 위한 규칙의 이름(GUI 및 CLI에서 볼 수 있음)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><root></p></td>
+<tr class="row-odd"><td class="text-center"><p>&lt;root&gt;</p></td>
 <td class="text-center"><p>어느 crush root에 속해야 하는지(기본 Ceph root “default”)</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p><failure-domain></p></td>
+<tr class="row-even"><td class="text-center"><p>&lt;failure-domain&gt;</p></td>
 <td class="text-center"><p>어느 failure-domain에 객체를 배포해야 하는지(일반적으로 host)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p><class></p></td>
+<tr class="row-odd"><td class="text-center"><p>&lt;class&gt;</p></td>
 <td class="text-center"><p>어떤 유형의 OSD 백업 저장소를 사용할지(예: nvme, ssd, hdd)</p></td>
 </tr>
 </tbody>
