@@ -6,8 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; virton-documents 1.0 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9. 스토리지 복제 &#8212; virton-documents 1.0 documentation</title>
   
   
   
@@ -43,11 +44,12 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
-    <link rel="canonical" href="https://docs.virton.co.kr/build/html/genindex.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = '9. 스토리지 복제';</script>
+    <link rel="canonical" href="https://docs.virton.co.kr/build/html/9.%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%20%EB%B3%B5%EC%A0%9C.html" />
     <link rel="icon" href="_static/virton-favicon.ico"/>
-    <link rel="index" title="Index" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="8. 하이퍼컨버지드 Ceph 클러스터" href="8.%20%ED%95%98%EC%9D%B4%ED%8D%BC%EC%BB%A8%EB%B2%84%EC%A7%80%EB%93%9C%20Ceph%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0.html" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
   </head>
@@ -98,8 +100,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -145,7 +145,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">목차</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.%20%EC%86%8C%EA%B0%9C.html">1. 소개</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%20Proxmox%20VE%20%EC%84%A4%EC%B9%98.html">2. Proxmox VE 설치</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%20%ED%98%B8%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EA%B4%80%EB%A6%AC/%EC%9A%B4%EC%98%81.html">3. 호스트 시스템 관리/운영</a></li>
@@ -154,7 +154,7 @@
 <li class="toctree-l1"><a class="reference internal" href="6.%20Proxmox%20Cluster%20File%20System%28pmxcfs%29.html">6. Proxmox Cluster File System(pmxcfs)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.%20Proxmox%20VE%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80.html">7. Proxmox VE 스토리지</a></li>
 <li class="toctree-l1"><a class="reference internal" href="8.%20%ED%95%98%EC%9D%B4%ED%8D%BC%EC%BB%A8%EB%B2%84%EC%A7%80%EB%93%9C%20Ceph%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0.html">8. 하이퍼컨버지드 Ceph 클러스터</a></li>
-<li class="toctree-l1"><a class="reference internal" href="9.%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EB%B3%B5%EC%A0%9C.html">9. 저장소 복제</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. 스토리지 복제</a></li>
 </ul>
 
     </div>
@@ -204,6 +204,54 @@
 
 
 
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/9. 스토리지 복제.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
 <button onclick="toggleFullScreen()"
   class="btn btn-sm btn-fullscreen-button"
   title="Fullscreen mode"
@@ -240,7 +288,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1></h1>
+    <h1>9. 스토리지 복제</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -254,12 +302,9 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- 
-</div>
+  <section id="id1">
+<h1>9. 스토리지 복제<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+</section>
 
 
                 </article>
@@ -272,6 +317,15 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="8.%20%ED%95%98%EC%9D%B4%ED%8D%BC%EC%BB%A8%EB%B2%84%EC%A7%80%EB%93%9C%20Ceph%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">8. 하이퍼컨버지드 Ceph 클러스터</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
