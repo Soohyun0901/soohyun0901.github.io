@@ -22,6 +22,7 @@ VirtOn[버트온] 통합 가이드
    7. Proxmox VE 스토리지
    8. 하이퍼컨버지드 Ceph 클러스터
    9. 저장소 복제
+   10. QEMU/KVM 가상머신
 
 
 
