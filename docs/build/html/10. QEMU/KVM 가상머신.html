@@ -321,6 +321,35 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">10.2.16. 장치 부팅 순서</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">10.2.17. 가상 머신의 자동 시작 및 종료</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qemu">10.2.18. QEMU 게스트 에이전트</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spice">10.2.19. SPICE 향상</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">10.3. 마이그레이션</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">10.3.1. 온라인 마이그레이션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">10.3.2. 오프라인 마이그레이션</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">10.4. 복사본과 복제본</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">10.5. 가상 머신 템플릿</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vm-id">10.6. VM 생성 ID</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">10.7. 가상 머신 가져오기</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">10.7.1. 가져오기 마법사</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-ovf-ova">10.7.2. CLI를 통해 OVF/OVA 가져오기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-init">10.8. Cloud-Init 지원</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">10.8.1. Cloud-Init 템플릿 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">10.8.2. Cloud-Init 템플릿 배포</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">10.8.3. 사용자 지정 Cloud-Init 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-cloud-init">10.8.4. Windows에서 Cloud-Init</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloudbase-init">10.8.5. Cloudbase-Init 템플릿 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloudbase-init-sysprep">10.8.6. Cloudbase-Init 및 Sysprep</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">10.8.7. Cloud-Init 특정 옵션</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pci-e">10.9. PCI(e) 패스스루</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">10.9.1. 일반 요구 사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">10.9.2.</a></li>
 </ul>
 </li>
 </ul>
@@ -893,6 +922,528 @@ Proxmox VE와 게스트 에이전트 간의 통신은 <span class="point">VM의 
 게스트 에이전트가 설치되어 실행 중인지 확인합니다.<br></p>
 <p>게스트 에이전트가 활성화되면 Proxmox VE는 게스트 에이전트를 통해 shutdown과 같은 전원 명령을 보냅니다. 게스트 에이전트가 실행 중이 아니면 명령을 제대로 실행할 수 없고 shutdown 명령이 시간 초과로 실행됩니다.<br><br></p>
 </section>
+<section id="spice">
+<h3>10.2.19. SPICE 향상<a class="headerlink" href="#spice" title="Link to this heading">#</a></h3>
+<p>SPICE 향상은 원격 뷰어 경험을 개선할 수 있는 선택 사항입니다.<br></p>
+<p>GUI를 통해 이를 활성화하려면 가상 머신의 옵션 패널로 이동합니다. 다음 명령을 실행하여 CLI를 통해 이를 활성화합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="o">&lt;</span><span class="n">vmid</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">spice_enhancements</span> <span class="n">folderharing</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">videostreaming</span><span class="o">=</span><span class="nb">all</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 이러한 기능을 사용하려면 가상 머신의 디스플레이를 SPICE(qxl)로 설정해야 합니다.
+<span class="point"><img alt="" src="../_images/info1.png" /> 폴더 공유</span><br>
+게스트와 로컬 폴더를 공유합니다. spice-webdavd 데몬을 게스트에 설치해야 합니다. 이 데몬은 http://localhost:9843에 있는 로컬 WebDAV 서버를 통해 공유 폴더를 사용할 수 있도록 합니다.<br></p>
+</div></blockquote>
+<p>Windows 게스트의 경우 Spice WebDAV 데몬 설치 프로그램을 공식 SPICE 웹사이트에서 다운로드할 수 있습니다.<br></p>
+<p>대부분의 Linux 배포판에는 spice-webdavd라는 패키지가 있어 설치할 수 있습니다.<br></p>
+<p>Virt-Viewer(원격 뷰어)에서 폴더를 공유하려면 파일 → 기본 설정으로 이동합니다. 공유할 폴더를 선택한 다음 확인란을 활성화합니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 폴더 공유는 현재 Virt-Viewer의 Linux 버전에서만 작동합니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="id13">
+<h2>10.3. 마이그레이션<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p><img alt="" src="../_images/img54.png" /><br></p>
+<p>클러스터가 있는 경우 다음을 사용하여 VM을 다른 호스트로 마이그레이션할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># qm migrate &lt;vmid&gt; &lt;target&gt;</span>
+</pre></div>
+</div>
+<p>일반적으로 이를 위한 두 가지 메커니즘이 있습니다.</p>
+<ul class="simple">
+<li><p>온라인 마이그레이션(일명 라이브 마이그레이션)</p></li>
+<li><p>오프라인 마이그레이션
+<br><br></p></li>
+</ul>
+<section id="id14">
+<h3>10.3.1. 온라인 마이그레이션<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>VM이 실행 중이고 로컬로 바인딩된 리소스가 구성되지 않은 경우(예: 통과되는 장치) qm 마이그레이션 명령 호출에서 –online 플래그를 사용하여 라이브 마이그레이션을 시작할 수 있습니다. VM이 실행 중일 때 웹 인터페이스는 기본적으로 라이브 마이그레이션으로 설정됩니다.</p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 작동 방식</span><br>
+온라인 마이그레이션은 먼저 대상 호스트에서 수신 플래그를 사용하여 새 QEMU 프로세스를 시작합니다. 이 프로세스는 게스트 vCPU가 여전히 일시 중지된 상태에서 기본 초기화만 수행한 다음 소스 가상 머신의 게스트 메모리 및 장치 상태 데이터 스트림을 기다립니다. 디스크와 같은 다른 모든 리소스는 VM의 런타임 상태 마이그레이션이 시작되기 전에 공유되거나 이미 전송되었습니다. 따라서 메모리 콘텐츠와 장치 상태만 전송됩니다.<br></p>
+<p>이 연결이 설정되면 소스는 메모리 콘텐츠를 대상으로 비동기적으로 전송하기 시작합니다. 소스의 게스트 메모리가 변경되면 해당 섹션이 더티로 표시되고 게스트 메모리 데이터를 전송하기 위한 또 다른 패스가 수행됩니다. 이 루프는 실행 중인 소스 VM과 수신 대상 VM 간의 데이터 차이가 몇 밀리초 내에 전송될 만큼 작을 때까지 반복됩니다. 그러면 사용자나 프로그램이 일시 중지를 알아차리지 못한 채 소스 VM을 완전히 일시 중지하여 나머지 데이터를 대상으로 전송한 다음 대상 VM의 CPU 일시 중지를 해제하여 1초 이내에 새로운 실행 VM으로 만들 수 있습니다.<br><br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 요구 사항</span><br>
+라이브 마이그레이션이 작동하려면 몇 가지가 필요합니다.</p>
+<ul class="simple">
+<li><p>VM에 마이그레이션할 수 없는 로컬 리소스가 없습니다. 예를 들어 현재 통과하는 PCI 또는 USB 장치는 라이브 마이그레이션을 차단합니다. 반면 로컬 디스크는 대상으로 전송하여 마이그레이션할 수 있습니다.</p></li>
+<li><p>호스트는 동일한 Proxmox VE 클러스터에 있습니다.</p></li>
+<li><p>호스트 간에 작동하는(그리고 안정적인) 네트워크 연결이 있습니다.</p></li>
+<li><p>대상 호스트에는 Proxmox VE 패키지와 동일하거나 더 높은 버전이 있어야 합니다. 때로는 반대로 작동할 수 있지만 보장할 수는 없습니다.</p></li>
+<li><p>호스트에는 유사한 기능을 가진 동일한 공급업체의 CPU가 있습니다. 다른 공급업체는 구성된 실제 모델 및 VM CPU 유형에 따라 작동할 수 있지만 보장할 수는 없습니다. 따라서 프로덕션에서 이러한 설정을 배포하기 전에 테스트하세요.</p></li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id15">
+<h3>10.3.2. 오프라인 마이그레이션<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>로컬 리소스가 있는 경우 모든 디스크가 두 호스트에 정의된 스토리지에 있는 한 VM을 오프라인으로 마이그레이션할 수 있습니다. 그런 다음 마이그레이션은 온라인 마이그레이션과 마찬가지로 네트워크를 통해 디스크를 대상 호스트로 복사합니다. 모든 하드웨어 패스스루 구성은 대상 호스트의 장치 위치에 맞게 조정해야 할 수 있습니다.
+<br><br></p>
+</section>
+</section>
+<section id="id16">
+<h2>10.4. 복사본과 복제본<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p><img alt="" src="../_images/img55.png" /><br></p>
+<p>VM 설치는 일반적으로 운영 체제 공급업체의 설치 미디어(CD-ROM)를 사용하여 수행됩니다. OS에 따라 이 작업은 시간이 많이 소요될 수 있으므로 피하는 것이 좋습니다.<br></p>
+<p>동일한 유형의 여러 VM을 배포하는 쉬운 방법은 기존 VM을 복사하는 것입니다. 이러한 복사본에 대해 복제본이라는 용어를 사용하고 연결된 복제본과 전체 복제본을 구분합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> </span>Full Clone(전체 복제본)<br>
+이러한 복사의 결과는 독립적인 VM입니다. 새 VM은 원본과 스토리지 리소스를 공유하지 않습니다.<br></p>
+<p><span class="point">대상 스토리지</span>를 선택할 수 있으므로 이를 사용하여 VM을 완전히 다른 스토리지로 마이그레이션할 수 있습니다. 스토리지 드라이버가 여러 형식을 지원하는 경우 <span class="point">디스크 이미지 형식</span>을 변경할 수도 있습니다.<br></p>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 전체 복제본은 모든 VM 이미지 데이터를 읽고 복사해야 합니다. 이는 일반적으로 연결된 복제본을 만드는 것보다 훨씬 느립니다.</p>
+</div></blockquote>
+<p>일부 스토리지 유형은 현재 VM 데이터로 기본 설정된 특정 <span class="point">스냅샷</span>을 복사할 수 있습니다. 이는 또한 최종 사본에 <span class="point">원본 VM</span>의 추가 스냅샷이 포함되지 않음을 의미합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> </span>Linked Clone(연결된 복제본)<br>
+최신 스토리지 드라이버는 빠른 연결된 복제본을 생성하는 방법을 지원합니다. 이러한 복제본은 초기 내용이 원본 데이터와 동일한 쓰기 가능한 사본입니다. 연결된 복제본을 만드는 것은 거의 즉각적이며 처음에는 추가 공간을 사용하지 않습니다.<br></p>
+<p>새 이미지가 여전히 원본을 참조하기 때문에 연결된 복제본이라고 합니다. 수정되지 않은 데이터 블록은 원본 이미지에서 읽히지만 수정 사항은 새 위치에서 쓰여지고(나중에 읽힙니다). 이 기술을 <span class="point">쓰기 시 복사</span>라고 합니다.<br></p>
+<p>이를 위해서는 원본 볼륨이 읽기 전용이어야 합니다. Proxmox VE를 사용하면 모든 VM을 읽기 전용 템플릿으로 변환할 수 있습니다. 이러한 템플릿은 나중에 연결된 복제본을 효율적으로 만드는 데 사용할 수 있습니다.<br></p>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 연결된 복제본이 있는 동안에는 원본 템플릿을 삭제할 수 없습니다.</p>
+</div></blockquote>
+<p>연결된 복제본의 대상 스토리지는 스토리지 내부 기능이므로 변경할 수 없습니다.<br></p>
+<p><span class="point">대상 노드</span> 옵션을 사용하면 다른 노드에서 새 VM을 만들 수 있습니다. 유일한 제한 사항은 VM이 공유 스토리지에 있고 해당 스토리지가 대상 노드에서도 사용 가능하다는 것입니다.<br></p>
+<p>리소스 충돌을 피하기 위해 모든 네트워크 인터페이스 MAC 주소가 무작위로 지정되고 VM BIOS(smbios1) 설정에 대한 <span class="point">새 UUID</span>가 생성됩니다.<br><br></p>
+</section>
+<section id="id17">
+<h2>10.5. 가상 머신 템플릿<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>VM을 템플릿으로 변환할 수 있습니다. 이러한 템플릿은 읽기 전용이며, 이를 사용하여 연결된 복제본을 만들 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 템플릿을 시작할 수 없습니다. 이렇게 하면 디스크 이미지가 수정되기 때문입니다. 템플릿을 변경하려면 연결된 복제본을 만들고 수정하세요.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="vm-id">
+<h2>10.6. VM 생성 ID<a class="headerlink" href="#vm-id" title="Link to this heading">#</a></h2>
+<p>Proxmox VE는 가상 머신에 대한 가상 머신 생성 ID(<span class="point">vmgenid</span>)를 지원합니다. 이는 게스트 운영 체제에서 백업이나 스냅샷 롤백을 복원하는 것과 같이 시간 이동 이벤트로 이어지는 모든 이벤트를 감지하는 데 사용할 수 있습니다.<br></p>
+<p>새 VM을 만들 때 vmgenid가 자동으로 생성되어 구성 파일에 저장됩니다.<br></p>
+<p>기존 VM에 vmgenid를 만들고 추가하려면 특수 값 ‘1’을 전달하여 Proxmox VE가 하나를 자동 생성하도록 하거나, 값으로 사용하여 <span class="point">UUID</span>를 수동으로 설정할 수 있습니다. 예:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># qm set VMID -vmgenid 1</span>
+<span class="c1"># qm set VMID -vmgenid 00000000-0000-0000-0000-00000000000</span>
+</pre></div>
+</div>
+<p>참고 기존 VM에 vmgenid 장치를 처음 추가하면 스냅샷 롤백, 백업 복원 등의 변경과 동일한 효과가 발생할 수 있습니다. VM이 이를 세대 변경으로 해석할 수 있기 때문입니다.</p>
+<p>드문 경우지만 vmgenid 메커니즘이 필요하지 않은 경우 VM 생성 시 값에 ‘0’을 전달하거나 다음을 사용하여 구성에서 속성을 소급적으로 삭제할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># qm set VMID -delete vmgenid</span>
+</pre></div>
+</div>
+<p>vmgenid의 가장 두드러진 사용 사례는 최신 Microsoft Windows 운영 체제로, 스냅샷 롤백, 백업 복원 또는 전체 VM 복제 작업 시 시간에 민감한 서비스나 복제 서비스(예: 데이터베이스 또는 도메인 컨트롤러)에서 문제를 피하기 위해 사용합니다.<br><br></p>
+</section>
+<section id="id18">
+<h2>10.7. 가상 머신 가져오기<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>외부 하이퍼바이저 또는 다른 Proxmox VE 클러스터에서 기존 가상 머신을 가져오는 방법은 다양하며, 가장 일반적인 방법은 다음과 같습니다.</p>
+<ul class="simple">
+<li><p>ESXi 특수 스토리지에서 제공하는 것과 같은 <span class="point">import(가져오기)</span> 콘텐츠 유형을 활용하는 기본 가져오기 마법사 사용.</p></li>
+<li><p>소스에서 백업을 수행한 다음 대상에서 복원. 이 방법은 다른 Proxmox VE 인스턴스에서 마이그레이션할 때 가장 효과적입니다.</p></li>
+<li><p><span class="point">qm</span> 명령줄 도구의 OVF 특정 가져오기 명령 사용.</p></li>
+</ul>
+<p>다른 하이퍼바이저에서 Proxmox VE로 VM을 가져오는 경우 Proxmox VE의 개념에 익숙해지는 것이 좋습니다.<br></p>
+<section id="id19">
+<h3>10.7.1. 가져오기 마법사<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p><img alt="" src="../_images/img56.png" /><br>
+Proxmox VE는 API 및 웹 기반 사용자 인터페이스에 네이티브 통합하기 위한 스토리지 플러그인 시스템을 사용하는 통합 VM 임포터를 제공합니다. 이를 사용하여 대부분의 구성을 Proxmox VE의 구성 모델에 매핑하고 다운타임을 줄인 상태로 VM을 전체적으로 임포트할 수 있습니다.</p>
+<p>참고 사항 임포트 마법사는 Proxmox VE 8.2 개발 주기 동안 추가되었으며 기술 미리보기 상태입니다. 이미 유망하고 안정적으로 작동하지만 아직 활발하게 개발 중입니다.</p>
+<p>임포트 마법사를 사용하려면 먼저 임포트 소스에 대한 새 스토리지를 설정해야 합니다. 웹 인터페이스에서 <span class="point">Datacenter → Storage → Add</span>에서 설정할 수 있습니다.<br></p>
+<p>그런 다음 리소스 트리에서 새 스토리지를 선택하고 <span class="point">Virtual Guests</span> 콘텐츠 탭을 사용하여 임포트할 수 있는 모든 사용 가능한 게스트를 확인할 수 있습니다.<br></p>
+<p><img alt="" src="../_images/img57.png" /><br>
+하나를 선택하고 <span class="point">Import</span> 버튼을 사용하거나 두 번 클릭하여 임포트 마법사를 엽니다. 여기에서 사용 가능한 옵션의 하위 집합을 수정한 다음 임포트를 시작할 수 있습니다. 가져오기가 완료된 후에 더 고급 수정을 할 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> ESXi 가져오기 마법사는 ESXi 버전 6.5~8.0에서 테스트되었습니다. vSAN 스토리지를 사용하는 게스트는 직접 가져올 수 없습니다. 먼저 디스크를 다른 스토리지로 옮겨야 합니다. vCenter를 가져오기 소스로 사용할 수는 있지만 성능이 크게 저하됩니다(5~10배 느림).</p>
+</div></blockquote>
+<p>가상 게스트를 새 하이퍼바이저에 적응시키는 방법에 대한 단계별 가이드와 팁은 Proxmox VE로 마이그레이션 위키 문서를 참조하세요.<br><br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> OVA/OVF 가져오기</span><br>
+OVA/OVF 파일을 가져오려면 먼저 가져오기 콘텐츠 유형이 있는 파일 기반 저장소가 필요합니다. 이 저장소에는 OVA 파일이나 해당 이미지가 있는 OVF 파일을 플랫 구조로 넣을 수 있는 가져오기 폴더가 있습니다. 또는 웹 UI를 사용하여 OVA 파일을 직접 업로드하거나 다운로드할 수 있습니다. 그런 다음 웹 UI를 사용하여 해당 파일을 선택하고 가져오기 마법사를 사용하여 게스트를 가져올 수 있습니다.<br></p>
+<p>OVA 파일의 경우 이미지를 일시적으로 추출하기 위해 추가 공간이 필요합니다. 여기에는 이미지 콘텐츠 유형이 구성된 파일 기반 저장소가 필요합니다. 기본적으로 소스 저장소가 선택되지만 실제 대상 저장소로 가져오기 전에 이미지를 추출할 <span class="point">가져올 저장소(Import Working Storage)</span>를 지정할 수 있습니다.</p>
+<p>참고 OVA/OVF 파일 구조와 콘텐츠는 항상 잘 유지 관리되거나 정의되지 않으므로 일부 게스트 설정을 수동으로 조정해야 할 수 있습니다. 예를 들어, SCSI 컨트롤러 유형은 OVA/OVF 파일에서 거의 정의되지 않지만 기본값은 OVMF(UEFI)로 부팅할 수 없으므로 이러한 경우에는 <span class="point">Virtio SCSI</span> 또는 <span class="point">VMware PVSCSI</span>를 선택해야 합니다.</p>
+<p><br><br></p>
+</section>
+<section id="cli-ovf-ova">
+<h3>10.7.2. CLI를 통해 OVF/OVA 가져오기<a class="headerlink" href="#cli-ovf-ova" title="Link to this heading">#</a></h3>
+<p>외부 하이퍼바이저에서 VM을 내보내는 것은 일반적으로 하나 이상의 디스크 이미지와 VM 설정(RAM, 코어 수)을 설명하는 구성 파일의 형태를 취합니다.<br>
+디스크 이미지는 디스크가 VMware 또는 VirtualBox에서 온 경우 vmdk 형식이거나 디스크가 KVM 하이퍼바이저에서 온 경우 qcow2 형식일 수 있습니다. VM 내보내기에 가장 널리 사용되는 구성 형식은 OVF 표준이지만 실제로는 많은 설정이 표준 자체에 구현되지 않고 하이퍼바이저가 비표준 확장으로 보충 정보를 내보내기 때문에 상호 운용성이 제한됩니다.<br></p>
+<p>형식 문제 외에도 에뮬레이트된 하드웨어가 한 하이퍼바이저에서 다른 하이퍼바이저로 너무 많이 변경되면 다른 하이퍼바이저에서 디스크 이미지를 가져오는 데 실패할 수 있습니다. Windows VM은 특히 이 점에 대해 우려하는데, OS가 하드웨어 변경에 대해 매우 까다롭기 때문입니다. 이 문제는 내보내기 전에 인터넷에서 제공되는 MergeIDE.zip 유틸리티를 설치하고 가져온 Windows VM을 부팅하기 전에 하드 디스크 유형인 <span class="point">IDE</span>를 선택하면 해결할 수 있습니다.<br></p>
+<p>마지막으로, 에뮬레이션된 시스템의 속도를 개선하고 하이퍼바이저에 특화된 준가상화 드라이버에 대한 문제가 있습니다. GNU/Linux 및 기타 무료 Unix OS에는 기본적으로 필요한 모든 드라이버가 설치되어 있으며 VM을 가져온 직후 준가상화 드라이버로 전환할 수 있습니다. Windows VM의 경우 Windows 준가상화 드라이버를 직접 설치해야 합니다.<br></p>
+<p>GNU/Linux 및 기타 무료 Unix는 일반적으로 번거롭지 않게 가져올 수 있습니다. 위의 문제로 인해 모든 경우에 Windows VM의 성공적인 가져오기/내보내기를 보장할 수 없습니다.<br><br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> Windows OVF 가져오기의 단계별 예</span><br></p>
+<p>Microsoft는 Windows 개발을 시작하기 위한 Virtual Machines 다운로드를 제공합니다. 이 중 하나를 사용하여 OVF 가져오기 기능을 시연합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> Virtual Machine zip 다운로드</span><br></p>
+<p>사용자 계약에 대해 알게 된 후 VMware 플랫폼용 Windows 10 Enterprise(평가판 - 빌드)를 선택하고 zip을 다운로드합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> </span><br><span class="point"><img alt="" src="../_images/info1.png" /> zip에서 디스크 이미지 추출</span><br>
+unzip 유틸리티나 원하는 아카이버를 사용하여 zip을 압축 해제하고 ssh/scp를 통해 ovf 및 vmdk 파일을 Proxmox VE 호스트에 복사합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 가상 머신 가져오기</span><br>
+이렇게 하면 OVF 매니페스트에서 읽은 코어, 메모리 및 VM 이름을 사용하여 새 가상 머신이 생성되고 디스크가 local-lvm 스토리지로 가져옵니다. 네트워크를 수동으로 구성해야 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># qm importovf 999 WinDev1709Eval.ovf local-lvm</span>
+</pre></div>
+</div>
+<p>VM을 시작할 준비가 되었습니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 가상 머신에 외부 디스크 이미지 추가</span><br>
+외부 하이퍼바이저에서 가져온 기존 디스크 이미지나 직접 만든 디스크 이미지를 VM에 추가할 수도 있습니다.<br></p>
+<p>vmdebootstrap 도구로 Debian/Ubuntu 디스크 이미지를 만들었다고 가정해 보겠습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vmdebootstrap</span> <span class="o">--</span><span class="n">verbose</span> \
+<span class="o">--</span><span class="n">size</span> <span class="mi">10</span><span class="n">GiB</span> <span class="o">--</span><span class="n">serial</span><span class="o">-</span><span class="n">console</span> \
+<span class="o">--</span><span class="n">grub</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">extlinux</span> \
+<span class="o">--</span><span class="n">package</span> <span class="n">openssh</span><span class="o">-</span><span class="n">server</span> \
+<span class="o">--</span><span class="n">package</span> <span class="n">avahi</span><span class="o">-</span><span class="n">daemon</span> \
+<span class="o">--</span><span class="n">package</span> <span class="n">qemu</span><span class="o">-</span><span class="n">guest</span><span class="o">-</span><span class="n">agent</span> \
+<span class="o">--</span><span class="n">hostname</span> <span class="n">vm600</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">dhcp</span> \
+<span class="o">--</span><span class="n">customize</span><span class="o">=./</span><span class="n">copy_pub_ssh</span><span class="o">.</span><span class="n">sh</span> \
+<span class="o">--</span><span class="n">sparse</span> <span class="o">--</span><span class="n">image</span> <span class="n">vm600</span><span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>이제 새 대상 VM을 만들고 이미지를 저장소 pvedir로 가져와 VM의 SCSI 컨트롤러에 연결할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># qm create 600 --net0 virtio,bridge=vmbr0 --name vm600 --serial0 socket \</span>
+<span class="o">--</span><span class="n">boot</span> <span class="n">order</span><span class="o">=</span><span class="n">scsi0</span> <span class="o">--</span><span class="n">scsihw</span> <span class="n">virtio</span><span class="o">-</span><span class="n">scsi</span><span class="o">-</span><span class="n">pci</span> <span class="o">--</span><span class="n">ostype</span> <span class="n">l26</span> \
+<span class="o">--</span><span class="n">scsi0</span> <span class="n">pvedir</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="n">import</span><span class="o">-</span><span class="n">from</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">dir</span><span class="o">/</span><span class="n">vm600</span><span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>VM을 시작할 준비가 되었습니다.<br><br></p>
+</section>
+</section>
+<section id="cloud-init">
+<h2>10.8. Cloud-Init 지원<a class="headerlink" href="#cloud-init" title="Link to this heading">#</a></h2>
+<p>Cloud-Init은 가상 머신 인스턴스의 조기 초기화를 처리하는 사실상의 다중 배포 패키지입니다. Cloud-Init을 사용하면 하이퍼바이저 측에서 네트워크 장치 및 ssh 키를 구성할 수 있습니다. VM이 처음 시작되면 VM 내부의 Cloud-Init 소프트웨어가 해당 설정을 적용합니다.<br></p>
+<p>많은 Linux 배포판은 대부분 <span class="point">OpenStack</span>용으로 설계된 바로 사용 가능한 Cloud-Init 이미지를 제공합니다. 이러한 이미지는 Proxmox VE에서도 작동합니다. 이러한 바로 사용 가능한 이미지를 얻는 것이 편리해 보일 수 있지만 일반적으로 이미지를 직접 준비하는 것이 좋습니다. 장점은 설치한 내용을 정확히 알 수 있고 나중에 필요에 따라 이미지를 쉽게 사용자 정의할 수 있다는 것입니다.<br></p>
+<p>이러한 Cloud-Init 이미지를 만든 후에는 VM 템플릿으로 변환하는 것이 좋습니다. VM 템플릿에서 연결된 복제본을 빠르게 만들 수 있으므로 새 VM 인스턴스를 롤아웃하는 빠른 방법입니다. 새 VM을 시작하기 전에 네트워크(그리고 ssh 키)만 구성하면 됩니다.<br></p>
+<p>Cloud-Init에서 프로비저닝한 VM에 로그인하려면 SSH 키 기반 인증을 사용하는 것이 좋습니다. 비밀번호를 설정할 수도 있지만 Proxmox VE가 Cloud-Init 데이터 내부에 해당 비밀번호의 암호화된 버전을 저장해야 하기 때문에 SSH 키 기반 인증을 사용하는 것만큼 안전하지 않습니다.<br></p>
+<p>Proxmox VE는 Cloud-Init 데이터를 VM에 전달하기 위해 ISO 이미지를 생성합니다. 이를 위해 모든 Cloud-Init VM에 할당된 CD-ROM 드라이브가 있어야 합니다. 일반적으로 직렬 콘솔을 추가하여 디스플레이로 사용해야 합니다. 많은 Cloud-Init 이미지가 이에 의존하며 OpenStack에 필수적입니다. 그러나 다른 이미지에는 이 구성에 문제가 있을 수 있습니다. 직렬 콘솔을 사용해도 작동하지 않으면 기본 디스플레이 구성으로 다시 전환하세요.<br><br></p>
+<section id="id20">
+<h3>10.8.1. Cloud-Init 템플릿 준비<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>첫 번째 단계는 VM을 준비하는 것입니다. 기본적으로 모든 VM을 사용할 수 있습니다. 준비하려는 <span class="point">VM 내부</span>에 Cloud-Init 패키지를 설치하기만 하면 됩니다. Debian/Ubuntu 기반 시스템에서는 다음과 같이 간단합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">cloud</span><span class="o">-</span><span class="n">init</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 이 명령은 Proxmox VE 호스트에서 실행되도록 의도된 것이 아니라 VM 내부에서만 실행되도록 의도된 것입니다.</p>
+</div></blockquote>
+<p>이미 많은 배포판에서 바로 사용할 수 있는 Cloud-Init 이미지(<span class="point">.qcow2 </span>파일로 제공)를 제공하므로 이러한 이미지를 간단히 다운로드하여 가져올 수 있습니다. 다음 예에서는 Ubuntu에서 제공하는 https://cloud-images.ubuntu.com의 클라우드 이미지를 사용합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 이미지 다운로드</span>
+<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cloud</span><span class="o">-</span><span class="n">images</span><span class="o">.</span><span class="n">ubuntu</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bionic</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="n">bionic</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">cloudimg</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">img</span>
+
+<span class="c1"># VirtIO SCSI 컨트롤러로 새 VM 만들기</span>
+<span class="n">qm</span> <span class="n">create</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">memory</span> <span class="mi">2048</span> <span class="o">--</span><span class="n">net0</span> <span class="n">virtio</span><span class="p">,</span><span class="n">bridge</span><span class="o">=</span><span class="n">vmbr0</span> <span class="o">--</span><span class="n">scsihw</span> <span class="n">virtio</span><span class="o">-</span><span class="n">scsi</span><span class="o">-</span><span class="n">pci</span>
+
+<span class="c1"># 다운로드한 디스크를 로컬-lvm 스토리지로 가져와 SCSI 드라이브로 연결</span>
+<span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">scsi0</span> <span class="n">local</span><span class="o">-</span><span class="n">lvm</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="n">import</span><span class="o">-</span><span class="n">from</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">bionic</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">cloudimg</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">img</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> Ubuntu Cloud-Init 이미지에는 SCSI 드라이브에 대한 virtio-scsi-pci 컨트롤러 유형이 필요합니다.</p>
+</div></blockquote>
+<p><img alt="" src="../_images/img58.png" /><br>
+<span class="point"><img alt="" src="../_images/info1.png" /> Cloud-Init CD-ROM 드라이브 추가</span><br>
+다음 단계는 Cloud-Init 데이터를 VM에 전달하는 데 사용되는 CD-ROM 드라이브를 구성하는 것입니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">ide2</span> <span class="n">local</span><span class="o">-</span><span class="n">lvm</span><span class="p">:</span><span class="n">cloudinit</span>
+</pre></div>
+</div>
+<p>Cloud-Init 이미지에서 직접 부팅할 수 있도록 부팅 매개변수를 order=scsi0으로 설정하여 BIOS가 이 디스크에서만 부팅하도록 제한합니다. 이렇게 하면 VM BIOS가 부팅 가능한 CD-ROM에 대한 테스트를 건너뛰므로 부팅 속도가 빨라집니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">boot</span> <span class="n">order</span><span class="o">=</span><span class="n">scsi0</span>
+</pre></div>
+</div>
+<p>많은 Cloud-Init 이미지의 경우 직렬 콘솔을 구성하여 디스플레이로 사용해야 합니다. 그러나 해당 이미지에서 구성이 작동하지 않으면 대신 기본 디스플레이로 다시 전환합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">serial0</span> <span class="n">socket</span> <span class="o">--</span><span class="n">vga</span> <span class="n">serial0</span>
+</pre></div>
+</div>
+<p>마지막 단계에서는 VM을 템플릿으로 변환하는 것이 좋습니다. 이 템플릿에서 연결된 복제본을 빠르게 만들 수 있습니다. VM 템플릿에서 배포하는 것은 전체 복제본(복사본)을 만드는 것보다 훨씬 빠릅니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="n">template</span> <span class="mi">9000</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id21">
+<h3>10.8.2. Cloud-Init 템플릿 배포<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p><img alt="" src="../_images/img59.png" /><br></p>
+<p>다음을 복제하여 이러한 템플릿을 쉽게 배포할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="n">clone</span> <span class="mi">9000</span> <span class="mi">123</span> <span class="o">--</span><span class="n">name</span> <span class="n">ubuntu2</span>
+</pre></div>
+</div>
+<p>그런 다음 인증에 사용되는 SSH 공개 키를 구성하고 IP 설정을 구성합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">123</span> <span class="o">--</span><span class="n">sshkey</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
+<span class="n">qm</span> <span class="nb">set</span> <span class="mi">123</span> <span class="o">--</span><span class="n">ipconfig0</span> <span class="n">ip</span><span class="o">=</span><span class="mf">10.0.10.123</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span><span class="n">gw</span><span class="o">=</span><span class="mf">10.0.10.1</span>
+</pre></div>
+</div>
+<p>단일 명령만 사용하여 모든 Cloud-Init 옵션을 구성할 수도 있습니다. 줄 길이를 줄이기 위해 위의 예를 간단히 분할하여 명령을 구분했습니다. 또한 특정 환경에 맞는 IP 설정을 채택해야 합니다.<br><br></p>
+</section>
+<section id="id22">
+<h3>10.8.3. 사용자 지정 Cloud-Init 구성<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>Cloud-Init 통합을 통해 자동 생성된 구성 대신 사용자 지정 구성 파일을 사용할 수도 있습니다. 이 작업은 명령줄에서 <span class="point">cicustom</span> 옵션을 통해 수행됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">cicustom</span> <span class="s2">&quot;user=&lt;volume&gt;,network=&lt;volume&gt;,meta=&lt;volume&gt;&quot;</span>
+</pre></div>
+</div>
+<p>사용자 지정 구성 파일은 스니펫을 지원하는 스토리지에 있어야 하며 VM이 마이그레이션될 모든 노드에서 사용할 수 있어야 합니다. 그렇지 않으면 VM을 시작할 수 없습니다. 예:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">cicustom</span> <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span>
+</pre></div>
+</div>
+<p>Cloud-Init에는 세 가지 종류의 구성이 있습니다. 첫 번째는 위의 예에서 볼 수 있는 <span class="point">사용자</span> 구성입니다. 두 번째는 <span class="point">네트워크</span> 구성이고 세 번째는 <span class="point">메타</span> 구성입니다. 모두 함께 지정하거나 필요에 따라 혼합하여 일치시킬 수 있습니다. 사용자 지정 구성 파일이 지정되지 않은 모든 구성에는 자동으로 생성된 구성이 사용됩니다.<br></p>
+<p>생성된 구성은 사용자 지정 구성의 기반으로 덤프할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="n">cloudinit</span> <span class="n">dump</span> <span class="mi">9000</span> <span class="n">user</span>
+</pre></div>
+</div>
+<p>네트워크와 메타에 동일한 명령이 있습니다.<br><br></p>
+</section>
+<section id="windows-cloud-init">
+<h3>10.8.4. Windows에서 Cloud-Init<a class="headerlink" href="#windows-cloud-init" title="Link to this heading">#</a></h3>
+<p>Windows에서 사용할 수 있는 Cloud-Init의 재구현은 cloudbase-init입니다. Cloud-Init의 모든 기능을 Cloudbase-Init에서 사용할 수 있는 것은 아니며, 일부 기능은 Cloud-Init과 다릅니다.</p>
+<p>Cloudbase-Init은 <span class="point"></span>ostype을 모든 Windows 버전으로 설정하고 <span class="point"></span>citype를 <span class="point"></span>configdrive2로 설정해야 하며, 이는 모든 Windows ostype의 기본값입니다.<br></p>
+<p>무료로 제공되는 Windows용 기성 클라우드 이미지는 없습니다. Cloudbase-Init을 사용하려면 Windows 게스트를 수동으로 설치하고 구성해야 합니다.<br><br></p>
+</section>
+<section id="cloudbase-init">
+<h3>10.8.5. Cloudbase-Init 템플릿 준비<a class="headerlink" href="#cloudbase-init" title="Link to this heading">#</a></h3>
+<p>첫 번째 단계는 VM에 Windows를 설치하는 것입니다. 게스트에 Cloudbase-Init을 다운로드하여 설치합니다. 베타 버전을 설치해야 할 수도 있습니다. 설치가 끝날 때 Sysprep을 실행하지 마세요. 대신 먼저 Cloudbase-Init을 구성하세요.<br></p>
+<p>설정할 수 있는 몇 가지 일반적인 옵션은 다음과 같습니다.</p>
+<ul class="simple">
+<li><p><span class="point">username</span>: 관리자의 사용자 이름을 설정합니다.</p></li>
+<li><p><span class="point">groups</span>: 사용자를 관리자 그룹에 추가할 수 있습니다.</p></li>
+<li><p><span class="point">inject_user_password</span>: VM 구성에서 암호를 설정할 수 있도록 true로 설정합니다.</p></li>
+<li><p><span class="point">first_logon_behaviour</span>: 로그인 시 새 암호를 요구하지 않도록 no로 설정합니다.</p></li>
+<li><p><span class="point">rename_admin_user</span>: 기본 관리자 사용자의 이름을 username으로 지정한 사용자 이름으로 변경할 수 있도록 true로 설정합니다.</p></li>
+<li><p><span class="point">metadata_services</span>: Cloudbase-Init에서 먼저 이 서비스를 확인하도록 <span class="point">cloudbaseinit.metadata.services.configdrive.ConfigDriveService</span>로 설정합니다. 그렇지 않으면 부팅 후 Cloudbase-Init에서 시스템을 구성하는 데 몇 분이 걸릴 수 있습니다.</p></li>
+</ul>
+<p>SetHostnamePlugin과 같은 일부 플러그인은 재부팅이 필요하며 자동으로 재부팅합니다. Cloudbase-Init에서 자동 재부팅을 비활성화하려면 <span class="point">allow_reboot</span>를 <span class="point">false</span>로 설정할 수 있습니다.<br></p>
+<p>전체 구성 옵션은 공식 cloudbase-init 문서에서 찾을 수 있습니다.<br></p>
+<p>구성의 일부 부분을 여전히 조정해야 하는 경우 구성 후 스냅샷을 만드는 것이 좋습니다. Cloudbase-Init을 구성한 후 템플릿을 만들기 시작할 수 있습니다. Windows 게스트를 종료하고 Cloud-Init 디스크를 추가하여 템플릿으로 만듭니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">9000</span> <span class="o">--</span><span class="n">ide2</span> <span class="n">local</span><span class="o">-</span><span class="n">lvm</span><span class="p">:</span><span class="n">cloudinit</span>
+<span class="n">qm</span> <span class="n">template</span> <span class="mi">9000</span>
+</pre></div>
+</div>
+<p>템플릿을 새 VM으로 복제합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="n">clone</span> <span class="mi">9000</span> <span class="mi">123</span> <span class="o">--</span><span class="n">name</span> <span class="n">windows123</span>
+</pre></div>
+</div>
+<p>그런 다음 비밀번호, 네트워크 구성 및 SSH 키를 설정합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qm</span> <span class="nb">set</span> <span class="mi">123</span> <span class="o">--</span><span class="n">cipassword</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+<span class="n">qm</span> <span class="nb">set</span> <span class="mi">123</span> <span class="o">--</span><span class="n">ipconfig0</span> <span class="n">ip</span><span class="o">=</span><span class="mf">10.0.10.123</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span><span class="n">gw</span><span class="o">=</span><span class="mf">10.0.10.1</span>
+<span class="n">qm</span> <span class="nb">set</span> <span class="mi">123</span> <span class="o">--</span><span class="n">sshkey</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
+</pre></div>
+</div>
+<p>비밀번호를 설정하기 전에 ostype이 모든 Windows 버전으로 설정되어 있는지 확인합니다. 그렇지 않으면 비밀번호가 암호화되고 Cloudbase-Init은 암호화된 비밀번호를 일반 텍스트 비밀번호로 사용합니다.<br></p>
+<p>모든 것이 설정되면 복제된 게스트를 시작합니다. 첫 번째 부팅 시 로그인이 작동하지 않고 변경된 호스트 이름으로 자동으로 재부팅됩니다. 재부팅 후에는 새로운 비밀번호가 설정되고 로그인이 가능할 것입니다.<br><br></p>
+</section>
+<section id="cloudbase-init-sysprep">
+<h3>10.8.6. Cloudbase-Init 및 Sysprep<a class="headerlink" href="#cloudbase-init-sysprep" title="Link to this heading">#</a></h3>
+<p>Sysprep은 Windows 구성을 재설정하고 새로운 시스템을 제공하는 기능입니다. 이 기능은 Cloudbase-Init과 함께 사용하여 깨끗한 템플릿을 만들 수 있습니다.<br></p>
+<p>Sysprep을 사용할 때는 조정해야 할 구성 파일이 2개 있습니다. 첫 번째는 일반 구성 파일이고 두 번째는 <span class="point">-unattend.conf</span>로 끝나는 파일입니다.<br></p>
+<p>Cloudbase-Init은 2단계로 실행됩니다. 먼저 <span class="point">-unattend.conf</span>를 사용하는 Sysprep 단계와 기본 구성 파일을 사용하는 일반 단계입니다.<br></p>
+<p>제공된 <span class="point">Unattend.xml</span> 파일로 Sysprep을 실행하는 Windows Server는 바로 사용할 수 있습니다. 하지만 일반 Windows 버전에는 추가 단계가 필요합니다.</p>
+<ol class="arabic simple">
+<li><p>PowerShell 인스턴스를 엽니다.</p></li>
+<li><p>관리자 사용자를 활성화합니다.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>net user Administrator /active:yes`
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>관리자 사용자를 사용하여 Cloudbase-Init를 설치합니다.</p></li>
+<li><p>Sysprepping 후 첫 번째 부팅 시 관리자 사용자를 활성화하는 명령을 포함하도록 Unattend.xml을 수정합니다.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">RunSynchronousCommand</span> <span class="n">wcm</span><span class="p">:</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Path</span><span class="o">&gt;</span><span class="n">net</span> <span class="n">user</span> <span class="n">administrator</span> <span class="o">/</span><span class="n">active</span><span class="p">:</span><span class="n">yes</span><span class="o">&lt;/</span><span class="n">Path</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">Order</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Description</span><span class="o">&gt;</span><span class="n">Enable</span> <span class="n">Administrator</span> <span class="n">User</span><span class="o">&lt;/</span><span class="n">Description</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">RunSynchronousCommand</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>&lt;Order&gt;가 다른 동기 명령과 충돌하지 않는지 확인합니다. 이 명령 다음에 실행되도록 Cloudbase-Init 명령의 &lt;Order&gt;를 수정하려면 숫자를 더 높은 값으로 늘립니다. &lt;Order&gt;2</Order></p>
+<ol class="arabic simple" start="5">
+<li><p>(Windows 11만 해당) 충돌하는 Microsoft.OneDriveSync 패키지를 제거합니다.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span><span class="o">-</span><span class="n">AppxPackage</span> <span class="o">-</span><span class="n">AllUsers</span> <span class="n">Microsoft</span><span class="o">.</span><span class="n">OneDriveSync</span> <span class="o">|</span> <span class="n">Remove</span><span class="o">-</span><span class="n">AppxPackage</span> <span class="o">-</span><span class="n">AllUsers</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Cloudbase-Init 구성 디렉토리로 cd:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="s1">&#39;C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>(선택 사항) 구성 오류가 발생할 경우 Sysprep 전에 VM의 스냅샷을 만듭니다.</p></li>
+<li><p>Sysprep을 실행합니다.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">System32</span>\<span class="n">Sysprep</span>\<span class="n">sysprep</span><span class="o">.</span><span class="n">exe</span> <span class="o">/</span><span class="n">generalize</span> <span class="o">/</span><span class="n">oobe</span> <span class="o">/</span><span class="n">unattend</span><span class="p">:</span><span class="n">Unattend</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>위의 단계를 따르면 Sysprep으로 인해 VM이 종료 상태가 됩니다. 이제 템플릿으로 만들고 복제하여 필요에 따라 구성할 수 있습니다.<br><br></p>
+</section>
+<section id="id23">
+<h3>10.8.7. Cloud-Init 특정 옵션<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p><span class="point">cicustom: [meta=&lt;볼륨&gt;] [,network=&lt;볼륨&gt;] [,user=&lt;볼륨&gt;] [,vendor=&lt;볼륨&gt;]</span>
+시작 시 자동으로 생성된 파일을 대체할 사용자 지정 파일을 지정합니다.</p>
+<ul>
+<li><p><span class="point">meta=<volume></span></p>
+<ul class="simple">
+<li><p>“ .” cloud-init를 통해 VM에 전달된 모든 메타 데이터가 포함된 사용자 지정 파일을 지정합니다. 이는 공급자별 의미로 configdrive2와 nocloud는 다릅니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">network=<volume></span></p>
+<ul class="simple">
+<li><p>cloud-init를 통해 VM에 모든 네트워크 데이터가 포함된 사용자 지정 파일을 전달합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">user=<volume></span></p>
+<ul class="simple">
+<li><p>cloud-init를 통해 VM에 모든 사용자 데이터가 포함된 사용자 지정 파일을 전달합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">vendor=<volume></span></p>
+<ul class="simple">
+<li><p>cloud-init를 통해 VM에 모든 공급업체 데이터가 포함된 사용자 지정 파일을 전달합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">cipassword: <string></span></p>
+<ul class="simple">
+<li><p>사용자에게 할당할 비밀번호입니다. 일반적으로 이 비밀번호는 사용하지 않는 것이 좋습니다. 대신 ssh 키를 사용합니다. 또한 이전 cloud-init 버전은 해시된 비밀번호를 지원하지 않습니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">citype: &lt;configdrive2 | nocloud | opennebula&gt;</span></p>
+<ul class="simple">
+<li><p>cloud-init 구성 형식을 지정합니다. 기본값은 구성된 운영 체제 유형(ostype)에 따라 달라집니다. Linux의 경우 nocloud 형식을 사용하고 Windows의 경우 configdrive2를 사용합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">ciupgrade: &lt;부울&gt; (기본값 = 1)</span></p>
+<ul class="simple">
+<li><p>첫 번째 부팅 후 자동 패키지 업그레이드를 수행합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">ciuser: &lt;문자열&gt;</span></p>
+<ul class="simple">
+<li><p>이미지의 구성된 기본 사용자 대신 ssh 키와 비밀번호를 변경할 사용자 이름입니다.</p></li>
+</ul>
+</li>
+<li><p>&lt;span class=”point”ipconfig[n]: [gw=&lt;게이트웨이IPv4&gt;] [,gw6=&lt;게이트웨이IPv6&gt;] [,ip=&lt;IPv4형식/CIDR&gt;] [,ip6=&lt;IPv6형식/CIDR&gt;]&gt;</span></p>
+<ul>
+<li><p>해당 인터페이스에 대한 IP 주소와 게이트웨이를 지정합니다.</p></li>
+<li><p>IP 주소는 CIDR 표기법을 사용하고 게이트웨이는 선택 사항이지만 지정된 동일한 유형의 IP가 필요합니다.</p></li>
+<li><p>특수 문자열 dhcp는 IP 주소에서 DHCP를 사용하는 데 사용할 수 있으며, 이 경우 명시적인 게이트웨이를 제공해서는 안 됩니다. IPv6의 경우 특수 문자열 auto를 사용하여 상태 비저장 자동 구성을 사용할 수 있습니다. 여기에는 다음이 필요합니다. cloud-init 19.4 이상.</p></li>
+<li><p>cloud-init가 활성화되어 있고 IPv4나 IPv6 주소가 지정되지 않은 경우 IPv4에서 dhcp를 사용하도록 기본 설정됩니다.</p></li>
+<li><p><span class="point">gw=<GatewayIPv4></span></p>
+<ul class="simple">
+<li><p>IPv4 트래픽의 기본 게이트웨이.</p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 옵션 필요: ip</p>
+</div></blockquote>
+</li>
+<li><p><span class="point">gw6=<GatewayIPv6></span></p>
+<ul class="simple">
+<li><p>IPv6 트래픽의 기본 게이트웨이.</p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/bell1.png" /> 옵션 필요: ip6</p>
+</div></blockquote>
+</li>
+<li><p><span class="point">ip=&lt;IPv4Format/CIDR&gt;</span> (기본값 = dhcp)</p>
+<ul class="simple">
+<li><p>CIDR 형식의 IPv4 주소.</p></li>
+</ul>
+</li>
+<li><p><span class="point">ip6=&lt;IPv6Format/CIDR&gt; </span> (기본값 = dhcp)</p>
+<ul class="simple">
+<li><p>CIDR 형식의 IPv6 주소.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><span class="point">nameserver: <string></span></p>
+<ul class="simple">
+<li><p>컨테이너의 DNS 서버 IP 주소를 설정합니다. searchdomain이나 nameserver가 설정되지 않은 경우 Create는 자동으로 호스트의 설정을 사용합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">searchdomain: <string></span></p>
+<ul class="simple">
+<li><p>컨테이너의 DNS 검색 도메인을 설정합니다. 검색도메인이나 네임서버가 설정되지 않은 경우 Create는 자동으로 호스트의 설정을 사용합니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">sshkeys: <string></span></p>
+<ul class="simple">
+<li><p>공개 SSH 키 설정(한 줄에 하나의 키, OpenSSH 형식).</p></li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+</section>
+</section>
+<section id="pci-e">
+<h2>10.9. PCI(e) 패스스루<a class="headerlink" href="#pci-e" title="Link to this heading">#</a></h2>
+<p>PCI(e) 패스스루는 호스트에서 PCI 장치를 가상 머신이 제어할 수 있도록 하는 메커니즘입니다. 이는 가상화된 하드웨어를 사용하는 것보다 몇 가지 이점이 있습니다. 예를 들어 대기 시간이 짧고 성능이 높거나 기능이 더 많습니다(예: 오프로드).<br></p>
+<p>하지만 가상 머신으로 장치를 패스스루하는 경우 해당 장치를 호스트나 다른 VM에서 더 이상 사용할 수 없습니다.<br></p>
+<p>PCI 패스스루는 i440fx 및 q35 머신에서 사용할 수 있지만 PCIe 패스스루는 q35 머신에서만 사용할 수 있습니다. 이는 PCI 장치로 패스스루되는 PCIe 지원 장치가 PCI 속도로만 실행된다는 것을 의미하지 않습니다. 장치를 PCIe로 패스스루하면 게스트에 장치가 “정말 빠른 레거시 PCI 장치”가 아니라 PCIe 장치임을 알리는 플래그가 설정될 뿐입니다. 일부 게스트 애플리케이션은 이 기능의 이점을 얻습니다.<br><br></p>
+<section id="id24">
+<h3>10.9.1. 일반 요구 사항<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>패스스루는 실제 하드웨어에서 수행되므로 몇 가지 요구 사항을 충족해야 합니다. 이러한 요구 사항에 대한 간략한 개요는 아래에 나와 있습니다. 특정 장치에 대한 자세한 내용은 PCI 패스스루 예제를 참조하세요.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 하드웨어</span><br>
+하드웨어는 IOMMU(I/O 메모리 관리 장치) 인터럽트 리매핑을 지원해야 하며 여기에는 CPU와 마더보드가 포함됩니다.<br></p>
+<p>일반적으로 VT-d가 있는 Intel 시스템과 AMD-Vi가 있는 AMD 시스템은 이를 지원합니다. 그러나 하드웨어 구현이 나쁘고 드라이버가 없거나 품질이 낮기 때문에 모든 것이 즉시 작동할 것이라는 보장은 없습니다.<br></p>
+<p>또한 서버 등급 하드웨어는 소비자 등급 하드웨어보다 더 나은 지원을 제공하는 경우가 많지만, 그렇더라도 많은 최신 시스템이 이를 지원할 수 있습니다.<br></p>
+<p>하드웨어 공급업체에 문의하여 특정 설정에 대해 Linux에서 이 기능을 지원하는지 확인하세요.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> PCI 카드 주소 확인</span><br>
+가장 쉬운 방법은 GUI를 사용하여 VM의 하드웨어 탭에서 “호스트 PCI” 유형의 장치를 추가하는 것입니다. 또는 명령줄을 사용할 수 있습니다.<br></p>
+<p>다음을 사용하여 카드를 찾을 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lspci</span>
+</pre></div>
+</div>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 구성</span><br>
+하드웨어가 패스스루를 지원하는지 확인한 후 PCI(e) 패스스루를 활성화하기 위한 몇 가지 구성을 수행해야 합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> IOMMU</span><br>
+BIOS/UEFI에서 IOMMU 지원을 활성화해야 합니다. 일반적으로 해당 설정은 IOMMU 또는 VT-d라고 하지만 마더보드 설명서에서 정확한 옵션 이름을 찾을 수 있습니다.<br></p>
+<p>AMD CPU의 경우 IOMMU가 기본적으로 활성화됩니다. 최신 커널(6.8 이상)의 경우 Intel CPU에도 해당됩니다. 이전 커널의 경우 다음을 추가하여 커널 명령줄을 통해 Intel CPU에서 활성화해야 합니다.<br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">intel_iommu</span><span class="o">=</span><span class="n">on</span>
+</pre></div>
+</div>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> IOMMU 패스스루 모드</span><br>
+하드웨어가 IOMMU 패스스루 모드를 지원하는 경우 이 모드를 활성화하면 성능이 향상될 수 있습니다. 그 이유는 VM이 ​​하이퍼바이저에서 일반적으로 수행하는 (기본) DMA 변환을 우회하고 대신 DMA 요청을 하드웨어 IOMMU에 직접 전달하기 때문입니다. 이러한 옵션을 활성화하려면 다음을 추가합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iommu</span><span class="o">=</span><span class="n">pt</span>
+</pre></div>
+</div>
+<p>커널 명령줄에 추가합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 커널 모듈</span><br>
+다음 모듈이 로드되었는지 확인해야 합니다. 이는 ‘/etc/modules’에 추가하여 달성할 수 있습니다.</p>
+<blockquote>
+<div><p><span class="point"><img alt="" src="../_images/info1.png" /> 매개 장치 패스스루</span><br>
+매개 장치(예: vGPU)를 통과하는 경우 다음은 필요하지 않습니다. 이러한 경우 해당 호스트 드라이버가 장치를 직접 소유합니다.</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vfio</span>
+<span class="n">vfio_iommu_type1</span>
+<span class="n">vfio_pci</span>
+</pre></div>
+</div>
+<p>모듈과 관련된 모든 것을 변경한 후에는 initramfs를 새로 고쳐야 합니다. Proxmox VE에서는 다음을 실행하여 이를 수행할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># update-initramfs -u -k all</span>
+</pre></div>
+</div>
+<p>모듈이 로드되는지 확인하려면</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># lsmod | grep vfio</span>
+</pre></div>
+</div>
+<p>의 출력에 위의 네 가지 모듈이 포함되어야 합니다.<br></p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> 구성 완료</span><br>
+마지막으로 재부팅하여 변경 사항을 적용하고 실제로 활성화되었는지 확인합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># dmesg | grep -e DMAR -e IOMMU -e AMD-Vi</span>
+</pre></div>
+</div>
+<p>IOMMU, Directed I/O 또는 Interrupt Remapping이 활성화되었음을 표시해야 하며, 하드웨어와 커널에 따라 정확한 메시지는 다를 수 있습니다.</p>
+<p>IOMMU가 의도한 대로 작동하는지 문제를 해결하거나 확인하는 방법에 대한 참고 사항은 위키의 Verifying IOMMU Parameters 섹션을 참조하세요.</p>
+<p>통과시키려는 장치가 별도의 IOMMU 그룹에 있는 것도 중요합니다. 이는 Proxmox VE API를 호출하여 확인할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesh get /nodes/{nodename}/hardware/pci --pci-class-blacklist &quot;&quot;</span>
+</pre></div>
+</div>
+<p>장치가 해당 기능(예: HDMI 오디오 장치가 있는 GPU) 또는 루트 포트 또는 PCI(e) 브리지와 함께 IOMMU 그룹에 있는 것은 괜찮습니다.</p>
+<blockquote>
+<div><p><span class="point"><img alt="" src="../_images/info1.png" /> PCI(e) 슬롯</span><br>
+일부 플랫폼은 물리적 PCI(e) 슬롯을 다르게 처리합니다. 따라서 원하는 IOMMU 그룹 분리가 되지 않으면 카드를 다른 PCI(e) 슬롯에 넣는 것이 도움이 될 수 있습니다.</p>
+</div></blockquote>
+<blockquote>
+<div><p><span class="point"><img alt="" src="../_images/info1.png" /> 안전하지 않은 인터럽트</span><br>
+일부 플랫폼의 경우 안전하지 않은 인터럽트를 허용해야 할 수 있습니다. 이를 위해 /etc/modprobe.d/의 ‘.conf’로 끝나는 파일에 다음 줄을 추가합니다.</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="n">vfio_iommu_type1</span> <span class="n">allow_unsafe_interrupts</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>이 옵션을 사용하면 시스템이 불안정해질 수 있습니다.</p>
+<p><span class="point"><img alt="" src="../_images/info1.png" /> GPU 패스스루 참고 사항 </span><br>
+Proxmox VE 웹 인터페이스에서 NoVNC 또는 SPICE를 통해 GPU의 프레임 버퍼를 표시할 수 없습니다.<br></p>
+<p>전체 GPU 또는 vGPU를 통과하고 그래픽 출력이 필요한 경우 카드에 모니터를 물리적으로 연결하거나 게스트 내에서 원격 데스크톱 소프트웨어(예: VNC 또는 RDP)를 구성해야 합니다.<br></p>
+<p>예를 들어 OpenCL이나 CUDA를 사용하는 프로그램에 대해 GPU를 하드웨어 가속기로 사용하려는 경우에는 이 작업이 필요하지 않습니다.<br><br></p>
+</section>
+<section id="id25">
+<h3>10.9.2.<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -953,6 +1504,35 @@ Proxmox VE와 게스트 에이전트 간의 통신은 <span class="point">VM의 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">10.2.16. 장치 부팅 순서</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">10.2.17. 가상 머신의 자동 시작 및 종료</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qemu">10.2.18. QEMU 게스트 에이전트</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spice">10.2.19. SPICE 향상</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">10.3. 마이그레이션</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">10.3.1. 온라인 마이그레이션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">10.3.2. 오프라인 마이그레이션</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">10.4. 복사본과 복제본</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">10.5. 가상 머신 템플릿</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vm-id">10.6. VM 생성 ID</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">10.7. 가상 머신 가져오기</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">10.7.1. 가져오기 마법사</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-ovf-ova">10.7.2. CLI를 통해 OVF/OVA 가져오기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-init">10.8. Cloud-Init 지원</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">10.8.1. Cloud-Init 템플릿 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">10.8.2. Cloud-Init 템플릿 배포</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">10.8.3. 사용자 지정 Cloud-Init 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-cloud-init">10.8.4. Windows에서 Cloud-Init</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloudbase-init">10.8.5. Cloudbase-Init 템플릿 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloudbase-init-sysprep">10.8.6. Cloudbase-Init 및 Sysprep</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">10.8.7. Cloud-Init 특정 옵션</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pci-e">10.9. PCI(e) 패스스루</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">10.9.1. 일반 요구 사항</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">10.9.2.</a></li>
 </ul>
 </li>
 </ul>
