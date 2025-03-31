@@ -38,5 +38,5 @@ VirtOn(버트온)은 가상화 서비스 플랫폼으로 올해 릴리즈를 앞
 더 나은 서비스로 보답하겠습니다. 
 감사합니다!
 
-/.. image:: ../source/_static/img/thankyou1.gif
+.. image:: ../source/_static/img/thankyou1.gif
    :alt: 감사합니다!
