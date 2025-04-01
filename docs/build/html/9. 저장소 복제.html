@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f9ff6353" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=20995918" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -49,6 +49,7 @@
     <link rel="icon" href="_static/virton-favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="10. QEMU/KVM 가상머신" href="10.%20QEMU/KVM%20%EA%B0%80%EC%83%81%EB%A8%B8%EC%8B%A0.html" />
     <link rel="prev" title="8. 하이퍼컨버지드 Ceph 클러스터" href="8.%20%ED%95%98%EC%9D%B4%ED%8D%BC%EC%BB%A8%EB%B2%84%EC%A7%80%EB%93%9C%20Ceph%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0.html" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
@@ -155,6 +156,11 @@
 <li class="toctree-l1"><a class="reference internal" href="7.%20Proxmox%20VE%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80.html">7. Proxmox VE 스토리지</a></li>
 <li class="toctree-l1"><a class="reference internal" href="8.%20%ED%95%98%EC%9D%B4%ED%8D%BC%EC%BB%A8%EB%B2%84%EC%A7%80%EB%93%9C%20Ceph%20%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0.html">8. 하이퍼컨버지드 Ceph 클러스터</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">9. 저장소 복제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10.%20QEMU/KVM%20%EA%B0%80%EC%83%81%EB%A8%B8%EC%8B%A0.html">10. QEMU/KVM 가상머신</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11.%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%EA%B4%80%EB%A6%AC.html">11. 사용자 관리</a></li>
 </ul>
 
     </div>
@@ -332,12 +338,12 @@
 <p>예: VM100은 현재 <span class="point">nodeA</span>에 있으며 <span class="point">nodeB</span>로 복제됩니다. 이를 <span class="point">nodeB</span>로 마이그레이션하면 이제 자동으로 <span class="point">nodeB</span>에서 <span class="point">nodeA</span>로 다시 복제됩니다.<br></p>
 <p>게스트가 복제되지 않은 노드로 마이그레이션하는 경우 전체 디스크 데이터를 전송해야 합니다. 마이그레이션 후 복제 작업은 이 게스트를 구성된 노드로 계속 복제합니다.</p>
 <blockquote>
-<div><p><img alt="" src="_images/bell.png" /> 고가용성은 스토리지 복제와 함께 허용되지만 마지막 동기화 시간과 노드가 실패한 시간 사이에 일부 데이터 손실이 발생할 수 있습니다.</p>
+<div><p><img alt="" src="_images/bell1.png" /> 고가용성은 스토리지 복제와 함께 허용되지만 마지막 동기화 시간과 노드가 실패한 시간 사이에 일부 데이터 손실이 발생할 수 있습니다.</p>
 </div></blockquote>
 <p><br><br></p>
 <section id="id2">
 <h2>9.1. 지원되는 스토리지 유형<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p><span class="point"><img alt="" src="_images/info.png" /> 스토리지 유형</span><br></p>
+<p><span class="point"><img alt="" src="_images/info1.png" /> 스토리지 유형</span><br></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>스토리지 유형</p></th>
@@ -373,7 +379,7 @@
 <li><p>대상 노드에서 동일한 저장소 ID를 가진 저장소를 사용할 수 있습니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="_images/bell.png" /> 복제 로그를 사용하여 항상 문제의 원인을 찾을 수 있습니다.</p>
+<div><p><img alt="" src="_images/bell1.png" /> 복제 로그를 사용하여 항상 문제의 원인을 찾을 수 있습니다.</p>
 </div></blockquote>
 </section>
 <section id="id6">
@@ -395,7 +401,7 @@
 </pre></div>
 </div>
 <blockquote>
-<div><p><img alt="" src="_images/bell.png" /> <span class="point">예상 투표</span>가 설정된 경우 클러스터에 영향을 미치는 변경(예: 노드, 스토리지, 가상 게스트 추가/제거)은 어떤 경우에도 피하십시오. 중요한 게스트를 다시 가동하거나 쿼럼 문제 자체를 해결하는 데만 사용하십시오.</p>
+<div><p><img alt="" src="_images/bell1.png" /> <span class="point">예상 투표</span>가 설정된 경우 클러스터에 영향을 미치는 변경(예: 노드, 스토리지, 가상 게스트 추가/제거)은 어떤 경우에도 피하십시오. 중요한 게스트를 다시 가동하거나 쿼럼 문제 자체를 해결하는 데만 사용하십시오.</p>
 </div></blockquote>
 </li>
 <li><p>두 게스트 구성 파일을 원본 노드 A에서 노드 B로 이동합니다.</p>
@@ -463,6 +469,15 @@
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">8. 하이퍼컨버지드 Ceph 클러스터</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="10.%20QEMU/KVM%20%EA%B0%80%EC%83%81%EB%A8%B8%EC%8B%A0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">10. QEMU/KVM 가상머신</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

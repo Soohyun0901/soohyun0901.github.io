@@ -22,8 +22,8 @@ body {
     font-weight: 600 !important;
     color: #1d2e8b !important;
 }
-code.literal {
-    clolor: #1d238b !important;
+.code {
+    color: #1d238b !important;
 }
 
 h1 {
