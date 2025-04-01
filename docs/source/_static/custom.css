@@ -22,6 +22,9 @@ body {
     font-weight: 600 !important;
     color: #1d2e8b !important;
 }
+code.literal {
+    clolor: #1d238b !important;
+}
 
 h1 {
     font-family: 'NanumSquare' !important;

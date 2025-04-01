@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f9ff6353" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6ab0b4d7" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -411,18 +411,20 @@
 <br>
 <section id="gui">
 <h3>5.3.1. 웹 GUI를 통한 생성<a class="headerlink" href="#gui" title="Link to this heading">#</a></h3>
-<p><img alt="" src="_images/img29.png" /><br>
+<p><img alt="" src="_images/img29.png" /><br><br>
 <code class="docutils literal notranslate"><span class="pre">Datacenter</span> <span class="pre">→</span> <span class="pre">Cluster</span></code>에서 <span class="point">Create Cluster</span> 를 클릭합니다. 클러스터 이름을 입력하고 드롭다운 목록에서 메인 클러스터 네트워크로 사용할 네트워크 연결을 선택합니다(Link 0). 기본값은 노드의 호스트 이름을 통해 확인된 IP입니다.<br>
 Proxmox VE 6.2부터 클러스터에 최대 8개의 폴백 링크를 추가할 수 있습니다. 이중화 링크를 추가하려면 <code class="docutils literal notranslate"><span class="pre">Add</span></code> 버튼을 클릭하고 각 필드에서 링크 번호와 IP 주소를 선택합니다. Proxmox VE 6.2 이전 버전에서는 두 번째 링크를 폴백으로 추가하려면 <span class="point">Advanced</span> 확인란을 선택하고 추가 네트워크 인터페이스(Link 1)를 선택할 수 있습니다.<br></p>
 <blockquote>
-<div><p><img alt="" src="_images/notes.svg" /> 클러스터 통신을 위해 선택한 네트워크가 네트워크 스토리지 또는 실시간 마이그레이션과 같이 트래픽이 많은 용도로 사용되지 않는지 확인하세요. 클러스터 네트워크 자체는 소량의 데이터를 생성하지만 지연 시간에 매우 민감합니다. 전체 클러스터 네트워크 요구 사항을 확인하세요.</p>
+<div><p><img alt="" src="_images/bell.png" />  클러스터 통신을 위해 선택한 네트워크가 네트워크 스토리지 또는 실시간 마이그레이션과 같이 트래픽이 많은 용도로 사용되지 않는지 확인하세요. 클러스터 네트워크 자체는 소량의 데이터를 생성하지만 지연 시간에 매우 민감합니다. 전체 클러스터 네트워크 요구 사항을 확인하세요.</p>
 </div></blockquote>
 <p><br><br></p>
 </section>
 <section id="id5">
 <h3>5.3.2. 명령줄을 통한 생성<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p><span class="point">ssh</span>를 통해 첫 번째 Proxmox VE 노드에 로그인하고 다음 명령을 실행합니다:</p>
-<p><code class="docutils literal notranslate"><span class="pre">hp1#</span> <span class="pre">pvecm</span> <span class="pre">create</span> <span class="pre">CLUSTERNAME</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hp1</span><span class="c1"># pvecm create CLUSTERNAME</span>
+</pre></div>
+</div>
 <p>새 클러스터 사용 상태를 확인합니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hp1</span><span class="c1"># pvecm status</span>
 </pre></div>
