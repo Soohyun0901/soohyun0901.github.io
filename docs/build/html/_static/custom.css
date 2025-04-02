@@ -1,15 +1,15 @@
 @font-face {
-    font-family: 'SCDream4' !important;
-    src: url('../../fonts/SCDream4.otf') format('otf');
+    font-family: 'WantedSans-Regular' !important;
+    src: url('../../fonts/WantedSans-Regular.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
 }
 :root {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
 
 }
 body {
-    font-family: 'SCDream4' !important; 
+    font-family: 'WantedSans-Regular' !important; 
     color: #495057 !important;
     font-size: 1rem !important;
 }
@@ -27,7 +27,7 @@ code.literal {
 }
 
 h1 {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
     font-size: 2.5rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -36,7 +36,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
     font-size: 2rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -45,7 +45,7 @@ h2 {
 }
 
 h3 {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
     font-size: 1.75rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -54,7 +54,7 @@ h3 {
 }
 
 h4 {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
     font-size: 1.5rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -63,7 +63,7 @@ h4 {
 }
 
 h5 {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
     font-size: 1.25rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
@@ -72,7 +72,7 @@ h5 {
 }
 
 h6 {
-    font-family: 'SCDream4' !important;
+    font-family: 'WantedSans-Regular' !important;
     font-size: 1rem !important;
     font-weight: bold !important;
     border-left:4px solid #0d6efd; padding-left:12px !important;
