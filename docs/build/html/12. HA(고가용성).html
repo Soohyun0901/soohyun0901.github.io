@@ -340,6 +340,12 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">12.11.2. 종료 정책</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">12.12. 클러스터 리소스 스케줄링</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">12.12.1. 기본 스케줄러</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">12.12.2. 정적 로드 스케줄러</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crs">12.12.3. CRS 스케줄링 포인트</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -972,6 +978,54 @@ HA 그룹 구성 파일 /etc/pve/ha/groups.cfg는 클러스터 노드 그룹을 
 <blockquote>
 <div><p><img alt="" src="_images/bell1.png" /> 최근 하드웨어는 많은 양의 메모리(RAM)를 가지고 있습니다. 그래서 우리는 모든 리소스를 중지한 다음, 모든 RAM의 온라인 마이그레이션을 피하기 위해 다시 시작합니다. 온라인 마이그레이션을 사용하려면 노드를 종료하기 전에 수동으로 호출해야 합니다.</p>
 </div></blockquote>
+<p><span class="point"><img alt="" src="_images/info1.png" /> 재부팅(Reboot)</span><br>
+노드 재부팅은 <span class="point">reboot 명령</span> 으로 시작됩니다 . 이는 일반적으로 새 커널을 설치한 후에 수행됩니다. 이는 “shutdown”과 다릅니다. 노드가 즉시 다시 시작되기 때문입니다.<br>
+LRM은 CRM에 재시작을 원한다고 알리고 CRM이 모든 리소스를 동결 상태로 만들 때까지 기다립니다( 패키지 업데이트 에도 동일한 메커니즘이 사용됨 ). 이렇게 하면 해당 리소스가 다른 노드로 이동되지 않습니다. 대신 CRM은 재부팅 후 동일한 노드에서 리소스를 시작합니다.<br></p>
+<p><span class="point"><img alt="" src="_images/info1.png" /> 수동 리소스 이동 </span><br>
+마지막으로, 노드를 종료하거나 다시 시작하기 전에 리소스를 다른 노드로 수동으로 이동할 수도 있습니다. 장점은 모든 것을 제어할 수 있고 온라인 마이그레이션을 사용할지 여부를 결정할 수 있다는 것입니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> <span class="point">pve-ha-crm , pve-ha-lrm</span> 또는 <span class="point">watchdog-mux</span> 와 같은 서비스를 종료 하지 마십시오 . 이러한 서비스는 워치독을 관리하고 사용하므로 즉시 노드 재부팅 또는 재설정이 발생할 수 있습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="id22">
+<h2>12.12. 클러스터 리소스 스케줄링<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>클러스터 리소스 스케줄러(CRS) 모드는 HA가 서비스 복구를 위한 노드를 선택하는 방법과 종료 정책에 의해 트리거되는 마이그레이션을 위한 노드를 선택하는 방법을 제어합니다. 기본 모드는 <span class="point">기본(basic)</span> 이며, 웹 UI( <code class="docutils literal notranslate"><span class="pre">Datacenter</span> <span class="pre">→</span> <span class="pre">Options</span></code> )에서 또는 <span class="point">datacenter.cfg</span> 에서 직접 변경할 수 있습니다 .</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">crs</span><span class="p">:</span> <span class="n">ha</span><span class="o">=</span><span class="n">static</span>
+</pre></div>
+</div>
+<p><img alt="" src="_images/img73.png" /><br><br>
+변경 사항은 다음 관리자 라운드부터 적용됩니다(몇 초 후).<br></p>
+<p>복구 또는 마이그레이션이 필요한 각 서비스에 대해 스케줄러는 서비스 그룹에서 우선순위가 가장 높은 노드 중에서 가장 적합한 노드를 반복적으로 선택합니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> 향후에는 (정적, 동적) 부하 분산 모드를 추가할 계획입니다.</p>
+</div></blockquote>
+<p><br><br></p>
+<section id="id23">
+<h3>12.12.1. 기본 스케줄러<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>각 노드의 활성 HA 서비스 수는 복구 노드를 선택하는 데 사용됩니다. HA 관리가 아닌 서비스는 현재 계산되지 않습니다.<br></p>
+</section>
+<section id="id24">
+<h3>12.12.2. 정적 로드 스케줄러<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>중요한	정적 모드는 아직 기술 미리보기 단계입니다.
+각 노드의 HA 서비스에서 정적 사용 정보는 복구 노드를 선택하는 데 사용됩니다. HA 관리가 아닌 서비스의 사용은 현재 고려되지 않습니다.<br></p>
+<p>이 선택의 경우, 각 노드는 연관된 게스트 구성의 CPU 및 메모리 사용량을 사용하여 서비스가 이미 실행 중인 것처럼 간주됩니다. 그런 다음 이러한 각 대안에 대해 모든 노드의 CPU 및 메모리 사용량이 고려되며, 메모리는 진정으로 제한된 리소스이기 때문에 훨씬 더 많은 가중치가 적용됩니다. CPU와 메모리 모두에 대해 노드 중 가장 높은 사용량(이상적으로는 어떤 노드도 과도하게 커밋되지 않아야 하므로 더 많은 가중치가 적용됨)과 모든 노드의 평균 사용량(이미 더 높은 커밋 노드가 있는 경우를 구별할 수 있도록 함)이 고려됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> 중요한	서비스가 많을수록 가능한 조합도 많아지므로, HA 관리 서비스가 수천 개 있는 경우 현재로서는 사용하지 않는 것이 좋습니다.</p>
+</div></blockquote>
+<br>
+</section>
+<section id="crs">
+<h3>12.12.3. CRS 스케줄링 포인트<a class="headerlink" href="#crs" title="Link to this heading">#</a></h3>
+<p>CRS 알고리즘은 모든 라운드의 모든 서비스에 적용되지 않습니다. 이는 많은 수의 지속적인 마이그레이션을 의미하기 때문입니다. 작업 부하에 따라 이는 지속적인 밸런싱으로 피할 수 있는 것보다 클러스터에 더 많은 부담을 줄 수 있습니다. 이것이 Proxmox VE HA 관리자가 서비스를 현재 노드에 유지하는 것을 선호하는 이유입니다.<br></p>
+<p>CRS는 현재 다음 일정 지점에서 사용됩니다.</p>
+<ul class="simple">
+<li><p>서비스 복구(항상 활성). 활성 HA 서비스가 있는 노드가 실패하면 모든 서비스를 다른 노드로 복구해야 합니다. CRS 알고리즘은 여기서 나머지 노드에 대한 복구를 균형 있게 조정하는 데 사용됩니다.</p></li>
+<li><p>HA 그룹 구성 변경(항상 활성화). 노드가 그룹에서 제거되거나 우선순위가 낮아지면 HA 스택은 CRS 알고리즘을 사용하여 해당 그룹의 HA 서비스에 대한 새 대상 노드를 찾아 적응된 우선순위 제약 조건과 일치시킵니다.</p></li>
+<li><p>HA 서비스 중지 → 전환 시작(옵트인). 중지된 서비스를 시작하도록 요청하는 것은 CRS 알고리즘에 따라 가장 적합한 노드를 확인할 수 있는 좋은 기회입니다. 중지된 서비스를 이동하는 것이 시작된 서비스를 이동하는 것보다 저렴하기 때문입니다. 특히 디스크 볼륨이 공유 스토리지에 있는 경우 더욱 그렇습니다. 데이터 센터 구성에서 <span class="point">ha-rebalance-on-start</span> CRS 옵션을 설정하여 이를 활성화할 수 있습니다. 웹 UI에서 <code class="docutils literal notranslate"><span class="pre">Datacenter</span> <span class="pre">→</span> <span class="pre">Options</span> <span class="pre">→</span> <span class="pre">Cluster</span> <span class="pre">Resource</span> <span class="pre">Scheduling</span></code> 에서 해당 옵션을 변경할 수도 있습니다 .</p></li>
+</ul>
+<p><br><br><br></p>
 </section>
 </section>
 </section>
@@ -1044,6 +1098,12 @@ HA 그룹 구성 파일 /etc/pve/ha/groups.cfg는 클러스터 노드 그룹을 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">12.11. 노드 유지 관리</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">12.1.1. 유지 관리 모드</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">12.11.2. 종료 정책</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">12.12. 클러스터 리소스 스케줄링</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">12.12.1. 기본 스케줄러</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">12.12.2. 정적 로드 스케줄러</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crs">12.12.3. CRS 스케줄링 포인트</a></li>
 </ul>
 </li>
 </ul>
