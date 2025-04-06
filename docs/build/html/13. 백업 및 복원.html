@@ -307,7 +307,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13.1. 백업 모드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13.1. 백업 모드</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">13.1.1. VM 백업 플리싱</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ct">13.1.2. CT 변경 감지 모드</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -389,6 +393,60 @@
 </li>
 </ul>
 <p><br><br></p>
+<section id="vm">
+<h3>13.1.1. VM 백업 플리싱<a class="headerlink" href="#vm" title="Link to this heading">#</a></h3>
+<p>VM에 대한 백업이 시작되면 QEMU는 블록 계층에 “복사 전 쓰기” 필터를 설치합니다. 이 필터는 새 게스트 쓰기 시 백업에 필요한 이전 데이터가 먼저 백업 대상으로 전송되도록 합니다. 게스트 쓰기는 이 작업이 완료될 때까지 차단되므로 아직 백업되지 않은 섹터에 대한 게스트 IO는 백업 대상의 속도에 따라 제한됩니다.<br></p>
+<p>백업 플리싱을 사용하면 이러한 오래된 데이터는 백업 대상으로 직접 전송되는 대신 플리싱 이미지에 캐시됩니다. 이는 게스트 IO 성능을 향상시키고 특정 시나리오에서 중단을 방지할 수 있지만, 더 많은 저장 공간이 필요합니다.<br></p>
+<p>저장소 <span class="point">local-lvm</span> 에 생성된 플리싱 이미지로 VM 123 의 백업을 수동으로 시작하려면 다음을 실행하세요.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vzdump</span> <span class="mi">123</span> <span class="o">--</span><span class="n">fleecing</span> <span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">storage</span><span class="o">=</span><span class="n">local</span><span class="o">-</span><span class="n">lvm</span>
+</pre></div>
+</div>
+<p>언제나 그렇듯이, 구성 옵션을 통해 특정 백업 작업이나 노드 전체 폴백에 대한 옵션을 설정할 수 있습니다 . UI에서 백업 작업을 편집할 때 고급 탭에서 플리싱을 구성할 수 있습니다.<br></p>
+<p>털리싱 저장소는 씬 프로비저닝 및 폐기 지원이 있는 빠른 로컬 저장소여야 합니다. 예를 들어 LVM-씬, RBD, 저장소 구성에 <span class="point">스파스 1</span>이 있는 ZFS , 많은 파일 기반 저장소가 있습니다. 이상적으로 털리싱 저장소는 전용 저장소이므로 전체 실행이 다른 게스트에게 영향을 미치지 않고 백업만 실패합니다. 백업된 털리싱 이미지의 일부는 공간 사용량을 낮추기 위해 폐기됩니다.<br></p>
+<p>폐기를 지원하지 않는 파일 기반 저장소(예: 버전 4.2 이전의 NFS)의 경우 저장소 구성에서 <span class="point">사전 할당을 해제</span> 해야 합니다. <span class="point">qcow2</span> (저장소에서 지원할 때 플리싱 이미지의 형식으로 자동 사용) 와 함께 사용하면 이미 할당된 이미지 부분을 나중에 재사용할 수 있다는 장점이 있어 여전히 상당한 공간을 절약하는 데 도움이 될 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> 예를 들어, 스파스 옵션이 없는 LVM이나 ZFS와 같이 씬 ​​프로비저닝되지 않은 스토리지에서는 원래 디스크의 전체 크기를 미리 플리싱 이미지에 예약해야 합니다. 씬 프로비저닝된 스토리지에서는 게스트가 백업이 다른 디스크로 바쁜 동안 전체 디스크를 다시 쓰는 경우에만 플리싱 이미지가 원래 이미지와 같은 크기로 커질 수 있습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="ct">
+<h3>13.1.2. CT 변경 감지 모드<a class="headerlink" href="#ct" title="Link to this heading">#</a></h3>
+<p>변경 감지 모드를 설정하면 pxar 아카이브의 인코딩 형식이 정의되고, Proxmox Backup Server를 대상으로 하는 컨테이너 백업에서 변경된 파일과 변경되지 않은 파일이 처리되는 방식이 정의됩니다.<br></p>
+<p>변경 감지 모드 옵션은 작업을 편집하는 동안 <span class="point">고급</span> 탭에서 개별 백업 작업에 대해 구성할 수 있습니다. 또한 이 옵션은 구성 옵션을 통해 노드 전체 폴백으로 설정할 수 있습니다 .<br></p>
+<p>사용 가능한 변경 감지 모드는 3가지입니다.<br></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>모드</p></th>
+<th class="head text-center"><p>설명</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="point">Default</span></p></td>
+<td class="text-center"><p>pxar 포맷 버전 1을 사용하여 모든 파일을 읽고 단일 아카이브로 인코딩합니다.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="point">Data</span></p></td>
+<td class="text-center"><p>모든 파일을 읽고 인코딩하지만, pxar 포맷 버전 2를 사용하여 데이터와 메타데이터를 별도의 스트림으로 분리합니다.</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="point">Metadata</span></p></td>
+<td class="text-center"><p>스트림을 분할하고 Data 와 같은 아카이브 형식 버전 2를 사용 하지만, 이전 스냅샷의 메타데이터 아카이브(있는 경우)를 사용하여 변경되지 않은 파일을 감지하고, 가능하면 디스크에서 파일 내용을 읽지 않고 해당 데이터 청크를 재사용합니다.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><br></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>변경 감지 모드 <span class="point">메타데이터(Metadata)</span>를 사용하여 백업을 수행하려면 다음을 실행할 수 있습니다.</p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vzdump</span> <span class="mi">123</span> <span class="o">--</span><span class="n">storage</span> <span class="n">pbs</span><span class="o">-</span><span class="n">storage</span> <span class="o">--</span><span class="n">pbs</span><span class="o">-</span><span class="n">change</span><span class="o">-</span><span class="n">detection</span><span class="o">-</span><span class="n">mode</span> <span class="n">metadata</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> Proxmox Backup Server가 아닌 VM이나 스토리지 백엔드에 대한 백업은 이 설정의 영향을 받지 않습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
 </section>
 </section>
 
@@ -429,7 +487,11 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13.1. 백업 모드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13.1. 백업 모드</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">13.1.1. VM 백업 플리싱</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ct">13.1.2. CT 변경 감지 모드</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
