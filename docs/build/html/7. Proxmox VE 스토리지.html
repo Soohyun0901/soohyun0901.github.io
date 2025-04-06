@@ -445,22 +445,118 @@
 </li>
 </ul>
 <p><span class="point"><img alt="" src="_images/check.svg" /> 가능한 스토리지 유형</span><br></p>
-<p>|스토리지 유형|플러그인 유형|레벨|공유|스냅샷|안정성|
-|:—:|:—:|:—:|:—:|:—:|
-|ZFS (local)|zfspool|both^1|no|yes|yes|
-|Directory|dir|file|no|no^2|yes|
-|BTRFS|btrfs|file|no|yes|기술 프리뷰|
-|NFS|nfs|file|yes|no^2|yes|
-|CIFS|cifs|file|yes|no^2|yes|
-|Proxmox Backup|pbs|both|yes|n/a|yes|
-|GlusterFS|glusterfs|file|yes|no^2|yes|
-|CephFS|cephfs|file|yes|yes|yes|
-|LVM|lvm|block|no^3|no|yes|
-|LVM-thin|lvmthin|block|no|yes|yes|
-|iSCSI/kernel|iscsi|block|yes|no|yes|
-|iSCSI/libiscsi|iscsidirect|block|yes|no|yes|
-|Ceph/RBD|rbd|block|yes|yes|yes|
-|ZFS over iSCSI|zfs|block|yes|yes|yes|</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>스토리지 유형</p></th>
+<th class="head text-center"><p>플러그인 유형</p></th>
+<th class="head text-center"><p>레벨</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>안정성</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ZFS (local)</p></td>
+<td class="text-center"><p>zfspool</p></td>
+<td class="text-center"><p>both^1</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Directory</p></td>
+<td class="text-center"><p>dir</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>no^2</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>BTRFS</p></td>
+<td class="text-center"><p>btrfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>기술 프리뷰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>NFS</p></td>
+<td class="text-center"><p>nfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no^2</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>CIFS</p></td>
+<td class="text-center"><p>cifs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no^2</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Proxmox Backup</p></td>
+<td class="text-center"><p>pbs</p></td>
+<td class="text-center"><p>both</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>n/a</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>GlusterFS</p></td>
+<td class="text-center"><p>glusterfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no^2</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CephFS</p></td>
+<td class="text-center"><p>cephfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>LVM</p></td>
+<td class="text-center"><p>lvm</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>no^3</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>LVM-thin</p></td>
+<td class="text-center"><p>lvmthin</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>iSCSI/kernel</p></td>
+<td class="text-center"><p>iscsi</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>iSCSI/libiscsi</p></td>
+<td class="text-center"><p>iscsidirect</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Ceph/RBD</p></td>
+<td class="text-center"><p>rbd</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>ZFS over iSCSI</p></td>
+<td class="text-center"><p>zfs</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <br>
 <section id="id2">
 <h3>7.1.1. 씬 프로비저닝<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
