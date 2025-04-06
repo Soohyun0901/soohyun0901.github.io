@@ -336,26 +336,26 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-ssh">5.9. Proxmox VE 클러스터에서 SSH의 역할</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh">5.9.1. SSH 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bashrc">5.9.2. <span class="point">.bashrc</span> 및 형제 의 자동 실행으로 인한 함정</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.10.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.10.1.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.10.2.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.10.3.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.10.4.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.10. Corosync 외부 투표 지원</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qdevice">5.10.1 QDevice 기술 개요</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.10.2. 지원되는 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qdevice-net">5.10.3. QDevice-Net 설정</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.11.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.11.1.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.11.2.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.11.3.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.11. Corosync 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corosync-conf">5.11.1. corosync.conf 편집</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.11.2. 문제 해결</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.11.3. Corosync 구성 용어집</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">5.12.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">5.13.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">5.14.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">5.14.1.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">5.14.2.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.12. 클러스터 콜드 스타트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vmid">5.13. 게스트 VMID 자동 선택</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.14. 게스트 마이그레이션</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.14.1. 마이그레이션 유형</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.14.2. 마이그레이션 네트워크</a></li>
 </ul>
 </li>
 </ul>
@@ -587,7 +587,7 @@ GUI를 사용하면 <span class="point">Cluster Join</span> 대화 상자의 해
 <li><p>그런 다음 이전 섹션에서 설명한 대로 추가해야 합니다.</p></li>
 </ul>
 <p>제거된 노드의 구성 파일은 여전히 <span class="point">/etc/pve/nodes/hp4</span>에 남아 있습니다. 필요한 구성은 모두 복구하고 나중에 디렉터리를 제거하세요.</p>
-<p><br><br></p>
+<br>
 </section>
 <section id="quorum">
 <h2>5.6. 쿼럼(Quorum)<a class="headerlink" href="#quorum" title="Link to this heading">#</a></h2>
@@ -596,7 +596,7 @@ GUI를 사용하면 <span class="point">Cluster Join</span> 대화 상자의 해
 <div><p>쿼럼은 분산 시스템에서 작업을 수행하기 위해 분산 트랜잭션이 획득해야 하는 최소 투표 수입니다.<br></p>
 </div></blockquote>
 <br>
-네트워크 파티셔닝의 경우 상태를 변경하려면 과반수의 노드가 온라인 상태여야 합니다. 클러스터가 쿼럼을 잃으면 클러스터는 읽기 전용 모드로 전환됩니다.
+네트워크 파티셔닝의 경우 상태를 변경하려면 과반수의 노드가 온라인 상태여야 합니다. 클러스터가 쿼럼을 잃으면 클러스터는 읽기 전용 모드로 전환됩니다.<br>
 <blockquote>
 <div><p><img alt="" src="_images/alert.svg" /> Proxmox VE는 기본적으로 각 노드에 단일 투표를 할당합니다.</p>
 </div></blockquote>
@@ -869,57 +869,272 @@ Proxmox VE 5.1부터 지원되는 동안 호스트명은 진입 시점에 확인
 <ul class="simple">
 <li><p><span class=“point”>root</span> 사용자의 SSH 클라이언트 구성이 <span class=“point”>ChaCha20</span>보다 <span class=“point”>AES</span>를 선호하도록 설정됩니다.</p></li>
 <li><p><span class=“point”>root</span> 사용자의 <span class=“point”>authorized_keys</span>
-/etc/pve/priv/authorized_keys에 연결되어 클러스터 내의 모든 인증된 키를 병합합니다.
+<code class="docutils literal notranslate"><span class="pre">/etc/pve/priv/authorized_keys</span></code>에 연결되어 클러스터 내의 모든 인증된 키를 병합합니다.
 파일이 <span class=“point”></span></p></li>
 <li><p>비밀번호를 사용하여 root로 로그인할 수 있도록 <span class=“point”>sshd</span>
 를 구성합니다.</p></li>
 </ul>
 <blockquote>
-<div><p>구형 시스템에는 모든 노드 호스트 키의 병합된 버전이 포함된 /etc/pve/priv/known_hosts를 가리키는 심볼릭 링크로 /etc/ssh/ssh_known_hosts가 설정되어 있을 수도 있습니다. 이 시스템은 pve-cluster &lt;&lt;인서트 버전&gt;&gt;에서 명시적 호스트 키 고정으로 대체되었으며, 심볼릭 링크가 여전히 있는 경우 pvecm updatecerts –unmerge-known-hosts를 실행하여 구성을 해제할 수 있습니다.</p>
+<div><p>구형 시스템에는 모든 노드 호스트 키의 병합된 버전이 포함된 <code class="docutils literal notranslate"><span class="pre">/etc/pve/priv/known_hosts</span></code>를 가리키는 심볼릭 링크로 <code class="docutils literal notranslate"><span class="pre">/etc/ssh/ssh_known_hosts</span></code>가 설정되어 있을 수도 있습니다. 이 시스템은 pve-cluster &lt;&lt;인서트 버전&gt;&gt;에서 명시적 호스트 키 고정으로 대체되었으며, 심볼릭 링크가 여전히 있는 경우 <code class="docutils literal notranslate"><span class="pre">pvecm</span> <span class="pre">updatecerts</span> <span class="pre">--unmerge-known-hosts</span></code>를 실행하여 구성을 해제할 수 있습니다.</p>
 </div></blockquote>
+<p><br><br></p>
+</section>
+<section id="bashrc">
+<h3>5.9.2. <span class="point">.bashrc</span> 및 형제 의 자동 실행으로 인한 함정<a class="headerlink" href="#bashrc" title="Link to this heading">#</a></h3>
+<p>구성된 셸에서 로그인 시 실행되는 사용자 지정 <span class="point">.bashrc</span> 또는 유사한 파일이 있는 경우 , 세션이 성공적으로 설정되면 <span class="point">ssh</span>가 자동으로 실행합니다. 이는 예상치 못한 동작을 일으킬 수 있는데, 이러한 명령은 위에서 설명한 모든 작업에서 루트 권한으로 실행될 수 있기 때문입니다. 이는 문제가 될 수 있는 부작용을 일으킬 수 있습니다.<br></p>
+<p>이런 복잡한 문제를 피하기 위해서는 <code class="docutils literal notranslate"><span class="pre">/root/.bashrc</span></code> 에 체크를 추가하여 세션이 대화형으로 실행되도록 한 후에 <span class="point">.bashrc</span> 명령만 실행하는 것이 좋습니다.<br></p>
+<p>.bashrc 파일 의 시작 부분에 이 스니펫을 추가할 수 있습니다 .</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Early exit if not running interactively to avoid side-effects!
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+</pre></div>
+</div>
 <p><br><br></p>
 </section>
 </section>
 <section id="id17">
-<h2>5.10.<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<h2>5.10. Corosync 외부 투표 지원<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>이 섹션에서는 Proxmox VE 클러스터에 외부 투표자를 배포하는 방법을 설명합니다. 구성된 경우 클러스터는 클러스터 통신의 안전 속성을 위반하지 않고 더 많은 노드 장애를 견딜 수 있습니다.<br></p>
+<p>이 작업을 수행하려면 두 가지 서비스가 필요합니다.</p>
+<ul class="simple">
+<li><p>각 Proxmox VE 노드에서 실행되는 QDevice 데몬</p></li>
+<li><p>독립 서버에서 실행되는 외부 투표 데몬</p></li>
+</ul>
+<p>그 결과, 더 작은 설정(예: 2+1 노드)에서도 더 높은 가용성을 달성할 수 있습니다.<br></p>
+<section id="qdevice">
+<h3>5.10.1 QDevice 기술 개요<a class="headerlink" href="#qdevice" title="Link to this heading">#</a></h3>
+<p>Corosync Quorum Device(QDevice)는 각 클러스터 노드에서 실행되는 데몬입니다. 외부에서 실행되는 타사 중재자의 결정에 따라 클러스터의 쿼럼 하위 시스템에 구성된 수의 투표를 제공합니다. 주요 용도는 클러스터가 표준 쿼럼 규칙에서 허용하는 것보다 더 많은 노드 장애를 견뎌낼 수 있도록 하는 것입니다. 외부 장치가 모든 노드를 보고 투표할 노드 집합을 하나만 선택할 수 있으므로 안전하게 수행할 수 있습니다. 이는 해당 노드 집합이 타사 투표를 받은 후(다시) 쿼럼을 가질 수 있는 경우에만 수행됩니다.<br></p>
+<p>현재 타사 중재자로 <span class="point">QDevice Net</span> 만 지원됩니다. 이는 네트워크를 통해 파티션 멤버에 도달할 수 있는 경우 클러스터 파티션에 투표를 제공하는 데몬입니다. 언제든지 클러스터의 한 파티션에만 투표를 제공합니다. 여러 클러스터를 지원하도록 설계되었으며 구성 및 상태가 거의 없습니다. 새 클러스터는 동적으로 처리되며 QDevice를 실행하는 호스트에 구성 파일이 필요하지 않습니다.<br></p>
+<p>외부 호스트에 대한 유일한 요구 사항은 클러스터에 대한 네트워크 액세스가 필요하고 corosync-qnetd 패키지를 사용할 수 있어야 한다는 것입니다. 우리는 Debian 기반 호스트를 위한 패키지를 제공하며, 다른 Linux 배포판도 해당 패키지 관리자를 통해 패키지를 사용할 수 있어야 합니다.<br></p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> corosync 자체와 달리 QDevice는 TCP/IP를 통해 클러스터에 연결됩니다. 데몬은 클러스터의 LAN 외부에서도 실행될 수 있으며 corosync의 낮은 대기 시간 요구 사항에 국한되지 않습니다.</p>
+</div></blockquote>
+<br>
+</section>
 <section id="id18">
-<h3>5.10.1.<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<h3>5.10.2. 지원되는 설정<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>우리는 짝수 노드가 있는 클러스터에 대해 QDevices를 지원하고, 더 높은 가용성을 제공해야 하는 경우 2노드 클러스터에 QDevices를 권장합니다. 홀수 노드가 있는 클러스터의 경우 현재 QDevices 사용을 권장하지 않습니다. 그 이유는 QDevice가 각 클러스터 유형에 대해 제공하는 투표 수의 차이 때문입니다. 짝수 클러스터는 단일 추가 투표를 받으며, 이는 가용성만 증가시킵니다. QDevice 자체가 실패하면 QDevice가 전혀 없는 것과 같은 위치에 있기 때문입니다.<br></p>
+<p>반면, 홀수 클러스터 크기의 경우 QDevice는 <span class="point">(N-1)</span> 개의 투표를 제공합니다. 여기서 <span class="point">N</span>은 클러스터 노드 수에 해당합니다. 이 대체 동작은 의미가 있습니다. 추가 투표가 하나뿐이라면 클러스터는 분할 브레인 상황에 빠질 수 있습니다. 이 알고리즘은 하나를 제외한 모든 노드(그리고 당연히 QDevice 자체)가 실패하도록 허용합니다. 그러나 여기에는 두 가지 단점이 있습니다.</p>
+<ul class="simple">
+<li><p>QNet 데몬 자체가 실패하면 다른 노드가 실패하거나 클러스터가 즉시 쿼럼을 잃을 수 있습니다. 예를 들어, 15개 노드가 있는 클러스터에서 클러스터가 쿼럼에 도달하기 전에 7개가 실패할 수 있습니다. 그러나 여기에 QDevice가 구성되어 있고 그 자체가 실패하면 15개 노드 중 <span class="point">어느 노드도</span> 실패할 수 없습니다. 이 경우 QDevice는 거의 단일 실패 지점 역할을 합니다.</p></li>
+<li><p>한 노드와 QDevice를 제외한 모든 노드가 실패할 수 있다는 사실은 처음에는 유망하게 들리지만, 이는 HA 서비스의 대량 복구로 이어질 수 있으며, 이는 남은 단일 노드에 과부하를 일으킬 수 있습니다. 더욱이 Ceph 서버는 <span class="point">((N-1)/2)</span> 개 이하 의 노드만 온라인 상태로 유지되면 서비스 제공을 중단합니다.</p></li>
+</ul>
+<p>단점과 영향을 이해하면 이 기술을 홀수 클러스터 설정에 사용할지 여부를 스스로 결정할 수 있습니다.<br><br></p>
+</section>
+<section id="qdevice-net">
+<h3>5.10.3. QDevice-Net 설정<a class="headerlink" href="#qdevice-net" title="Link to this heading">#</a></h3>
+<p>권한이 없는 사용자로 corosync-qdevice에 투표를 제공하는 모든 데몬을 실행하는 것이 좋습니다. Proxmox VE와 Debian은 이미 그렇게 하도록 구성된 패키지를 제공합니다. 데몬과 클러스터 간의 트래픽은 Proxmox VE에서 QDevice의 안전하고 보안적인 통합을 보장하기 위해 암호화되어야 합니다.<br></p>
+<p>먼저 외부 서버에 <span class="point">corosync-qnetd</span> 패키지를 설치하세요.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">external</span><span class="c1"># apt install corosync-qnetd</span>
+</pre></div>
+</div>
+<p>그리고 모든 클러스터 노드에 <span class="point">corosync-qdevice</span> 패키지가 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pve</span><span class="c1"># apt install corosync-qdevice</span>
+</pre></div>
+</div>
+<p>이 작업을 수행한 후 클러스터의 모든 노드가 온라인 상태인지 확인하세요.<br></p>
+<p>이제 Proxmox VE 노드 중 하나에서 다음 명령을 실행하여 QDevice를 설정할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pve</span><span class="c1"># pvecm qdevice setup &lt;QDEVICE-IP&gt;</span>
+</pre></div>
+</div>
+<p>클러스터의 SSH 키는 자동으로 QDevice에 복사됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> 외부 서버에서 루트 사용자에 대한 키 기반 액세스를 설정하거나 설정 단계에서 일시적으로 루트 로그인에 비밀번호를 허용하세요. 이 단계에서 <span class="point">호스트 키 검증 실패</span> 와 같은 오류가 표시되면 <span class="point">pvecm updatecerts</span>를 실행하면 문제가 해결될 수 있습니다.</p>
+</div></blockquote>
+<p>모든 단계가 성공적으로 완료되면 “완료”가 표시됩니다. 다음을 사용하여 QDevice가 설정되었는지 확인할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pve</span><span class="c1"># pvecm status</span>
+
+<span class="o">...</span>
+
+<span class="n">Votequorum</span> <span class="n">information</span>
+<span class="o">~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="n">Expected</span> <span class="n">votes</span><span class="p">:</span>   <span class="mi">3</span>
+<span class="n">Highest</span> <span class="n">expected</span><span class="p">:</span> <span class="mi">3</span>
+<span class="n">Total</span> <span class="n">votes</span><span class="p">:</span>      <span class="mi">3</span>
+<span class="n">Quorum</span><span class="p">:</span>           <span class="mi">2</span>
+<span class="n">Flags</span><span class="p">:</span>            <span class="n">Quorate</span> <span class="n">Qdevice</span>
+
+<span class="n">Membership</span> <span class="n">information</span>
+<span class="o">~~~~~~~~~~~~~~~~~~~~~~</span>
+    <span class="n">Nodeid</span>      <span class="n">Votes</span>    <span class="n">Qdevice</span> <span class="n">Name</span>
+    <span class="mh">0x00000001</span>      <span class="mi">1</span>    <span class="n">A</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="n">NMW</span> <span class="mf">192.168.22.180</span> <span class="p">(</span><span class="n">local</span><span class="p">)</span>
+    <span class="mh">0x00000002</span>      <span class="mi">1</span>    <span class="n">A</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="n">NMW</span> <span class="mf">192.168.22.181</span>
+    <span class="mh">0x00000000</span>      <span class="mi">1</span>            <span class="n">Qdevice</span>
+</pre></div>
+</div>
+<br>
+<p><span class="point"><img alt="" src="_images/info1.png" /> QDevice 상태 플래그 </span><br>
+위에서 볼 수 있듯이 QDevice의 상태 출력은 일반적으로 세 개의 열을 포함합니다.</p>
+<ul class="simple">
+<li><p><span class="point">A / NA </span></p>
+<ul>
+<li><p>Alive 또는 Not Alive.</p></li>
+<li><p>외부 <span class="point">corosync-qnetd</span> 데몬과의 통신이 작동하는지 여부를 나타냅니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">V / NV</span></p>
+<ul>
+<li><p>QDevice가 노드에 투표를 할 경우.</p></li>
+<li><p>노드 간의 corosync 연결이 끊어졌지만 둘 다 외부 <span class="point">corosync-qnetd</span> 데몬과 여전히 통신할 수 있는 분할 브레인 상황에서는 한 노드만 투표를 받습니다.</p></li>
+</ul>
+</li>
+<li><p><span class="point">MW / NMW</span></p>
+<ul>
+<li><p>마스터가 승리( MV )하거나 승리하지 못합니다( NMW ).</p>
+<ul>
+<li><p>기본값은 NMW 입니다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><span class="point">NR</span></p>
+<ul>
+<li><p>QDevice가 등록되지 않았습니다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> QDevice가 Not Alive ( 위 출력의 NA )로 나열된 경우, 외부 서버의 포트 <span class="point">5403</span> (qnetd 서버의 기본 포트)에 TCP/IP를 통해 접근할 수 있는지 확인하세요.</p>
+</div></blockquote>
+<br>
+</section>
 </section>
 <section id="id19">
-<h3>5.10.2.<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<h2>5.11. Corosync 구성<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/pve/corosync.conf</span></code> 파일 은 Proxmox VE 클러스터에서 중심적인 역할을 합니다. 이 파일은 클러스터 멤버십과 네트워크를 제어합니다. 이에 대한 자세한 내용은 corosync.conf 매뉴얼 페이지를 확인하세요.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">man</span> <span class="n">corosync</span> <span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>노드 멤버십의 경우 항상 Proxmox VE에서 제공하는 <span class="point">pvecm</span> 도구를 사용해야 합니다 . 다른 변경 사항에 대해서는 구성 파일을 수동으로 편집해야 할 수도 있습니다. 이를 위한 몇 가지 모범 사례 팁은 다음과 같습니다.<br></p>
+<section id="corosync-conf">
+<h3>5.11.1. corosync.conf 편집<a class="headerlink" href="#corosync-conf" title="Link to this heading">#</a></h3>
+<p>corosync.conf 파일을 편집하는 것은 항상 간단하지 않습니다. 각 클러스터 노드에 두 개가 있는데, 하나는 <code class="docutils literal notranslate"><span class="pre">/etc/pve/corosync.conf</span></code> 에 있고 다른 하나는 <code class="docutils literal notranslate"><span class="pre">/etc/corosync/corosync.conf</span></code> 에 있습니다. 클러스터 파일 시스템에서 하나를 편집하면 변경 사항이 로컬에 전파되지만 그 반대는 아닙니다.<br></p>
+<p>구성은 파일이 변경되는 즉시 자동으로 업데이트됩니다. 즉, 실행 중인 corosync에 통합할 수 있는 변경 사항은 즉시 적용됩니다. 따라서 편집하는 동안 파일을 저장할 때 의도치 않은 변경 사항이 트리거되는 것을 방지하기 위해 항상 복사본을 만들어 편집해야 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">corosync</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">corosync</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">new</span>
+</pre></div>
+</div>
+<p>그런 다음, 모든 Proxmox VE 노드에 미리 설치된 nano 또는 vim.tiny 와 같은 원하는 편집기를 사용하여 구성 파일을 엽니다 .</p>
+<p>메모	구성이 변경된 후에는 항상 config_version 번호를 높이세요. 이를 생략하면 문제가 발생할 수 있습니다.
+필요한 변경을 한 후 현재 작업 구성 파일의 다른 사본을 만듭니다. 이는 새 구성이 적용되지 않거나 다른 문제를 일으킬 경우 백업으로 사용됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">corosync</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">corosync</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">bak</span>
+</pre></div>
+</div>
+<p>그런 다음 이전 구성 파일을 새 파일로 바꿉니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">corosync</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">new</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">corosync</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>다음 명령을 사용하여 변경 사항이 자동으로 적용될 수 있는지 확인할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">status</span> <span class="n">corosync</span>
+<span class="n">journalctl</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">u</span> <span class="n">corosync</span>
+</pre></div>
+</div>
+<p>변경 사항을 자동으로 적용할 수 없는 경우 다음을 통해 corosync 서비스를 다시 시작해야 할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">restart</span> <span class="n">corosync</span>
+</pre></div>
+</div>
+<p>오류가 발생하면 아래의 문제 해결 섹션을 확인하세요.<br></p>
 </section>
 <section id="id20">
-<h3>5.10.3.<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<h3>5.11.2. 문제 해결<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>문제: <span class="point">quorum.expected_votes를 구성해야 합니다. </span>
+corosync가 실패하기 시작하고 시스템 로그에 다음 메시지가 표시되는 경우:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="n">corosync</span><span class="p">[</span><span class="mi">1647</span><span class="p">]:</span> <span class="p">[</span><span class="n">QUORUM</span><span class="p">]</span> <span class="n">쿼럼</span> <span class="n">공급자</span><span class="p">:</span> <span class="n">corosync_votequorum을</span> <span class="n">초기화하지</span> <span class="n">못했습니다</span><span class="o">.</span>
+<span class="n">corosync</span><span class="p">[</span><span class="mi">1647</span><span class="p">]:</span> <span class="p">[</span><span class="n">SERV</span> <span class="p">]</span> <span class="n">서비스</span> <span class="n">엔진</span> <span class="s1">&#39;corosync_quorum&#39;</span><span class="n">이</span> <span class="n">다음</span> <span class="n">이유로</span> <span class="n">인해</span> <span class="n">로드되지</span> <span class="n">않았습니다</span><span class="o">.</span>
+    <span class="s1">&#39;구성 오류: nodelist 또는 quorum.expected_votes를 구성해야 합니다!&#39;</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>이는 구성에서 corosync <span class="point">ringX_addr</span> 에 대해 설정한 호스트 이름을 확인할 수 없음을 의미합니다.<br></p>
+<p><span class="point"><img alt="" src="_images/info1.png" /> 견적을 내지 않을 때 구성 쓰기 </span><br>
+쿼럼이 없는 노드에서 <code class="docutils literal notranslate"><span class="pre">/etc/pve/corosync.conf</span></code>를 변경해야 하는 경우 무엇을 해야 하는지 알고 있다면 다음을 사용하세요.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvecm</span> <span class="n">expected</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>이렇게 하면 예상 투표 수가 1로 설정되고 클러스터가 쿼레이트됩니다. 그런 다음 구성을 수정하거나 마지막으로 작동한 백업으로 되돌릴 수 있습니다.<br></p>
+<p>corosync가 더 이상 시작할 수 없다면 이것만으로는 충분하지 않습니다. 그런 경우 <code class="docutils literal notranslate"><span class="pre">/etc/corosync/corosync.conf</span></code> 에서 corosync 구성의 로컬 복사본을 편집하여 corosync가 다시 시작될 수 있도록 하는 것이 가장 좋습니다. 모든 노드에서 이 구성이 동일한 내용을 가지고 있는지 확인하여 스플릿 브레인 상황을 피하십시오.<br></p>
 </section>
 <section id="id21">
-<h3>5.10.4.<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<h3>5.11.3. Corosync 구성 용어집<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p><span class="point"><img alt="" src="_images/info1.png" /> ringX_addr</span><br>
+이는 노드 간 Kronosnet 연결을 위한 다양한 링크 주소의 이름입니다.<br><br></p>
 </section>
 </section>
 <section id="id22">
-<h2>5.11.<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
-<section id="id23">
-<h3>5.11.1.<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<h2>5.12. 클러스터 콜드 스타트<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>모든 노드가 오프라인일 때 클러스터가 쿼레이트되지 않는다는 것은 분명합니다. 이는 정전 후 일반적인 경우입니다.</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> 특히 HA가 필요한 경우 이러한 상태를 피하기 위해 무정전 전원 공급 장치(UPS, “배터리 백업”이라고도 함)를 사용하는 것이 항상 좋은 생각입니다.</p>
+</div></blockquote>
+<p>노드 시작 시 <span class="point">pve-guests</span> 서비스가 시작되고 quorum을 기다립니다. quorate가 되면 <span class="point">onboot</span> 플래그가 설정된 모든 게스트를 시작합니다.<br></p>
+<p>노드를 켜거나 정전 후 전원이 다시 들어오면 일부 노드가 다른 노드보다 더 빨리 부팅될 가능성이 있습니다. 게스트 시작은 쿼럼에 도달할 때까지 지연된다는 점을 명심하세요.<br></p>
 </section>
+<section id="vmid">
+<h2>5.13. 게스트 VMID 자동 선택<a class="headerlink" href="#vmid" title="Link to this heading">#</a></h2>
+<p>새 게스트를 만들 때 웹 인터페이스는 백엔드에 무료 VMID를 자동으로 요청합니다. 검색을 위한 기본 범위는 <span class="point">100 ~ 1000000</span> (스키마에서 적용하는 최대 허용 VMID보다 낮음)입니다.<br></p>
+<p>때때로 관리자는 임시 VM을 수동으로 VMID를 선택하는 VM과 쉽게 분리하기 위해 별도의 범위에 새 VMID를 할당하고 싶어합니다. 다른 때는 안정적인 길이의 VMID를 제공하고 싶을 뿐이며, 이를 위해 하한을 예를 들어 100000 으로 설정하면 훨씬 더 많은 여유가 생깁니다.<br></p>
+<p>이 사용 사례를 수용하려면 웹 인터페이스의 <code class="docutils literal notranslate"><span class="pre">Datacenter</span> <span class="pre">→</span> <span class="pre">Options</span></code> 에서 편집할 수 있는 <code class="docutils literal notranslate"><span class="pre">datacenter.cfg</span></code> 구성 파일을 통해 하위, 상위 또는 두 경계를 모두 설정할 수 있습니다 .</p>
+<blockquote>
+<div><p><img alt="" src="_images/bell1.png" /> 범위는 next-id API 호출에만 사용되므로 엄격한 제한은 아닙니다.</p>
+</div></blockquote>
+<br>
+</section>
+<section id="id23">
+<h2>5.14. 게스트 마이그레이션<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>가상 게스트를 다른 노드로 마이그레이션하는 것은 클러스터에서 유용한 기능입니다. 이러한 마이그레이션의 동작을 제어하는 ​​설정이 있습니다. 이는 구성 파일 <code class="docutils literal notranslate"><span class="pre">datacenter.cfg</span></code>를 통해 수행 하거나 API 또는 명령줄 매개변수를 통한 특정 마이그레이션을 위해 수행할 수 있습니다.<br></p>
+<p>게스트가 온라인인지 오프라인인지, 그리고 로컬 리소스(로컬 디스크 등)를 가지고 있는지에 따라 차이가 있습니다.<br></p>
+<p>가상 머신 마이그레이션에 대한 자세한 내용은 QEMU/KVM 마이그레이션 장을 참조하세요 .<br></p>
+<p>컨테이너 마이그레이션에 대한 자세한 내용은 컨테이너 마이그레이션 챕터를 참조하세요 .<br></p>
 <section id="id24">
-<h3>5.11.2.<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<h3>5.14.1. 마이그레이션 유형<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>마이그레이션 유형은 마이그레이션 데이터를 암호화된( <span class="point">보안</span> ) 채널 또는 암호화되지 않은( <span class="point">비보안</span> ) 채널로 보내야 하는지 정의합니다. 마이그레이션 유형을 비보안 으로 설정하면 가상 게스트의 RAM 콘텐츠도 암호화되지 않은 상태로 전송되므로 게스트 내부에서 중요한 데이터(예: 비밀번호 또는 암호화 키)의 정보가 공개될 수 있습니다.<br></p>
+<p>따라서 네트워크를 완벽하게 제어할 수 없고 누구도 도청하지 않는다고 보장할 수 없는 경우 보안 채널을 사용하는 것이 좋습니다.</p>
+<p>메모	저장소 마이그레이션은 이 설정을 따르지 않습니다. 현재는 항상 보안 채널을 통해 저장소 콘텐츠를 전송합니다.</p>
+<p>암호화에는 많은 컴퓨팅 파워가 필요하므로 이 설정은 더 나은 성능을 달성하기 위해 종종 <span class="point">안전하지 않은 것</span>으로 변경됩니다 . 최신 시스템에 미치는 영향은 하드웨어에서 AES 암호화를 구현하기 때문에 낮습니다. 성능 영향은 특히 10Gbps 이상을 전송할 수 있는 빠른 네트워크에서 두드러집니다.<br></p>
 </section>
 <section id="id25">
-<h3>5.11.3.<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
-</section>
-</section>
-<section id="id26">
-<h2>5.12.<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
-</section>
-<section id="id27">
-<h2>5.13.<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
-</section>
-<section id="id28">
-<h2>5.14.<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
-<section id="id29">
-<h3>5.14.1.<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
-</section>
-<section id="id30">
-<h3>5.14.2.<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<h3>5.14.2. 마이그레이션 네트워크<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>기본적으로 Proxmox VE는 클러스터 통신이 이루어지는 네트워크를 사용하여 마이그레이션 트래픽을 전송합니다. 이는 민감한 클러스터 트래픽이 중단될 수 있고 이 네트워크가 노드에서 사용 가능한 최상의 대역폭을 갖지 못할 수 있기 때문에 최적이 아닙니다.<br></p>
+<p>마이그레이션 네트워크 매개변수를 설정하면 모든 마이그레이션 트래픽에 전용 네트워크를 사용할 수 있습니다. 메모리 외에도 오프라인 마이그레이션의 스토리지 트래픽에도 영향을 미칩니다.<br></p>
+<p>마이그레이션 네트워크는 CIDR 표기법을 사용하여 네트워크로 설정됩니다. 이는 각 노드에 대해 개별 IP 주소를 설정할 필요가 없다는 장점이 있습니다. Proxmox VE는 CIDR 양식에 지정된 네트워크에서 대상 노드의 실제 주소를 확인할 수 있습니다. 이를 사용하려면 각 노드가 해당 네트워크에서 정확히 하나의 IP를 갖도록 네트워크를 지정해야 합니다.<br></p>
+<p><span class="point"><img alt="" src="_images/info1.png" /> 예 </span><br>
+우리는 세 개의 별도 네트워크가 있는 3노드 설정이 있다고 가정합니다. 하나는 인터넷과의 공개 통신을 위한 것이고, 하나는 클러스터 통신을 위한 것이고, 다른 하나는 매우 빠른 것으로, 우리는 이것을 마이그레이션을 위한 전용 네트워크로 사용하고자 합니다.<br></p>
+<p>이러한 설정에 대한 네트워크 구성은 다음과 같습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iface</span> <span class="n">eno1</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="c1"># public network</span>
+<span class="n">auto</span> <span class="n">vmbr0</span>
+<span class="n">iface</span> <span class="n">vmbr0</span> <span class="n">inet</span> <span class="n">static</span>
+    <span class="n">address</span> <span class="mf">192.</span><span class="n">X</span><span class="o">.</span><span class="n">Y</span><span class="mf">.57</span><span class="o">/</span><span class="mi">24</span>
+    <span class="n">gateway</span> <span class="mf">192.</span><span class="n">X</span><span class="o">.</span><span class="n">Y</span><span class="mf">.1</span>
+    <span class="n">bridge</span><span class="o">-</span><span class="n">ports</span> <span class="n">eno1</span>
+    <span class="n">bridge</span><span class="o">-</span><span class="n">stp</span> <span class="n">off</span>
+    <span class="n">bridge</span><span class="o">-</span><span class="n">fd</span> <span class="mi">0</span>
+
+<span class="c1"># cluster network</span>
+<span class="n">auto</span> <span class="n">eno2</span>
+<span class="n">iface</span> <span class="n">eno2</span> <span class="n">inet</span> <span class="n">static</span>
+    <span class="n">address</span>  <span class="mf">10.1.1.1</span><span class="o">/</span><span class="mi">24</span>
+
+<span class="c1"># fast network</span>
+<span class="n">auto</span> <span class="n">eno3</span>
+<span class="n">iface</span> <span class="n">eno3</span> <span class="n">inet</span> <span class="n">static</span>
+    <span class="n">address</span>  <span class="mf">10.1.2.1</span><span class="o">/</span><span class="mi">24</span>
+</pre></div>
+</div>
+<p>여기서는 네트워크 10.1.2.0/24를 <span class="point">마이그레이션 네트워크</span>로 사용합니다. 단일 마이그레이션의 경우 명령줄 도구의 migration_network 매개변수를 사용하여 이를 수행할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># qm migrate 106 tre --online --migration_network 10.1.2.0/24</span>
+</pre></div>
+</div>
+<p>클러스터의 모든 마이그레이션에 대한 기본 네트워크로 구성하려면 <code class="docutils literal notranslate"><span class="pre">/etc/pve/datacenter.cfg</span></code> 파일 의 마이그레이션 속성을 설정합니다 .</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># use dedicated migration network</span>
+<span class="n">migration</span><span class="p">:</span> <span class="n">secure</span><span class="p">,</span><span class="n">network</span><span class="o">=</span><span class="mf">10.1.2.0</span><span class="o">/</span><span class="mi">24</span>
+</pre></div>
+</div>
+<p>메모	마이그레이션 네트워크가 /etc/pve/datacenter.cfg 에 설정될 때 마이그레이션 유형도 항상 설정되어야 합니다 .</p>
+<p><br><br><br></p>
 </section>
 </section>
 </section>
@@ -998,26 +1213,26 @@ Proxmox VE 5.1부터 지원되는 동안 호스트명은 진입 시점에 확인
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-ve-ssh">5.9. Proxmox VE 클러스터에서 SSH의 역할</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh">5.9.1. SSH 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bashrc">5.9.2. <span class="point">.bashrc</span> 및 형제 의 자동 실행으로 인한 함정</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.10.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.10.1.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.10.2.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.10.3.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.10.4.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.10. Corosync 외부 투표 지원</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qdevice">5.10.1 QDevice 기술 개요</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.10.2. 지원되는 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qdevice-net">5.10.3. QDevice-Net 설정</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.11.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.11.1.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.11.2.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.11.3.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.11. Corosync 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corosync-conf">5.11.1. corosync.conf 편집</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.11.2. 문제 해결</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.11.3. Corosync 구성 용어집</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">5.12.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">5.13.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">5.14.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">5.14.1.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">5.14.2.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.12. 클러스터 콜드 스타트</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vmid">5.13. 게스트 VMID 자동 선택</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.14. 게스트 마이그레이션</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.14.1. 마이그레이션 유형</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.14.2. 마이그레이션 네트워크</a></li>
 </ul>
 </li>
 </ul>
