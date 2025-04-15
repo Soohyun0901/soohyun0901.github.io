@@ -85,16 +85,21 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p{
 }
 
 h1, h2, h3, h4, h5, h6 {
-    position:relative;
-    z-index: 10;
-    background-color: inherit;
-}
-
-h1:after, h2:after, h3:after, h4:after, h5:after, h6:after {
-    content:'';
+    display: flex;
+    align-items: center;
+    gap: 1em; /* 제목과 선 사이 간격 조절 */
+    font-weight: bold;
+  }
+  
+  h1::after,
+  h2::after,
+  h3::after,
+  h4::after,
+  h5::after,
+  h6::after {
+    content: '';
     flex: 1;
-    top:50%;
-    background-color:#555;
-    height:.1em;
-    z-index:1;
-}
+    height: 3px; /* 선 두께 */
+    background-color: #555; /* 선 색상 */
+    margin-left: 10px;
+  }
