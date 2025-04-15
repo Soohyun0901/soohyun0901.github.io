@@ -86,17 +86,15 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p{
 
 h1, h2, h3, h4, h5, h6 {
     position:relative;
-    z-index: 1;
+    z-index: 10;
     background-color: inherit;
 }
 
 h1:after, h2:after, h3:after, h4:after, h5:after, h6:after {
-    position:absolute;
     content:'';
-    left:0;
-    right:0;
+    flex: 1;
     top:50%;
     background-color:#555;
     height:.1em;
-    z-index:-2;
+    z-index:1;
 }
