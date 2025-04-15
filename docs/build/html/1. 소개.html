@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d5597be4" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9b0cba6a" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -376,6 +376,7 @@
 </ul>
 </li>
 </ul>
+<br>
 </section>
 <section id="id3">
 <h2>1.2. 유연한 스토리지<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
@@ -383,18 +384,18 @@
 <p>공유 스토리지에 VM을 저장하는 것의 가장 큰 장점은 클러스터의 모든 노드가 VM 디스크 이미지에 직접 액세스할 수 있으므로 다운타임 없이 실행 중인 머신을 라이브 마이그레이션할 수 있다는 점입니다.<br></p>
 <p>현재 지원되는 네트워크 스토리지 유형은 다음과 같습니다:</p>
 <ul class="simple">
-<li><p>LVM 그룹(iSCSI 대상을 사용한 네트워크 백업)</p></li>
+<li><p>LVM 그룹(iSCSI 대상을 지원하는 네트워크)</p></li>
 <li><p>iSCSI target</p></li>
-<li><p>공유 NFS</p></li>
-<li><p>공유 CIFS</p></li>
+<li><p>NFS 공유</p></li>
+<li><p>CIFS 공유</p></li>
 <li><p>Cepf RBD</p></li>
 <li><p>iSCSI LUN 직접 사용</p></li>
 <li><p>GlusterFS<br></p></li>
 </ul>
 <p>지원되는 로컬 스토리지 유형은 다음과 같습니다:</p>
 <ul class="simple">
-<li><p>LVM 그룹(블록 디바이스, FC, DRBD 등과 같은 로컬 백업 장치)</p></li>
-<li><p>디렉토리(기존 파일시스템의 스토리지)</p></li>
+<li><p>LVM 그룹(블록 장치, FC 장치, DRBD 등과 같은 로컬 백업 장치)</p></li>
+<li><p>디렉토리(기존 파일시스템의 저장소)</p></li>
 <li><p>ZFS<br><br></p></li>
 </ul>
 </section>

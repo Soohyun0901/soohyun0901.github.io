@@ -84,3 +84,30 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p{
     word-break: keep-all;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    position:relative;
+}
+h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {
+    position: absolute;
+    display:block;
+    top:0;
+    left:0;
+    bottom:0;
+    content: attr(data-content);
+    background-color:#FFF;
+    color:#FFF;
+    z-index:-1;
+    padding-right:.5em;
+}
+h1:after, h2:after, h3:after, h4:after, h5:after, h6:after {
+    position:absolute;
+    content:'';
+    display: block;
+    left:0;
+    right:0;
+    top:50%;
+    background-color:#555;
+    height:.1em;
+    min-height:1px;
+    z-index:-2;
+}
