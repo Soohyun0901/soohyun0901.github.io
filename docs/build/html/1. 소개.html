@@ -339,39 +339,40 @@
 <h2>1.1. 중앙 관리<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>많은 사람들이 단일 노드로 시작하지만, Proxmox VE는 대규모 클러스터 노드로 확장할 수 있습니다. 클러스터 구성 요소는 통합되어 있으며 기본 설치와 함께 제공됩니다.</p>
 <ul class="simple">
-<li><p><span class=“point”>고유한 멀티 마스터 디자인</span></p>
+<li><p><span class="point">고유한 멀티 마스터 디자인</span></p>
 <ul>
 <li><p>통합 웹 기반 관리 인터페이스를 통해 모든 KVM 게스트와 Linux 컨테이너, 심지어 클러스터 전체 개요를 제공합니다. 따라서 GUI에서 VM과 컨테이너, 스토리지 또는 클러스터를 쉽게 관리할 수 있습니다. 복잡하고 값비싼 별도의 관리 서버를 설치할 필요가 없습니다.</p></li>
 </ul>
 </li>
-<li><p><span class=“point”>Proxmox 클러스터 파일 시스템(pmxcfs)</span></p>
+<li><p><span class="point">Proxmox 클러스터 파일 시스템(pmxcfs)</span></p>
 <ul>
-<li><p>Proxmox VE는 구성 파일을 저장하기 위해 데이터베이스 기반 파일 시스템인 고유한 Proxmox 클러스터 파일 시스템(pmxcfs)을 사용합니다. 이를 통해 수천 개의 가상 머신 구성을 저장할 수 있습니다. <span class=“point”>corosync</span>를 사용하면 이러한 파일이 모든 클러스터 노드에서 실시간으로 복제됩니다. 파일시스템은 모든 데이터를 디스크의 영구 데이터베이스에 저장하지만, 데이터의 복사본은 최대 30MB 크기의 RAM에 상주합니다. 이는 수천 개의 VM에도 충분한 용량입니다.<br>Proxmox VE는 이 고유한 클러스터 파일 시스템을 사용하는 유일한 가상화 플랫폼입니다.</p></li>
+<li><p>Proxmox VE는 구성 파일을 저장하는 데이터베이스 기반 파일 시스템인 고유한 Proxmox 클러스터 파일 시스템(pmxcfs)을 사용합니다. 이를 통해 수천 대의 가상 머신 구성을 저장할 수 있습니다. <span class=“point”>corosync</span>를 사용하면 이러한 파일이 모든 클러스터 노드에 실시간으로 복제됩니다. 이 파일 시스템은 모든 데이터를 디스크의 영구 데이터베이스에 저장하지만, 데이터 복사본은 최대 30MB의 저장 공간을 제공하는 RAM에 저장되므로 수천 대의 VM을 충분히 수용할 수 있습니다.</p></li>
+<li><p>Proxmox VE는 이 독특한 클러스터 파일 시스템을 사용하는 유일한 가상화 플랫폼입니다.</p></li>
 </ul>
 </li>
-<li><p><span class=“point”>웹 기반 관리 인터페이스</span></p>
+<li><p><span class="point">웹 기반 관리 인터페이스</span></p>
 <ul>
 <li><p>Proxmox VE는 사용이 간편합니다. 관리 작업은 포함된 웹 기반 관리 인터페이스를 통해 수행할 수 있으므로 별도의 관리 도구나 대용량 데이터베이스를 갖춘 추가 관리 노드를 설치할 필요가 없습니다. 멀티마스터 도구를 사용하면 클러스터의 모든 노드에서 전체 클러스터를 관리할 수 있습니다. JavaScript Framework(ExtJS)를 기반으로 하는 중앙 웹 기반 관리를 통해 GUI에서 모든 기능을 제어하고 각 단일 노드의 이력 및 시스템 로그를 살펴볼 수 있습니다. 여기에는 백업, 복원 작업, 라이브 마이그레이션 또는 HA 트리거 활동 실행이 포함됩니다.</p></li>
 </ul>
 </li>
-<li><p><span class=“point”>명령줄</span></p>
+<li><p><span class="point">명령줄</span></p>
 <ul>
-<li><p>Unix 셸 또는 Windows Powershell에 익숙한 일부 사용자를 위해, 버트온은 가상 환경의 모든 구성 요소를 관리할 수 있는 명령줄 인터페이스를 제공합니다. 이 명령줄 인터페이스에는 지능형 탭 완성 기능과 UNIX 매뉴얼 페이지 형식의 전체 문서가 있습니다.</p></li>
+<li><p>Unix 셸이나 Windows Powershell의 편리함에 익숙한 고급 사용자를 위해 Proxmox VE는 가상 환경의 모든 구성 요소를 관리할 수 있는 명령줄 인터페이스를 제공합니다. 이 명령줄 인터페이스는 지능적인 탭 자동 완성 기능과 UNIX 매뉴얼 페이지 형태의 전체 설명서를 제공합니다.</p></li>
 </ul>
 </li>
-<li><p><span class=“point”>REST API</span></p>
+<li><p><span class="point">REST API</span></p>
 <ul>
 <li><p>Proxmox VE는 RESTful API를 사용합니다. 기본 데이터 형식으로 JSON을 선택하며 전체 API는 JSON 스키마를 사용하여 공식적으로 정의됩니다. 이를 통해 사용자 지정 호스팅 환경과 같은 타사 관리 도구에 빠르고 쉽게 통합할 수 있습니다.</p></li>
 </ul>
 </li>
-<li><p><span class=“point”>역할 기반 관리</span></p>
+<li><p><span class="point">역할 기반 관리</span></p>
 <ul>
 <li><p>역할 기반 사용자 및 권한 관리를 사용하여 모든 객체(예: VM, 스토리지, 노드 등)에 대한 세분화된 액세스를 정의할 수 있습니다. 이를 통해 권한을 정의하고 개체에 대한 액세스를 제어할 수 있습니다. 이 개념을 <span class="point">접근 제어 목록(Access Control Lists, ACL)</span>이라고도 합니다. 각 권한은 특정 경로에 대한 주체(사용자 또는 그룹)와 역할(권한 집합)을 지정합니다.</p></li>
 </ul>
 </li>
-<li><p><span class=“point”>인증 영역</span></p>
+<li><p><span class="point">인증 영역</span></p>
 <ul>
-<li><p>Proxmox VE는 Microsoft Active Directory, LDAP, Linux PAM 표준 인증 또는 기본 제공 Proxmox VE 인증 서버와 같은 여러 인증 소스를 지원합니다.<br><br></p></li>
+<li><p>Proxmox VE는 Microsoft Active Directory, LDAP, Linux PAM 표준 인증 또는 내장된 Proxmox VE 인증 서버와 같은 여러 인증 소스를 지원합니다.</p></li>
 </ul>
 </li>
 </ul>
