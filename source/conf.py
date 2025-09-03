@@ -24,7 +24,7 @@ language = 'ko'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'conestack'
+html_theme = 'shibuya'
 html_static_path = ['_static']
 html_favicon='favicon.ico'
 
@@ -39,3 +39,5 @@ source_parsers = {
     '.md': CommonMarkParser,
 }
 extensions = ['myst_parser']
+
+html_baseurl="https://docs.virton.co.kr"
