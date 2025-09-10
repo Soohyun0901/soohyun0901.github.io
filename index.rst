@@ -3,15 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-VirtOn-Guide documentation
-==========================
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+VirtOn(버트온) 한글매뉴얼
+==============================
 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: 목차
+   :hidden:
 
+   1.개요
