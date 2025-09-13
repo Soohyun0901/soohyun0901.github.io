@@ -30,8 +30,12 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'furo'
 html_static_path = ['_static']
+html_css_files = [
+    'custom.css'
+]
 
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
+html_baseurl = 'https://guide.virton.co.kr/'
