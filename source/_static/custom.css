@@ -1,0 +1,20 @@
+/* ===== 1) 폰트 세팅 (선택) ===== */
+/* 폰트 파일은 source/_static/fonts/ 에 두세요. 빌드 후 docs/_static/fonts/ 로 복사됨 */
+
+@font-face {
+    font-family: 'NoirSans';
+    src: url('fonts/AritaDotumKR-Medium.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NoirSans';
+    src: url('fonts/AritaDotumKR-Medium.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+
+

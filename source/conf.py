@@ -24,5 +24,16 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'sphinxawesome_theme'
 html_static_path = ['_static']
+html_css_files = ['custom.css'] 
+html_permalinks_icon = '<span>#</span>'
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
+import os   # 기존주석 해제
+import sys  # 기존주석 해제
+sys.path.insert(0, os.path.abspath('.')) # 기존주석 해제
