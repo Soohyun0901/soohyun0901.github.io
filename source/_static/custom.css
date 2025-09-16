@@ -132,7 +132,7 @@
   /* ====== 커스텀 포인트 태그 ====== */
 point {
     font-weight: 700;      /* 굵게 */
-    color: #ff6600;        /* 주황색 */
+    color: #1866E1;        /* 로얄아주르 */
     font-style: normal;    /* 필요시 italic → normal */
   }
   
@@ -171,6 +171,22 @@ body {
     line-height: 1.7;            /* 줄간격 충분히 */
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+  /* 한글 단어가 중간에 끊기지 않도록 */
+.rst-content p,
+.rst-content li,
+.rst-content table,
+.rst-content span,
+.rst-content strong,
+.rst-content em {
+  word-break: keep-all;     /* 글자 단위 끊기 방지 */
+  white-space: normal;      /* 일반 문단 줄바꿈 허용 */
+}
+
+/* 한글이 포함된 요소는 단어 단위로만 줄바꿈 */
+html, body {
+    word-break: keep-all;
+    line-break: strict;       /* 브라우저에 "엄격하게 줄바꿈" 지시 */
   }
   
   /* 한글 세로 여백 보정 (descender/ascender 잘림 방지) */
