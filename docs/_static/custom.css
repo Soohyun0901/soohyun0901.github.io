@@ -1,20 +1,112 @@
-/* ===== 1) 폰트 세팅 (선택) ===== */
-/* 폰트 파일은 source/_static/fonts/ 에 두세요. 빌드 후 docs/_static/fonts/ 로 복사됨 */
-
+/* ====== 1. 폰트 등록 ====== */
 @font-face {
-    font-family: 'NoirSans';
-    src: url('fonts/AritaDotumKR-Medium.ttf') format('ttf');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'NoirSans';
-    src: url('fonts/AritaDotumKR-Medium.ttf') format('ttf');
-    font-weight: 700;
+    font-family: 'AritaDotumKR';
+    src: url('fonts/AritaDotumKR-Medium.ttf') format('truetype');
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
   }
   
-
-
+  /* ====== 2. 전역 본문 ====== */
+  body {
+    font-family: 'AritaDotumKR', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #222;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* ====== 3. 제목 스타일 ====== */
+  .rst-content h1,
+  .rst-content h2,
+  .rst-content h3,
+  .rst-content h4,
+  .rst-content h5,
+  .rst-content h6 {
+    font-family: 'AritaDotumKR', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-top: 2.0rem;
+    margin-bottom: 1.0rem;
+    color: #111;
+  }
+  
+  .rst-content h1 { font-size: 2.2rem; margin-top: 2.5rem; }
+  .rst-content h2 { font-size: 1.8rem; margin-top: 2.0rem; }
+  .rst-content h3 { font-size: 1.5rem; margin-top: 1.5rem; font-weight: 500; }
+  .rst-content h4 { font-size: 1.2rem; margin-top: 1.2rem; font-weight: 500; color: #333; }
+  .rst-content h5 { font-size: 1.0rem; margin-top: 1.0rem; font-weight: 500; color: #444; }
+  .rst-content h6 { font-size: 0.9rem; margin-top: 0.8rem; font-weight: 500; color: #555; }
+  
+  /* ====== 4. 본문 요소 ====== */
+  .rst-content p {
+    margin: 0 0 1.2rem 0;
+    font-size: 1rem;
+    color: #222;
+  }
+  
+  .rst-content ul,
+  .rst-content ol {
+    margin: 0 0 1.2rem 1.5rem;
+    padding: 0;
+  }
+  
+  .rst-content li {
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+  }
+  
+  /* 링크 (밑줄 제거, hover 시 강조) */
+  .rst-content a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .rst-content a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ====== 5. 코드 블록 ====== */
+  .rst-content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.95rem;
+    background: #f5f5f5;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+  }
+  
+  .highlight pre {
+    font-size: 0.95rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: 6px;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+  
+  /* ====== 6. 표 ====== */
+  .rst-content table.docutils {
+    font-size: 0.95rem;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+  .rst-content table.docutils th,
+  .rst-content table.docutils td {
+    border: 1px solid #ddd;
+    padding: 0.6rem 0.8rem;
+  }
+  .rst-content table.docutils th {
+    background: #f8f8f8;
+    font-weight: 600;
+  }
+  
+  /* ====== 7. 강조(Highlight) 클래스 ====== */
+  /* 자주 쓰는 강조 스타일을 미리 정의해두면 편리 */
+  .em-orange { font-weight: 700; color: #ff6600; }
+  .em-blue   { font-weight: 700; color: #0066cc; }
+  .em-green  { font-weight: 700; color: #008800; }
+  .em-pink   { font-weight: 700; color: #cc0066; }

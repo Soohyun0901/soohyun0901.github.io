@@ -12,10 +12,10 @@
 <meta content="1. 개요 | VirtOn Documents 1.0 documentation" name="twitter:title"/>
 <link href="_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="_static/theme.css?v=42baaae4" rel="stylesheet" type="text/css"/>
-<link href="_static/custom.css?v=d2bf1e8f" rel="stylesheet" type="text/css"/>
+<link href="_static/custom.css?v=12e7bf7d" rel="stylesheet" type="text/css"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
-<link href="index.html" rel="prev" title="【VirtOn Documents】 버트온 한글매뉴얼"/>
+<link href="index.html" rel="prev" title="VirtOn Admin Manual"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -95,6 +95,18 @@
 <div id="content" role="main">
 <section id="id1">
 <h1>1. 개요<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
+<p>Proxmox VE는 가상 머신과 컨테이너를 구동하기 위한 플랫폼입니다. Debian Linux를 기반으로 하며 최대한의 유연성을 위해 커널 기반 가상 머신(KVM)과 컨테이너 기반 가상화(LXC)의 두 가지 가상화 기술을 구현했습니다.<br/><br/>
+주요 설계 목표 중 하나는 관리를 최대한 쉽게 만드는 것이었습니다. Proxmox VE는 단일 노드로 사용하거나 여러 노드로 클러스터를 구성할 수 있습니다. 모든 관리는 웹 기반 관리 인터페이스를 통해 수행할 수 있으며, 초보자도 몇 분 안에 Proxmox VE를 설정하고 설치할 수 있습니다.<br/><br/>
+<img alt="" src="_images/overview_1.svg"/><br/><br/></p>
+<h2>1.1. 중앙 관리</h2>
+많은 사람들이 단일 노드로 시작하지만, Proxmox VE는 대규모 클러스터 노드로 확장할 수 있습니다. 클러스터 구성 요소는  기본적인 설치와 함께 제공됩니다.<br/>
+<ul class="simple">
+<li><p><strong>고유한 멀티 마스터 디자인</strong>{.em-orange}</p>
+<ul>
+<li><p>통합 웹 기반 관리 인터페이스를 통해 모든 KVM과 Linux 컨테이너, 심지어 클러스터 전체를 보여줍니다. 따라서 GUI에서 VM과 컨테이너, 스토리지 또는 클러스터를 쉽게 관리할 수 있습니다. 복잡하고 값비싼 별도의 관리 서버를 설치할 필요가 없습니다.</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </div></div>
 </main>

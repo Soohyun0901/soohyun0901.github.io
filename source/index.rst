@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-【VirtOn Documents】 버트온 한글매뉴얼
+VirtOn Admin Manual
 ==============================
 
 

@@ -17,6 +17,7 @@ release = '1.0'
 extensions = [
     'myst_parser', 
 ]
+myst_enable_extensions = ["attrs_inline"]
 
 templates_path = ['_templates']
 exclude_patterns = []
