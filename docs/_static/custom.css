@@ -14,9 +14,8 @@
     font-size: 16px;
     line-height: 1.7;
     color: #222;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+    margin: 0;
+    padding: 0;
   }
   
   /* ====== 3. 제목 스타일 ====== */
@@ -106,7 +105,39 @@
   
   /* ====== 7. 강조(Highlight) 클래스 ====== */
   /* 자주 쓰는 강조 스타일을 미리 정의해두면 편리 */
-  .em-orange { font-weight: 700; color: #ff6600; }
-  .em-blue   { font-weight: 700; color: #0066cc; }
-  .em-green  { font-weight: 700; color: #008800; }
-  .em-pink   { font-weight: 700; color: #cc0066; }
+  /* ====== 커스텀 포인트 태그 ====== */
+point {
+    font-weight: 700;      /* 굵게 */
+    color: #ff6600;        /* 주황색 */
+    font-style: normal;    /* 필요시 italic → normal */
+  }
+  
+
+  :root { --doc-max-width: 1280px; }  /* 원하는 값: 1200~1400px 추천 */
+
+.bd-page-width,
+.bd-main .bd-content,
+.bd-main .bd-content .bd-article-container,
+.bd-content .bd-article,
+.content,                 /* furo/awesome 계열 대비용 */
+.wy-nav-content {         /* RTD 테마 대비용 */
+  max-width: var(--doc-max-width);
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* 3) 이미지 반응형 */
+.rst-content img, img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 4) 본문 글줄 길이(선택): 너무 넓게 느껴지면 줄 길이를 제한 */
+.rst-content p {
+  max-width: 75ch;         /* 75글자 폭 정도 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
