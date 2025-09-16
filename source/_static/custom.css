@@ -165,3 +165,30 @@ point {
   margin-right: auto;
 }
 
+/* ===== 한글 잘림 방지 ===== */
+body {
+    word-break: keep-all;        /* 단어 중간 줄바꿈 방지 (한국어 읽기 개선) */
+    line-height: 1.7;            /* 줄간격 충분히 */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* 한글 세로 여백 보정 (descender/ascender 잘림 방지) */
+  .rst-content p,
+  .rst-content li,
+  .rst-content h1,
+  .rst-content h2,
+  .rst-content h3,
+  .rst-content h4,
+  .rst-content h5,
+  .rst-content h6 {
+    line-height: 1.6;            /* 제목/본문 모두 넉넉한 행간 */
+    padding-top: 0.05em;         /* 위로 살짝 띄워줌 */
+    padding-bottom: 0.05em;      /* 아래도 여유 */
+  }
+  
+  /* strong, em 태그도 마찬가지 */
+  .rst-content strong,
+  .rst-content em {
+    line-height: 1.6;
+  }
