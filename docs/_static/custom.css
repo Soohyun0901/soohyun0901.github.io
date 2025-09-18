@@ -1,0 +1,214 @@
+/* ====== 1. 폰트 등록 ====== */
+@font-face {
+    font-family: 'AritaDotumKR';
+    src: url('fonts/AritaDotumKR-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* ====== 2. 전역 본문 ====== */
+  body {
+    font-family: 'AritaDotumKR', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #222;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ====== 3. 제목 스타일 ====== */
+  .rst-content h1,
+  .rst-content h2,
+  .rst-content h3,
+  .rst-content h4,
+  .rst-content h5,
+  .rst-content h6 {
+    font-family: 'AritaDotumKR', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-top: 2.0rem;
+    margin-bottom: 1.0rem;
+    color: #111;
+  }
+  
+  /* ===== 문단 기본 간격 ===== */
+.rst-content p {
+    margin-top: 0;          /* 문단 시작은 위쪽 공백 제거 */
+    margin-bottom: 1rem;    /* 문단 사이 공백은 일정하게 1rem */
+    line-height: 1.7;       /* 읽기 편한 줄간격 */
+    font-size: 1rem;
+    color: #222;
+  }
+  
+  /* ===== 제목 간격 ===== */
+  .rst-content h1,
+  .rst-content h2,
+  .rst-content h3,
+  .rst-content h4,
+  .rst-content h5,
+  .rst-content h6 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 2rem;       /* 제목 위쪽 여백 */
+    margin-bottom: 1rem;    /* 제목 아래쪽 여백 */
+    color: #111;
+  }
+
+  /* 레벨별 크기 (일관되게 조정) */
+.rst-content h1 { font-size: 2rem;   margin-top: 2.5rem; }
+.rst-content h2 { font-size: 1.6rem; margin-top: 2rem;   }
+.rst-content h3 { font-size: 1.3rem; margin-top: 1.5rem; }
+.rst-content h4 { font-size: 1.1rem; margin-top: 1.2rem; color: #333; }
+.rst-content h5 { font-size: 1rem;   margin-top: 1rem;   color: #444; }
+.rst-content h6 { font-size: 0.9rem; margin-top: 0.8rem; color: #555; }
+  
+  /* ====== 4. 본문 요소 ====== */
+  .rst-content p {
+    margin: 0 0 1.2rem 0;
+    font-size: 1rem;
+    color: #222;
+  }
+  
+  .rst-content ul,
+  .rst-content ol {
+    margin: 0 0 1.2rem 1.5rem;
+    padding: 0;
+  }
+  
+  .rst-content li {
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+  }
+  
+  /* 링크 (밑줄 제거, hover 시 강조) */
+  .rst-content a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .rst-content a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ====== 5. 코드 블록 ====== */
+  .rst-content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.95rem;
+    background: #f5f5f5;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+  }
+  
+  .highlight pre {
+    font-size: 0.95rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: 6px;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+  
+  /* ====== 6. 표 ====== */
+  .rst-content table.docutils {
+    font-size: 0.95rem;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+  .rst-content table.docutils th,
+  .rst-content table.docutils td {
+    border: 1px solid #ddd;
+    padding: 0.6rem 0.8rem;
+  }
+  .rst-content table.docutils th {
+    background: #f8f8f8;
+    font-weight: 600;
+  }
+  
+  /* ====== 7. 강조(Highlight) 클래스 ====== */
+  /* 자주 쓰는 강조 스타일을 미리 정의해두면 편리 */
+  /* ====== 커스텀 포인트 태그 ====== */
+point {
+    font-weight: 700;      /* 굵게 */
+    color: #1866E1;        /* 로얄아주르 */
+    font-style: normal;    /* 필요시 italic → normal */
+  }
+  
+
+  :root { --doc-max-width: 1280px; }  /* 원하는 값: 1200~1400px 추천 */
+
+.bd-page-width,
+.bd-main .bd-content,
+.bd-main .bd-content .bd-article-container,
+.bd-content .bd-article,
+.content,                 /* furo/awesome 계열 대비용 */
+.wy-nav-content {         /* RTD 테마 대비용 */
+  max-width: var(--doc-max-width);
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* 3) 이미지 반응형 */
+.rst-content img, img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 4) 본문 글줄 길이(선택): 너무 넓게 느껴지면 줄 길이를 제한 */
+.rst-content p {
+  max-width: 75ch;         /* 75글자 폭 정도 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== 한글 잘림 방지 ===== */
+body {
+    word-break: keep-all;        /* 단어 중간 줄바꿈 방지 (한국어 읽기 개선) */
+    line-height: 1.7;            /* 줄간격 충분히 */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* 한글 단어가 중간에 끊기지 않도록 */
+.rst-content p,
+.rst-content li,
+.rst-content table,
+.rst-content span,
+.rst-content strong,
+.rst-content em {
+  word-break: keep-all;     /* 글자 단위 끊기 방지 */
+  white-space: normal;      /* 일반 문단 줄바꿈 허용 */
+}
+
+/* 한글이 포함된 요소는 단어 단위로만 줄바꿈 */
+html, body {
+    word-break: keep-all;
+    line-break: strict;       /* 브라우저에 "엄격하게 줄바꿈" 지시 */
+  }
+  
+  /* 한글 세로 여백 보정 (descender/ascender 잘림 방지) */
+  .rst-content p,
+  .rst-content li,
+  .rst-content h1,
+  .rst-content h2,
+  .rst-content h3,
+  .rst-content h4,
+  .rst-content h5,
+  .rst-content h6 {
+    line-height: 1.6;            /* 제목/본문 모두 넉넉한 행간 */
+    padding-top: 0.05em;         /* 위로 살짝 띄워줌 */
+    padding-bottom: 0.05em;      /* 아래도 여유 */
+  }
+  
+  /* strong, em 태그도 마찬가지 */
+  .rst-content strong,
+  .rst-content em {
+    line-height: 1.6;
+  }
+
+  header .navbar-brand span { display: none !important; }
+
+ 
