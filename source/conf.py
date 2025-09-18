@@ -30,7 +30,7 @@ exclude_patterns = []
 html_theme = 'sphinxawesome_theme'
 html_static_path = ['_static']
 html_css_files = ['custom.css'] 
-html_permalinks_icon = '<span>#</span>'
+#html_permalinks_icon = '<span>#</span>'
 html_favicon = "_static/images/favicon.png"
 html_theme_options = {
     "logo_light" : "_static/images/logo.png",
