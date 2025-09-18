@@ -27,14 +27,20 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinxawesome_theme'
+html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_css_files = ['custom.css'] 
-#html_permalinks_icon = '<span>#</span>'
+html_permalinks_icon = '<span>#</span>'
 html_favicon = "_static/images/favicon.png"
 html_theme_options = {
-    "logo_light" : "_static/images/logo.png",
-    "logo_dark" : "_static/images/logo.png"
+    "logo": {
+        # 밝은 테마/어두운 테마 각각 지정
+        "image_light": "_static/logo.png",
+        "image_dark": "_static/logo.png",
+        # 선택: 로고 옆에 표시할 텍스트
+        # "text": "Virton Docs",
+    },
+    # 필요시 다른 옵션들…
 }
 
 source_suffix = {
