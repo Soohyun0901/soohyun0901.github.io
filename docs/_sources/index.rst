@@ -14,3 +14,5 @@
    :hidden:
 
    1. 개요
+   2. Proxmox VE 기본설치
+   
