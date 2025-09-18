@@ -208,3 +208,7 @@ html, body {
   .rst-content em {
     line-height: 1.6;
   }
+
+  header .navbar-brand span { display: none !important; }
+
+ 
