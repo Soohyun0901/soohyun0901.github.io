@@ -45,8 +45,8 @@
   .bd-main .bd-content{           /* 본문 컨테이너 폭 */
     max-width: var(--content-max-width);
     margin: 0 auto;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .bd-sidebar-primary{            /* 좌측 사이드바 폭 */
     width: var(--side-primary-width);
