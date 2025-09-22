@@ -21,7 +21,7 @@ help:
 
 # 빌드 산출물을 docs/로 바로 출력 (Pages 루트)
 gh:
-	@sphinx-build -b html -d docs/.doctrees source docs
+	@$(SPHINXBUILD) -b html -E -a -d docs/.doctrees "$(SOURCEDIR)" docs
 	@echo "Built to docs/"
 
 # 필요하면 정리
