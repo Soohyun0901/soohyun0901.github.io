@@ -44,7 +44,6 @@
   }
   .bd-main .bd-content{           /* 본문 컨테이너 폭 */
     max-width: var(--content-max-width);
-    margin: 0 auto;
     padding-left: 5px;
     padding-right: 5px;
   }
