@@ -40,7 +40,6 @@
   /* 3) 레이아웃 (비율/폭/여백) */
   .bd-page-width{                 /* 페이지 컨테이너 전체 폭 */
     max-width: var(--doc-max-width);
-    margin: 0 auto;
   }
   .bd-main .bd-content{           /* 본문 컨테이너 폭 */
     max-width: var(--content-max-width);
