@@ -351,24 +351,22 @@
 <p>Proxmox VE는 Debian GNU/Linux를 기반으로 하며, 추가 레포지토리를 통해 Proxmox VE 관련 패키지를 제공합니다. 즉, 보안 업데이트 및 버그 수정을 포함한 모든 범위의 Debian 패키지를 사용할 수 있습니다. Proxmox VE는 우분투 커널을 기반으로 하는 자체 Linux 커널을 제공합니다. 필요한 모든 가상화 및 컨테이너 기능이 활성화되어 있으며 ZFS 및 몇 가지 추가 하드웨어 드라이버가 포함되어 있습니다.<br><br></p>
 <h2>3.1. 패키지 레포지토리</h2>
 <p>Proxmox VE는 다른 Debian 기반 시스템과 마찬가지로 <point>APT</point>를 패키지 관리 도구로 사용합니다.<br>
-Proxmox VE는 매일 패키지 업데이트를 자동으로 확인합니다. <point>root&#64;pam</point> 사용자는 사용 가능한 업데이트에 대해 이메일을 통해 알림을 받습니다. GUI에서 <point>changelog</point>버튼을 사용하여 선택한 업데이트에 대한 자세한 내용을 볼 수 있습니다.<br></p>
+Proxmox VE는 매일 패키지 업데이트를 자동으로 확인합니다. <point>root&#64;pam</point> 사용자는 사용 가능한 업데이트에 대해 이메일을 통해 알림을 받습니다. GUI에서 <point>changelog</point>버튼을 사용하여 선택한 업데이트에 대한 자세한 내용을 볼 수 있습니다.<br><br></p>
 <h3>3.1.1. Proxmox VE의 레포지토리 </h3>
-레포지토리는 소프트웨어 패키지의 모음으로, 새 소프트웨어를 설치하는 데 사용할 수 있을 뿐만 아니라 새 업데이트를 받는 데도 중요합니다.
+레포지토리는 소프트웨어 패키지의 모음으로, 새 소프트웨어를 설치하는 데 사용할 수 있을 뿐만 아니라 새 업데이트를 받는 데도 중요합니다.<br>
 <blockquote>
 <div><p><img alt="" src="../_images/alert.svg" /> <b>NOTE</b><br>
-최신 보안 업데이트, 버그 수정 및 새로운 기능을 받으려면 유효한 Debian 및 Proxmox 레포지토리가 필요합니다.
-<br></p>
+최신 보안 업데이트, 버그 수정 및 새로운 기능을 받으려면 유효한 Debian 및 Proxmox 레포지토리가 필요합니다.</p>
 </div></blockquote>
-<p>APT 레포지토리는 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> 파일과 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code>에 있는 <point>.list</point> 확장자 파일에 정의되어 있습니다.</p>
 <br>
-<p><point><img alt="" src="../_images/alert.svg" />레포지토리 관리</point><br>
-<img alt="" src="../_images/admin_1.png" /><br></p>
+<p>APT 레포지토리는 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> 파일과 <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code>에 있는 <point>.list</point> 확장자 파일에 정의되어 있습니다.<br></p>
+<p><img alt="" src="../_images/admin_1.png" /><br></p>
 <p>Proxmox VE 7부터는 웹 인터페이스에서 레포지토리 상태를 확인할 수 있습니다. 노드 요약 패널에는 개략적인 상태 개요가 표시되며, 별도의 <point>Repository</point> 패널에는 구성된 모든 레포지토리의 심층적인 상태와 목록이 표시됩니다.</p>
 <p>레포지토리 활성화 또는 비활성화와 같은 기본적인 레포지토리 관리도 지원됩니다.<br></p>
-<p><point><img alt="" src="../_images/alert.svg" /> sources.list 파일</point><br></p>
+<p><point>sources.list 파일</point><br></p>
 <p><point>sources.list</point> 파일에서 각 줄은 패키지 레포지토리를 정의합니다.</p>
 <p>선호하는 소스가 가장 먼저 나와야 하며, 빈 줄은 무시됩니다. <point>#</point> 문자는 해당 줄의 나머지 부분을 주석으로 표시합니다. 레포지토리에서 사용 가능한 패키지는 <point>apt-get update</point> 명령을 실행하여 얻습니다. 업데이트는 <point>apt-get</point>을 사용하여 직접 설치하거나, GUI(Node → Updates)를 통해 설치할 수 있습니다.<br></p>
-<p><point><img alt="" src="../_images/alert.svg" /> /etc/apt/sources.list 파일</point><br></p>
+<p><point>/etc/apt/sources.list 파일</point><br></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="n">bookworm</span> <span class="n">main</span> <span class="n">contrib</span>
 <span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">debian</span> <span class="n">bookworm</span><span class="o">-</span><span class="n">updates</span> <span class="n">main</span> <span class="n">contrib</span>
 
@@ -382,9 +380,8 @@ Proxmox VE는 매일 패키지 업데이트를 자동으로 확인합니다. <po
 <h3>3.1.2. Proxmox VE Enterprise Repository</h3>
 이는 권장되는 저장소이며 모든 버트온 라이선스 구독자가 이용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션 환경에 적합합니다. <point>pve-enterprise</point> 저장소는 기본적으로 활성화되어 있습니다:<br>
 pve-enterprise 저장소에 접근하려면 유효한 구독 키가 필요하다는 점에 유의하십시오. 당사는 다양한 지원 수준을 제공하며, 자세한 내용은 https://proxmox.com/en/proxmox-virtual-environment/pricing에서 확인하실 수 있습니다.
-> 파일에서 줄 시작 부분에 '#'을 추가하여 주석 처리함으로써 이 저장소를 비활성화할 수 있습니다. 이렇게 하면 호스트에 구독 키가 없는 경우 오류 메시지가 표시되지 않습니다. 이 경우 pve-no-subscription 저장소를 구성하시기 바랍니다.
-<p>이 레포지토리는 권장 레포지토리이며 모든 Proxmox VE 구독 사용자가 사용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션용으로 적합합니다. <point>pve-enterprise</point> 레포지토리는 기본적으로 활성화되어 있습니다:<br><br></p>
-<p><point><img alt="" src="../_images/alert.svg" /> /etc/apt/sources.list.d/pve-enterprise.list 파일</point><br></p>
+파일에서 줄 시작 부분에 '#'을 추가하여 주석 처리함으로써 이 저장소를 비활성화할 수 있습니다. 이렇게 하면 호스트에 구독 키가 없는 경우 오류 메시지가 표시되지 않습니다. 이 경우 pve-no-subscription 저장소를 구성하시기 바랍니다.<br>이 레포지토리는 권장 레포지토리이며 모든 Proxmox VE 구독 사용자가 사용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션용으로 적합합니다. <point>pve-enterprise</point> 레포지토리는 기본적으로 활성화되어 있습니다:<br><br>
+<p><point>/etc/apt/sources.list.d/pve-enterprise.list 파일</point><br></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> 
 <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">enterprise</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">pve</span> <span class="n">bookworm</span> <span class="n">pve</span><span class="o">-</span><span class="n">enterprise</span>
 </pre></div>
