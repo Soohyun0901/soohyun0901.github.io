@@ -15,6 +15,7 @@
 
    guide/1. 개요
    guide/2. Proxmox VE 기본설치
+   guide/3. 운영
    
 .. toctree::
    :maxdepth: 2
