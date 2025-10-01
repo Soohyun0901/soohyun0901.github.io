@@ -12,7 +12,7 @@
    :maxdepth: 2
    :caption: 기본 매뉴얼
    :hidden:
-   :numbered:
+
 
    1. 개요 <guide/01-intro>
    2. Proxmox VE 기본설치 <guide/02-install>
@@ -23,4 +23,3 @@
    :maxdepth: 2
    :caption: 운영 가이드
    :hidden:
-   :numbered:
