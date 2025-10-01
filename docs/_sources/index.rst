@@ -12,12 +12,15 @@
    :maxdepth: 2
    :caption: 기본 매뉴얼
    :hidden:
+   :numbered:
 
-   guide/1. 개요
-   guide/2. Proxmox VE 기본설치
-   guide/3. 운영
+   1. 개요 <guide/01-intro>
+   2. Proxmox VE 기본설치 <guide/02-install>
+   3. 운영 <guide/03-ops>
+   4. GUI <guide/04-gui>
    
 .. toctree::
    :maxdepth: 2
    :caption: 운영 가이드
    :hidden:
+   :numbered:

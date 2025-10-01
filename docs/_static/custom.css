@@ -4,8 +4,8 @@
 
 /* 0) 기본 폭 변수 (여기 수치만 바꾸면 전체 레이아웃이 같이 조정됨) */
 :root{
-    --doc-max-width: 1280px;   /* 전체 페이지 최대폭 */
-    --content-max-width: 1120px; /* 본문 칼럼 최대폭 */
+    --doc-max-width: 1440px;   /* 전체 페이지 최대폭 */
+    --content-max-width: 12800px; /* 본문 칼럼 최대폭 */
     --side-primary-width: 240px; /* 좌측 TOC 폭 */
   }
   
@@ -86,7 +86,7 @@
     line-height: 1.7;
     font-size: 1rem;
     color: #222;
-    max-width: 75ch;               /* 너무 넓게 보이지 않게 글줄 길이 제한 */
+    /*max-width: 75ch;               /* 너무 넓게 보이지 않게 글줄 길이 제한 */
     margin-left: auto;
     margin-right: auto;
   }
