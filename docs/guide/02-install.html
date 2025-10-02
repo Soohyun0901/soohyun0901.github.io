@@ -302,7 +302,7 @@
 <h1>2. Proxmox VE 기본설치<a class="headerlink" href="#proxmox-ve" title="Link to this heading"><span>#</span></a></h1>
 <p>Proxmox VE는 Debian Linux를 기반으로 합니다. 그렇기 때문에 Proxmox에서 제공하는 설치 디스크 이미지(ISO 파일)에는 전체 Debian 시스템과 필요한 모든 Proxmox VE 패키지가 포함되어 있습니다.<br></p>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> Proxmox VE 릴리스와 Debian 릴리스 간의 관계는 FAQ의 지원 표를 참조하세요.</p>
+<div><p><img alt="" src="../_images/check.png" /> Proxmox VE 릴리스와 Debian 릴리스 간의 관계는 FAQ의 지원 표를 참조하세요.</p>
 </div></blockquote>
 <p>설치 관리자는 로컬 디스크를 파티션하고, 기본 시스템 구성(예: 시간대, 언어, 네트워크)을 적용하고, 필요한 모든 패키지를 설치할 수 있도록 설정 과정을 안내합니다. 이 과정은 몇 분 이상 소요되지 않습니다. 신규 및 기존 사용자에게는 제공된 ISO로 설치하는 것이 권장됩니다.<br>
 또는 기존 Debian 시스템 위에 Proxmox VE를 설치할 수도 있습니다. 이 옵션은 Proxmox VE에 대한 자세한 지식이 필요하므로 고급 사용자에게만 권장됩니다.<br><br></p>
@@ -337,7 +337,7 @@
 <h3>2.1.3. 간단한 성능 개요</h3>
 <p>설치된 Proxmox VE 시스템에서 CPU 및 하드 디스크 성능에 대한 개요를 확인하려면 포함된 <point>pveperf</point>도구를 실행하세요.</p>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 이것은 매우 빠르고 일반적인 벤치마크일 뿐이며, 특히 시스템의 I/O 성능에 대해서는 더 자세한 테스트가 권장됩니다.</p>
 </div></blockquote>
 <h3>2.1.4. 웹 인터페이스 액세스를 위해 지원되는 웹 브라우저 </h3>
@@ -370,7 +370,7 @@ USB 플래시 드라이브를 사용하는 것이 더 빠른 옵션이므로 Pro
 </pre></div>
 </div>
 <p>dev/XYZ를 올바른 장치 이름으로 바꾸고 입력 파일 이름(<point>if</point>) 경로를 조정해야 합니다.<br><br></p>
-<p><img alt="" src="../_images/alert.svg" /> 올바른 USB 장치 이름 찾기<br>
+<p><img alt="" src="../_images/check.png" /> 올바른 USB 장치 이름 찾기<br>
 USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습니다. 첫 번째는 플래시 드라이브를 연결하기 전과 연결한 후의 <point>dmesg</point> 명령 출력의 마지막 줄을 비교하는 것입니다. 두 번째 방법은 <point>lsblk</point> 명령의 출력을 비교하는 것입니다. 터미널을 열고 실행합니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># lsblk</span>
 </pre></div>
@@ -390,12 +390,12 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <li><p>웹 기반 관리 인터페이스</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 선택한 드라이브의 모든 기존 데이터는 설치 과정에서 제거됩니다. 설치 프로그램은 다른 운영 체제에 대한 부팅 메뉴 항목을 추가하지 않습니다.</p>
 </div></blockquote>
 <p>준비된 설치 미디어(예: USB 플래시 드라이브 또는 CD-ROM)를 삽입하고 부팅하세요.</p>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 서버의 펌웨어 설정에서 설치 미디어(예: USB)에서 부팅이 활성화되어 있는지 확인하세요. Proxmox VE 버전 8.1 이전 설치 관리자를 부팅할 때는 보안 부팅을 비활성화해야 합니다.</p>
 </div></blockquote>
 <p><br><br></p>
@@ -424,7 +424,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <!-- 사진첨부 -->
 <p>두 모드 모두 실제 설치 프로세스에 동일한 코드 기반을 사용하여 10년 이상의 버그 수정의 이점을 누리고 기능의 동등성을 보장합니다.</p>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 <point>Terminal UI</point> 옵션은 드라이버 문제 등으로 인해 그래픽 설치가 제대로 작동하지 않는 경우에 사용할 수 있습니다.<br> nomodeset 커널 매개변수 추가도 참조하세요.</p>
 </div></blockquote>
 <ul class="simple">
@@ -472,13 +472,13 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <h3>2.3.3.하드디스크 선택</h3>
 <!-- 사진첨부 -->
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 기본적으로 서버 전체가 사용되며 기존의 모든 데이터가 제거됩니다. 설치를 진행하기 전에 서버에 중요한 데이터가 없는지 확인하세요.</p>
 </div></blockquote>
 <p><point>Options</point> 버튼을 사용하면 대상 파일 시스템을 선택할 수 있으며, 기본값은 <point>ext4</point>입니다. <point>ext4</point> 또는 <point>xfs</point>를 파일 시스템으로 선택하면 설치 프로그램은 LVM을 사용하며, LVM 공간을 제한하는 추가 옵션을 제공합니다.<br></p>
 <p>Proxmox VE는 <point>ZFS</point>에도 설치할 수 있습니다. ZFS는 여러 소프트웨어 RAID 레벨을 제공하므로 하드웨어 RAID 컨트롤러가 없는 시스템을 위한 옵션입니다. 옵션 대화 상자에서 대상 디스크를 선택해야 하며, <em>Advanced Options</em>에서 더 많은 ZFS 관련 설정을 변경할 수 있습니다.</p>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 하드웨어 RAID 위에 ZFS를 사용하는 것은 지원되지 않으며 데이터 손실을 초래할 수 있습니다.</p>
 </div></blockquote>
 <p><br><br></p>
@@ -510,7 +510,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <h2>2.4.설치 후 관리 인터페이스 액세스</h2>
 시스템을 성공적으로 설치하고 재부팅한 후 Proxmox VE 웹 인터페이스를 사용하여 추가 구성을 할 수 있습니다.<br>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 참고<br>
+<div><p><img alt="" src="../_images/check.png" /> 참고<br>
 기본적으로 Proxmox VE 웹 인터페이스 접속은 <point>포트 8006</point> 을 사용합니다.</p>
 </div></blockquote>
 <ol class="arabic simple">
@@ -541,7 +541,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <li><p>기본값은 설치된 메모리의 크기(최소 4GB, 최대 8GB)입니다. 결과 값은 <point>hdsize/8</point>보다 클 수 없습니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 참고<br>
+<div><p><img alt="" src="../_images/check.png" /> 참고<br>
 0으로 설정하면 swap 볼륨이 생성되지 않습니다.</p>
 </div></blockquote>
 </li>
@@ -557,7 +557,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 여기서 <point>datasize</point>는 <point>maxvz</point>보다 클 수 없습니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 참고<br> LVM 씬의 경우, 데이터 풀은 데이터 크기가 4GB보다 큰 경우에만 생성됩니다.<br>
+<div><p><img alt="" src="../_images/check.png" /> 참고<br> LVM 씬의 경우, 데이터 풀은 데이터 크기가 4GB보다 큰 경우에만 생성됩니다.<br>
 0으로 설정하면 데이터 볼륨이 생성되지 않으며 스토리지 구성이 그에 따라 조정됩니다.</p>
 </div></blockquote>
 </li>
@@ -567,7 +567,7 @@ USB 플래시 드라이브의 이름을 찾는 방법에는 두 가지가 있습
 <li><p>128GB 이상의 스토리지를 사용할 수 있는 경우 기본값은 16GB이며, 그렇지 않은 경우 hdsize/8이 사용됩니다.</p></li>
 </ul>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 중요<br>
+<div><p><img alt="" src="../_images/check.png" /> 중요<br>
 LVM은 스냅샷 생성을 위해 VG에 여유 공간이 필요합니다(lvmthin 스냅샷에는 필요하지 않음).</p>
 </div></blockquote>
 <p><br><br></p>
