@@ -18,6 +18,7 @@
    2. Proxmox VE 기본설치 <guide/02-install>
    3. 운영 <guide/03-ops>
    4. GUI <guide/04-gui>
+   5. Cluster<guide/05-cluster>
    
 .. toctree::
    :maxdepth: 2
