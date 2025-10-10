@@ -224,13 +224,10 @@
 
 /* 만약 어디선가 전역 a/span에 display:block/flex, width:1ch/1em, writing-mode 등을 걸었다면 반드시 삭제 */
 
-a {
-  text-decoration: underline;       /* 기본 밑줄 유지 */
-  color: inherit;                   /* 글자색은 기본 유지 */
-  background-color: transparent;    /* 평소에는 투명 */
-  transition: background-color 0.2s;
-}
-
-a:hover {
-  background-color: #cceeff;        /* 파스텔 하늘색 하이라이트 */
+a.highlight-link {
+  text-decoration: underline;
+  color: inherit;
+  background-color: #cceeff;   /* 파스텔 하늘색 */
+  padding: 2px 4px;            /* 여백 */
+  border-radius: 3px;          /* 둥근 모서리 */
 }
