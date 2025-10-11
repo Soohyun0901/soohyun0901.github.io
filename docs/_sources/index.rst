@@ -19,6 +19,7 @@
    3. 운영 <guide/03-ops>
    4. GUI <guide/04-gui>
    5. Cluster<guide/05-cluster>
+   6. pmxcfs<guide/06-pmxcfs>
    
 .. toctree::
    :maxdepth: 2
