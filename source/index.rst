@@ -15,12 +15,12 @@
 
 
    1. 개요 <guide/01-intro>
-   2. Proxmox VE 기본설치 <guide/02-install>
+   2. Proxmox VE 설치 <guide/02-install>
    3. 운영 <guide/03-ops>
    4. GUI <guide/04-gui>
    5. Cluster<guide/05-cluster>
-   6. pmxcfs<guide/06-pmxcfs>
-   7. storage<guide/07-storage>
+   6. Proxmox Cluster File System<guide/06-pmxcfs>
+   7. 스토리지 유형<guide/07-storage>
    
 .. toctree::
    :maxdepth: 2
