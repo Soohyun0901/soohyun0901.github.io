@@ -20,6 +20,7 @@
    4. GUI <guide/04-gui>
    5. Cluster<guide/05-cluster>
    6. pmxcfs<guide/06-pmxcfs>
+   7. storage<guide/07-storage>
    
 .. toctree::
    :maxdepth: 2
