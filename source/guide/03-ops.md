@@ -2,12 +2,12 @@
 
 Proxmox VE는 Debian GNU/Linux를 기반으로 하며, 추가 레포지토리를 통해 Proxmox VE 관련 패키지를 제공합니다. 즉, 보안 업데이트 및 버그 수정을 포함한 모든 범위의 Debian 패키지를 사용할 수 있습니다. Proxmox VE는 우분투 커널을 기반으로 하는 자체 Linux 커널을 제공합니다. 필요한 모든 가상화 및 컨테이너 기능이 활성화되어 있으며 ZFS 및 몇 가지 추가 하드웨어 드라이버가 포함되어 있습니다.<br><br>
 
-<h2>3.1. 패키지 레포지토리</h2>
+## 3.1. 패키지 레포지토리
 
 Proxmox VE는 다른 Debian 기반 시스템과 마찬가지로 <point>APT</point>를 패키지 관리 도구로 사용합니다.<br>
 Proxmox VE는 매일 패키지 업데이트를 자동으로 확인합니다. <point>root@pam</point> 사용자는 사용 가능한 업데이트에 대해 이메일을 통해 알림을 받습니다. GUI에서 <point>changelog</point>버튼을 사용하여 선택한 업데이트에 대한 자세한 내용을 볼 수 있습니다.<br><br>
 
-<h3>3.1.1. Proxmox VE의 레포지토리 </h3>
+### 3.1.1. Proxmox VE의 레포지토리 
 레포지토리는 소프트웨어 패키지의 모음으로, 새 소프트웨어를 설치하는 데 사용할 수 있을 뿐만 아니라 새 업데이트를 받는 데도 중요합니다.<br>
 
 > ![](../_static/images/pin.png) <b>NOTE</b><br>
@@ -44,7 +44,7 @@ http://security.debian.org/debian-security bookworm-security main contrib
 ```
 Proxmox VE는 세 가지 패키지 레포지토리를 제공합니다.<br><br>
 
-<h3>3.1.2. Proxmox VE Enterprise Repository</h3>
+### 3.1.2. Proxmox VE Enterprise Repository
 이는 권장되는 저장소이며 모든 버트온 라이선스 구독자가 이용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션 환경에 적합합니다. <point>pve-enterprise</point> 저장소는 기본적으로 활성화되어 있습니다:<br>
 pve-enterprise 저장소에 접근하려면 유효한 구독 키가 필요하다는 점에 유의하십시오. 당사는 다양한 지원 수준을 제공하며, 자세한 내용은 https://proxmox.com/en/proxmox-virtual-environment/pricing에서 확인하실 수 있습니다.
 파일에서 줄 시작 부분에 '#'을 추가하여 주석 처리함으로써 이 저장소를 비활성화할 수 있습니다. 이렇게 하면 호스트에 구독 키가 없는 경우 오류 메시지가 표시되지 않습니다. 이 경우 pve-no-subscription 저장소를 구성하시기 바랍니다.<br>이 레포지토리는 권장 레포지토리이며 모든 Proxmox VE 구독 사용자가 사용할 수 있습니다. 가장 안정적인 패키지가 포함되어 있으며 프로덕션용으로 적합합니다. <point>pve-enterprise</point> 레포지토리는 기본적으로 활성화되어 있습니다:<br><br>
@@ -61,7 +61,7 @@ https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
 
 <br>
 
-<h3> 3.1.3. Proxmox VE No-Subscription Repository</h3>
+###  3.1.3. Proxmox VE No-Subscription Repository
 이름에서 알 수 있듯이 이 레포지토리에 액세스하는 데는 구독 키가 필요하지 않습니다. 테스트 및 비프로덕션 용도로 사용할 수 있습니다. 이러한 패키지는 항상 철저한 테스트와 검증을 거치는 것은 아니므로 프로덕션 서버에서는 사용하지 않는 것이 좋습니다.<br>
 
 이 레포지토리는 <point>/etc/apt/sources.list</point>에서 구성하는 것이 좋습니다.<br><br>
@@ -82,7 +82,7 @@ deb http://security.debian.org/debian-security bookworm-security main contrib
 
 <br><br>
 
-<h3> 3.1.4. Proxmox VE Test Repository </h3>
+###  3.1.4. Proxmox VE Test Repository 
 
 이 레지토리에는 최신 패키지가 포함되어 있으며 주로 개발자가 새로운 기능을 테스트하는 데 사용됩니다. 구성하려면 <point>/etc/apt/sources.list</point>에 다음 줄을 추가합니다:<br>
 <point>![](../_static/images/pin.png) pvetest에 대한 sources.list 항목</point><br>
@@ -93,7 +93,7 @@ deb http://download.proxmox.com/debian/pve bookworm pvetest
 > ![](../_static/images/pin.png) 경고<br>
 > <point>pvetest</point> 레포지토리는 이름에서 알 수 있듯이 새로운 기능이나 버그 수정을 테스트하는 용도로만 사용해야 합니다.
 
-<h3> 3.1.5. Ceph Squid Enterprise Repository </h3>
+###  3.1.5. Ceph Squid Enterprise Repository 
 이 레지토리에는 엔터프라이즈용 Proxmox VE Ceph 19.2 Squid 패키지가 있습니다. 프로덕션에 적합합니다. Proxmox VE에서 Ceph 클라이언트 또는 전체 Ceph 클러스터를 실행하는 경우 이 레포지토리를 사용하세요.<br>
 
 <point>![](../_static/images/pin.png) /etc/apt/sources.list.d/ceph.list 파일</point><br>
@@ -103,7 +103,7 @@ deb https://enterprise.proxmox.com/debian/ceph-squid bookworm enterprise
 ```
 <br><br>
 
-<h3> 3.1.6. Ceph Squid No-Subscription Repository </h3>
+###  3.1.6. Ceph Squid No-Subscription Repository 
 이 Ceph 레포지토리에는 엔터프라이즈 레포지토리로 이동하기 전과 테스트 레포지토리로 이동한 후의 Ceph 19.2 Squid 패키지가 포함되어 있습니다.
 > ![](../_static/images/pin.png) 참고<br>
 > 프로덕션 머신에는 엔터프라이즈 레포지토리를 사용하는 것이 좋습니다.
@@ -115,7 +115,7 @@ deb http://download.proxmox.com/debian/ceph-squid bookworm no-subscription
 ```
 <br><br>
 
-<h3> 3.1.7. Ceph Squid Test Repository </h3>
+###  3.1.7. Ceph Squid Test Repository 
 이 Ceph 레포지토리에는 메인 레포지토리로 이동하기 전의 Ceph 19.2 Squid 패키지가 포함되어 있습니다. 이 레포지토리는 Proxmox VE에서 새로운 Ceph 릴리스를 테스트하는 데 사용됩니다.<br>
 
 <point>![](../_static/images/pin.png) /etc/apt/sources.list.d/ceph.list 파일</point><br>
@@ -124,7 +124,7 @@ deb http://download.proxmox.com/debian/ceph-squid bookworm test
 ```
 <br><br>
 
-<h3> 3.1.8. Ceph Reef Enterprise Repository
+###  3.1.8. Ceph Reef Enterprise Repository
 이 레포지토리에는 엔터프라이즈용 Proxmox VE Ceph 18.2 Reef 패키지가 있습니다. 프로덕션에 적합합니다. 이 레포지토리는 Proxmox VE에서 Ceph 클라이언트 또는 전체 Ceph 클러스터를 실행하는 경우 사용합니다.<br>
 
 <point>![](../_static/images/pin.png) /etc/apt/sources.list.d/ceph.list 파일</point><br>
@@ -133,7 +133,7 @@ deb https://enterprise.proxmox.com/debian/ceph-reef bookworm enterprise
 ```
 <br><br>
 
-<h3> 3.1.9. Ceph Reef No-Subscription Repository</h3>
+###  3.1.9. Ceph Reef No-Subscription Repository
 이 Ceph 레포지토리에는 엔터프라이즈 레포지토리로 이동하기 전과 테스트 레포지토리로 이동한 후의 Ceph 18.2 Reef 패키지가 포함되어 있습니다.<br>
 > ![](../_static/images/pin.png) 참고<br>
 > 프로덕션 머신에는 엔터프라이즈 레포지토리를 사용하는 것이 좋습니다.
@@ -145,7 +145,7 @@ deb http://download.proxmox.com/debian/ceph-reef bookworm no-subscription
 ```
 <br><br>
 
-<h3> 3.1.10. Ceph Reef Test Repository </h3>
+###  3.1.10. Ceph Reef Test Repository 
 이 Ceph 레포지토리에는 메인 레포지토리로 이동하기 전의 Ceph 18.2 Reef 패키지가 포함되어 있습니다. 이 레포지토리는 Proxmox VE에서 새로운 Ceph 릴리스를 테스트하는 데 사용됩니다.<br>
 
 <point>![](../_static/images/pin.png) /etc/apt/sources.list.d/ceph.list 파일</point><br>
@@ -154,7 +154,7 @@ deb http://download.proxmox.com/debian/ceph-reef bookworm test
 ```
 <br><br>
 
-<h2>3.2. 시스템 소프트웨어 업데이트</h2>
+## 3.2. 시스템 소프트웨어 업데이트
 
 Proxmox는 모든 레포지토리에 대해 정기적으로 업데이트를 제공합니다. 업데이트를 설치하려면 웹 기반 GUI 또는 다음 CLI 명령을 사용하세요:
 
