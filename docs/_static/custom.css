@@ -118,7 +118,7 @@
   /* 7) 표 */
   .bd-content table{
     overflow-x: auto;
-    border-collapse: collapse;
+    border-collapse: separate;
   }
   .bd-content table th,
   .bd-content table td{
@@ -132,7 +132,7 @@
   }
   .bd-content table td{
     background-color: #ffffff;
-    border: 1px;
+    border: 1px solid;
   }
   
   /* 8) 리스트 */
