@@ -122,12 +122,12 @@
   }
   .bd-content table th,
   .bd-content table td{
-    border: 1px solid #ffffff;
+    border: 1px solid #ddd;
     padding: .6rem .8rem;
     font-size: .95rem;
   }
   .bd-content table th{
-    background:#f8f8f8;
+    background:#ffffff;
     font-weight: 600;
   }
   
