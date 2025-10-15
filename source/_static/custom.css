@@ -132,6 +132,7 @@
   }
   .bd-content table td{
     background-color: #ffffff;
+    border: 1px solid;
   }
   
   /* 8) 리스트 */
