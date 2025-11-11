@@ -1,0 +1,351 @@
+/* =========================
+   Virton docs – pydata_sphinx_theme overrides
+   ========================= */
+
+/* 0) 기본 폭 변수 (여기 수치만 바꾸면 전체 레이아웃이 같이 조정됨) */
+:root{
+    --doc-max-width: 1440px;   /* 전체 페이지 최대폭 */
+    --content-max-width: 12800px; /* 본문 칼럼 최대폭 */
+    --side-primary-width: 240px; /* 좌측 TOC 폭 */
+  }
+  
+  /* 1) 폰트 등록 (경로는 custom.css 기준: _static/custom.css → _static/fonts/...) */
+  @font-face{
+    font-family: 'Pretendard-Regular';
+    src: url('fonts/Pretendard-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* 2) 전역 타이포 & 한글 줄바꿈 */
+  html{
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body{
+    font-family: 'Pretendard-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Helvetica, Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #222;
+    word-break: keep-all;         /* 한글 단어 단위 줄바꿈 */
+  }
+  .bd-content p, .bd-content li, .bd-content table, .bd-content span,
+  .bd-content strong, .bd-content em{
+    word-break: keep-all;
+    white-space: normal;
+  }
+  
+  /* 3) 레이아웃 (비율/폭/여백) */
+  .bd-page-width{                 /* 페이지 컨테이너 전체 폭 */
+    max-width: var(--doc-max-width);
+  }
+  .bd-main .bd-content{           /* 본문 컨테이너 폭 */
+    max-width: var(--content-max-width);
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .bd-sidebar-primary{            /* 좌측 사이드바 폭 */
+    width: var(--side-primary-width);
+  }
+  
+  /* 필요시 우측 in-page TOC 숨김(본문 더 넓게 쓰고 싶을 때) */
+  /* 주석 해제하면 적용
+  @media (min-width: 992px){
+    .bd-sidebar-secondary{ display:none; }
+    .bd-main .bd-content{ max-width: calc(var(--content-max-width) + 220px); }
+  }
+  */
+  
+  /* 4) 제목/문단 간격 & 정렬 */
+  .bd-content h1, .bd-content h2, .bd-content h3,
+  .bd-content h4, .bd-content h5, .bd-content h6{
+    font-family: 'Pretendard-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #111;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-align: left !important;   /* 테마/기존 중앙 정렬 흔적 제거 */
+  }
+  /* 레벨별 크기 */
+  .bd-content h1{ font-size: 2rem;   margin-top: 2.5rem; }
+  .bd-content h2{ font-size: 1.6rem; }
+  .bd-content h3{ font-size: 1.3rem; }
+  .bd-content h4{ font-size: 1.1rem; color:#333; }
+  .bd-content h5{ font-size: 1rem;   color:#444; }
+  .bd-content h6{ font-size: .95rem; color:#555; }
+  
+  /* 문단 기본 */
+  .bd-content p{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    font-size: 1rem;
+    color: #222;
+    /*max-width: 75ch;               /* 너무 넓게 보이지 않게 글줄 길이 제한 */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 5) 링크 */
+  .bd-content a{
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .bd-content a:hover{ text-decoration: underline; }
+  
+  /* 6) 코드/프리 */
+  .bd-content code{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: .95rem;
+    background: #f5f5f5;
+    padding: .1rem .4rem;
+    border-radius: 4px;
+  }
+  .bd-content pre{
+    font-size: .95rem;
+    padding: .9rem 1.2rem;
+    border-radius: 6px;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+  
+  /* 7) 표 */
+  .bd-content table{
+    overflow-x: auto;
+    border-collapse: separate;
+  }
+  .bd-content table th,
+  .bd-content table td{
+    border: 1px solid;
+    padding: .6rem .8rem;
+    font-size: .95rem;
+  }
+  .bd-content table th{
+    background:#f8f8f8;
+    font-weight: 600;
+  }
+  .bd-content table td{
+    background-color: #ffffff;
+    border: 1px solid;
+  }
+  
+  /* 8) 리스트 */
+  .bd-content ul, .bd-content ol{
+    margin: 0 0 1.2rem 1.5rem;
+    padding: 0;
+  }
+  .bd-content li{ margin-bottom: .4rem; line-height: 1.6; }
+  
+  /* 9) 이미지 반응형 */
+  .bd-content img, img{ max-width: 100%; height: auto; }
+  
+  /* 10) 앵커(#) 아이콘 은은하게 */
+  a.headerlink{ visibility: hidden; }
+  h1:hover a.headerlink, h2:hover a.headerlink, h3:hover a.headerlink{ visibility: visible; }
+  
+  /* 11) 네비바 로고 텍스트 숨김 (원문에서 요청) */
+  header .navbar-brand span{ display: none !important; }
+  
+  /* 12) 사용자 지정 강조 태그 <point> */
+  point{
+    font-weight: 700;
+    color: #1866E1;
+  }
+  
+  /* 13) 모바일 최적화 */
+  @media (max-width: 991.98px){
+    .bd-main .bd-content{ max-width: 100%; padding: 0 16px; }
+    .bd-content p{ max-width: 100%; }
+    .bd-sidebar-primary{ width: auto; }
+  }
+
+  /* ===== Fix: Korean text breaking & one-letter links in content ===== */
+
+/* 본문 영역은 가로쓰기 고정, 폭 제한 해제, 과도한 글자 간격/공백 제거 */
+.bd-article h1,
+.bd-article h2,
+.bd-article h3,
+.bd-article p,
+.bd-article li,
+.bd-article a,
+.bd-article span {
+  writing-mode: horizontal-tb !important;
+  letter-spacing: normal !important;
+  word-break: keep-all;          /* 한글 단어 단위로 줄바꿈 */
+  white-space: normal !important;
+  width: auto !important;
+}
+
+/* 제목은 block, 링크는 inline 으로(세로로 쌓이는 것 방지) */
+.bd-article h1,
+.bd-article h2,
+.bd-article h3 { display: block !important; line-height: 1.4; }
+.bd-article a { display: inline !important; }
+
+/* 다음/이전 내비게이션에서 한 글자만 보이는 문제 해제 */
+.prev-next-title {
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+/* 위험: 전역 span/a에 display, width, writing-mode 등을 건드리는 규칙이 있으면 지우세요 */
+
+/* === Layout reset for content (stronger) === */
+.bd-content, .bd-article {
+  writing-mode: horizontal-tb !important;
+}
+
+/* 제목/링크가 세로로 깨지는 현상 방지 */
+.bd-article h1, .bd-article h2, .bd-article h3,
+.bd-article p, .bd-article li,
+.bd-article a, .bd-article span {
+  letter-spacing: normal !important;
+  word-break: keep-all !important;
+  white-space: normal !important;
+  width: auto !important;
+}
+
+/* 제목은 block, 링크는 inline */
+.bd-article h1, .bd-article h2, .bd-article h3 {
+  display: block !important;
+  line-height: 1.4 !important;
+}
+.bd-article a { display: inline !important; }
+
+/* prev/next 타이틀 한 글자만 보이는 문제 */
+.prev-next-title {
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+/* 만약 어디선가 전역 a/span에 display:block/flex, width:1ch/1em, writing-mode 등을 걸었다면 반드시 삭제 */
+
+a.highlight-link {
+  text-decoration: underline;
+  color: inherit;
+  background-color: #cceeff;   /* 파스텔 하늘색 */
+  padding: 2px 4px;            /* 여백 */
+  border-radius: 3px;          /* 둥근 모서리 */
+}
+/* =========================
+   링크/목차 hover 컬러 통일 (연한 파랑으로)
+   ========================= */
+:root {
+  --link-hover-color: #58a6ff; /* 깔끔한 연한 파랑 (GitHub 톤) */
+}
+
+/* 일반 링크 hover 색 (본문, prev-next, footer 등) */
+a:hover,
+.bd-content a:hover,
+.prev-next-area a:hover,
+.footer a:hover {
+  color: var(--link-hover-color) !important;
+  text-decoration: underline;
+}
+
+/* 목차(TocTree) hover 색 — 기본 검정 유지 + hover시만 연파랑 */
+.toc-tree .reference:hover,
+.bd-sidebar-primary .toc-entry a:hover,
+.bd-sidebar a:hover,
+.navbar-nav a:hover {
+  color: var(--link-hover-color) !important;
+}
+
+/* active나 focus 시에도 같은 연파랑 유지 */
+.toc-tree .reference:focus,
+.toc-tree .reference:active,
+.bd-sidebar a:focus,
+.bd-sidebar a:active {
+  color: var(--link-hover-color) !important;
+  text-decoration: none;
+}
+
+/* 기존 주황 강조를 모두 덮어쓰기 */
+:root {
+  --pst-color-accent: var(--link-hover-color);
+  --pst-color-link-hover: var(--link-hover-color);
+  --pst-color-primary: var(--link-hover-color);
+}
+
+/* =========================
+   Footer / Prev-Next 링크 hover 색상 통일
+   ========================= */
+
+/* 1) footer의 기본 링크 주황색 덮어쓰기 */
+footer a,
+.bd-footer a,
+.footer a,
+.prev-next-area a {
+  color: inherit !important; /* 기본은 주변 텍스트 색상 상속 */
+  text-decoration: none !important;
+}
+
+/* 2) hover 시 연한 파랑으로 */
+footer a:hover,
+.bd-footer a:hover,
+.footer a:hover,
+.prev-next-area a:hover {
+  color: #58a6ff !important;   /* 연한 파랑 */
+  text-decoration: underline !important;
+}
+
+/* 3) prev/next 영역의 제목도 동일하게 통일 */
+.prev-next-area .prev-next-title:hover,
+.prev-next-area .prev-next-subtitle:hover {
+  color: #58a6ff !important;
+  text-decoration: underline !important;
+}
+
+/* 4) 필요시 focus/active 효과도 동일하게 */
+footer a:focus,
+.prev-next-area a:focus {
+  color: #58a6ff !important;
+  outline: none !important;
+}
+
+/* ==== Prev/Next & Footer 링크 hover 색 완전 통일 ==== */
+:root { --link-hover-color: #58a6ff; }
+
+/* 기본 상태: 주변 텍스트 색을 상속(검정/회색 유지) */
+.prev-next-area a,
+.prev-next-area a * ,
+footer a,
+footer a * {
+  text-decoration: none !important;
+}
+
+/* hover/focus 시: 부모 a와 모든 자식(텍스트/아이콘/스팬) 동시에 연파랑 */
+.prev-next-area a:hover,
+.prev-next-area a:hover * ,
+.prev-next-area a:focus,
+.prev-next-area a:focus * ,
+footer a:hover,
+footer a:hover * ,
+footer a:focus,
+footer a:focus * {
+  color: var(--link-hover-color) !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--link-hover-color) !important;
+}
+
+/* 아이콘(svg)도 글자색을 따라가게 */
+.prev-next-area a svg,
+footer a svg {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 호버 시 아이콘도 동일한 연파랑 */
+.prev-next-area a:hover svg,
+footer a:hover svg,
+.prev-next-area a:focus svg,
+footer a:focus svg {
+  fill: var(--link-hover-color) !important;
+  stroke: var(--link-hover-color) !important;
+}
