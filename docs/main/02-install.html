@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2. 버트온 설치 &#8212; virton 1.1 문서</title>
+    <title>2. 설치 및 구성 &#8212; virton 1.1 문서</title>
   
   
   
@@ -49,7 +49,7 @@
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="색인" href="../genindex.html" />
     <link rel="search" title="검색" href="../search.html" />
-    <link rel="next" title="기본 구성" href="03-configure.html" />
+    <link rel="next" title="운영•기능" href="03-configure.html" />
     <link rel="prev" title="1. 개요" href="01-intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ko"/>
@@ -143,8 +143,8 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">버트온(VirtOn) 매뉴얼</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-intro.html">1. 개요</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 설치</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-configure.html">3. 기본 구성</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 설치 및 구성</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-configure.html">3. 운영•기능</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Proxmox 매뉴얼</span></p>
 <ul class="nav bd-sidenav">
@@ -290,7 +290,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>2. 버트온 설치</h1>
+    <h1>2. 설치 및 구성</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -304,13 +304,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 백업 파일 배치</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2. 복원 시작</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2. 복원 단계</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2.1. 백업 파일로 VM 복원</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.2. 네트워크 인터페이스 확인</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.4. 웹 접속 확인</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox">2.3. Proxmox 연결 및 구성</a></li>
 </ul>
             </nav>
         </div>
@@ -323,8 +324,8 @@
                 <article class="bd-article">
                   
   <section id="id1">
-<h1>2. 버트온 설치<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
-<p>버트온은 백업 파일(<point>vzdump-qemu-xxxx.vma.zst</point>)을 사용하여 VM으로 빠르게 배포됩니다. 따라서 사전에 Proxmox가 구성되어야 합니다.<br><br></p>
+<h1>2. 설치 및 구성<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
+<p>버트온은 백업 파일(<point>vzdump-qemu-xxxx.vma.zst</point>)을 사용하여 VM으로 빠르게 배포됩니다. 따라서 Proxmox를 미리 구성하는 것을 권장합니다.<br><br></p>
 <section id="id2">
 <h2>2.1. 사전 준비<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
 <section id="id3">
@@ -343,7 +344,7 @@
 </section>
 </section>
 <section id="id4">
-<h2>2.2. 복원 시작<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h2>
+<h2>2.2. 복원 단계<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h2>
 <section id="vm">
 <h3>2.2.1. 백업 파일로 VM 복원<a class="headerlink" href="#vm" title="Link to this heading"><span>#</span></a></h3>
 <p><img alt="" src="../_images/install1.png" /><br></p>
@@ -394,10 +395,13 @@
 <p><b>연결이 비공개로 설정되어 있지 않습니다.</b>라는 안내 팝업이 뜨면 왼쪽 하단의 <b>고급</b> 버튼 -&gt; <b>안전하지 않음</b>을 눌러 접속합니다.</p>
 <blockquote>
 <div><p><img alt="" src="../_images/pin.png" /> 참고<br>
-위 메세지는 브라우저 보안 인증서 목록에 본 시스템의 인증서가 등록되어있지 않아 나오는 것이며, 버트온은 <point>자체 서명 인증서(Self-Signed Certificate)</point>를 사용하여 모든 통신은 SSL 암호화를 통해 보안상 안전하게 접속하실 수 있습니다.</p>
+위 메세지는 브라우저 보안 인증서 목록에 본 시스템의 인증서가 등록되어있지 않아 나오는 것이며, 버트온은 <point>자체 서명 인증서(Self-Signed Certificate)</point>를 사용하여 모든 통신은 SSL 암호화를 통해 보안상 안전하게 접속할 수 있습니다.</p>
 </div></blockquote>
 <br>
 </section>
+</section>
+<section id="proxmox">
+<h2>2.3. Proxmox 연결 및 구성<a class="headerlink" href="#proxmox" title="Link to this heading"><span>#</span></a></h2>
 </section>
 </section>
 
@@ -426,7 +430,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">다음</p>
-        <p class="prev-next-title">기본 구성</p>
+        <p class="prev-next-title">운영•기능</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -451,13 +455,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 백업 파일 배치</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2. 복원 시작</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2. 복원 단계</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2.1. 백업 파일로 VM 복원</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.2. 네트워크 인터페이스 확인</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.4. 웹 접속 확인</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox">2.3. Proxmox 연결 및 구성</a></li>
 </ul>
   </nav></div>
 

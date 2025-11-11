@@ -1,6 +1,6 @@
-# 2. 버트온 설치
+# 2. 설치 및 구성
 
-버트온은 백업 파일(<point>vzdump-qemu-xxxx.vma.zst</point>)을 사용하여 VM으로 빠르게 배포됩니다. 따라서 사전에 Proxmox가 구성되어야 합니다.<br><br>
+버트온은 백업 파일(<point>vzdump-qemu-xxxx.vma.zst</point>)을 사용하여 VM으로 빠르게 배포됩니다. 따라서 Proxmox를 미리 구성하는 것을 권장합니다.<br><br>
 
 ## 2.1. 사전 준비
 ### 2.1.1. 백업 파일 배치
@@ -12,7 +12,7 @@
 
 <br>
 
-## 2.2. 복원 시작
+## 2.2. 복원 단계
 ### 2.2.1. 백업 파일로 VM 복원 
 ![](../_static/images/main/install1.png)<br>
 * 웹 경로 : `Datacenter -> Nodes -> Storage -> Backups` 
@@ -65,9 +65,10 @@ docker ps
 <b>연결이 비공개로 설정되어 있지 않습니다.</b>라는 안내 팝업이 뜨면 왼쪽 하단의 <b>고급</b> 버튼 -> <b>안전하지 않음</b>을 눌러 접속합니다.
 
 > ![](../_static/images/pin.png) 참고<br>
-> 위 메세지는 브라우저 보안 인증서 목록에 본 시스템의 인증서가 등록되어있지 않아 나오는 것이며, 버트온은 <point>자체 서명 인증서(Self-Signed Certificate)</point>를 사용하여 모든 통신은 SSL 암호화를 통해 보안상 안전하게 접속하실 수 있습니다.
+> 위 메세지는 브라우저 보안 인증서 목록에 본 시스템의 인증서가 등록되어있지 않아 나오는 것이며, 버트온은 <point>자체 서명 인증서(Self-Signed Certificate)</point>를 사용하여 모든 통신은 SSL 암호화를 통해 보안상 안전하게 접속할 수 있습니다.
 
 <br>
 
 
+## 2.3. Proxmox 연결 및 구성
 

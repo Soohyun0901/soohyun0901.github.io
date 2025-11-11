@@ -12,8 +12,8 @@
    :hidden:
 
    1. 개요 <main/01-intro>
-   2. 설치<main/02-install>
-   3. 기본 구성<main/03-configure>
+   2. 설치 및 구성<main/02-install>
+   3. 운영•기능<main/03-configure>
 
 .. toctree::
    :maxdepth: 2
