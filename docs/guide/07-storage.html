@@ -1,0 +1,2351 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ko" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Proxmox VE 지원 스토리지 &#8212; virton 1.1 문서</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5a11954d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=2dfc782e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=afa94a99"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guide/07-storage';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="prev" title="Proxmox Cluster File System(pmxcfs)" href="06-pmxcfs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ko"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">virton 1.1 문서</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="검색" aria-label="검색" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">검색</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">버트온(VirtOn) 매뉴얼</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../main/01-intro.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main/02-install.html">2. 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main/03-configure.html">3. 기본 구성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Proxmox 매뉴얼</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-install.html">2. Proxmox VE 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ops.html">3. 운영</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-gui.html">4. GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-cluster.html">5. Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-pmxcfs.html">6. Proxmox Cluster File System</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. 스토리지 유형</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="이 페이지 다운로드">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/guide/07-storage.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="소스 파일 다운로드"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDF로 인쇄"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="전체 화면으로보기"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="검색" aria-label="검색" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Proxmox VE 지원 스토리지</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 내용 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.1. 스토리지 유형</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.1.1. 씬 프로비저닝</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2. 스토리지 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.1. 스토리지 풀</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.2.2. 일반적인 스토리지 속성</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.3. 볼륨</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.3.1. 볼륨 소유권</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.4. 명령줄 인터페이스 사용</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.4.1. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5. 디렉토리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.5.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.5.2. 파일 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">7.5.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">7.5.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nfs">7.6. NFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">7.6.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">7.6.2. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">7.6.3. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cifs">7.7. CIFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">7.7.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">7.7.2. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">예제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-backup-server">7.8. Proxmox Backup Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">7.8.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">7.8.2. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">7.8.3. 암호화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">예시: CLI를 통해 스토리지 추가</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glusterfs">7.9. GlusterFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">7.9.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">7.9.2. 파일 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">7.9.3. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zfs">7.10. 로컬 ZFS 풀</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">7.10.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">7.10.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">7.10.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">7.10.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm">7.11. LVM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">7.11.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">7.11.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">7.11.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">7.11.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm-thin">7.12. LVM thin</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">7.12.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">7.12.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">7.12.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">7.12.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iscsi">7.13. 오픈 iSCSI 초기자</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">7.13.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">7.13.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">7.13.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">7.13.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">7.14. 사용자 모드 iSCSI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">7.14.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">7.14.2. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-rados-block-devices-rbd">7.15. Ceph RADOS Block Devices (RBD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">7.15.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">7.15.2. 인증</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">7.15.4. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-filesystem-cephfs">7.16. Ceph Filesystem (CephFS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">7.16.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">7.16.2. 인증</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">7.16.3. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#btrfs">7.17. BTRFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">7.17.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">7.17.2. 스냅샷</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zfs-over-iscsi">7.18. ZFS over ISCSI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">7.18.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">7.18.2. 스토리지 기능</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="proxmox-ve">
+<h1>Proxmox VE 지원 스토리지<a class="headerlink" href="#proxmox-ve" title="Link to this heading"><span>#</span></a></h1>
+<p>Proxmox VE 스토리지 모델은 매우 유연합니다. 가상 머신 이미지는 하나 또는 여러 개의 로컬 스토리지 또는 NFS 또는 iSCSI(NAS, SAN)와 같은 공유 스토리지에 저장할 수 있습니다. 제한이 없으며 원하는 만큼 스토리지 풀을 구성할 수 있습니다. 데비안 리눅스에서 사용 가능한 모든 스토리지 기술을 사용할 수 있습니다.<br></p>
+<p>공유 스토리지에 VM을 저장할 때의 주요 이점 중 하나는 클러스터의 모든 노드가 VM 디스크 이미지에 직접 액세스할 수 있으므로 다운타임 없이 실행 중인 머신을 라이브 마이그레이션할 수 있다는 점입니다. 이 경우 VM 이미지 데이터를 복사할 필요가 없으므로 라이브 마이그레이션이 매우 빠릅니다.<br></p>
+<p>스토리지 라이브러리(패키지 <point>libpve-storage-perl</point>)는 유연한 플러그인 시스템을 사용하여 모든 스토리지 유형에 공통 인터페이스를 제공합니다. 향후 추가 스토리지 유형을 포함하도록 쉽게 채택할 수 있습니다.<br><br></p>
+<section id="id1">
+<h2>7.1. 스토리지 유형<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h2>
+<p>기본적으로 스토리지 유형에는 두 가지 클래스가 있습니다:</p>
+<ul class="simple">
+<li><p><point>파일 수준 스토리지</point></p>
+<ul>
+<li><p>파일 수준 기반 스토리지 기술을 사용하면 완전한 기능(POSIX) 파일 시스템에 액세스할 수 있습니다. 일반적으로 블록 수준 스토리지(아래 참조)보다 유연하며 모든 유형의 콘텐츠를 저장할 수 있습니다. ZFS는 가장 진보된 시스템으로 스냅샷과 클론을 완벽하게 지원합니다.</p></li>
+</ul>
+</li>
+<li><p><point>블록 레벨 스토리지</point></p>
+<ul>
+<li><p>대용량 원본(<point>raw</point>) 이미지를 저장할 수 있습니다. 일반적으로 이러한 스토리지 유형에는 다른 파일(ISO, 백업 등)을 저장할 수 없습니다. 대부분의 최신 블록 레벨 스토리지 구현은 스냅샷과 클론을 지원합니다. RADOS와 GlusterFS는 분산 시스템으로, 스토리지 데이터를 다른 노드에 복제합니다.
+<br></p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 가능한 스토리지 유형</point></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>스토리지 유형</p></th>
+<th class="head text-center"><p>플러그인 유형</p></th>
+<th class="head text-center"><p>레벨</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>안정성</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ZFS (local)</p></td>
+<td class="text-center"><p>zfspool</p></td>
+<td class="text-center"><p>both :sup:<code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Directory</p></td>
+<td class="text-center"><p>dir</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>no :sup:<code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>BTRFS</p></td>
+<td class="text-center"><p>btrfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>기술 프리뷰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>NFS</p></td>
+<td class="text-center"><p>nfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no :sup:<code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>CIFS</p></td>
+<td class="text-center"><p>cifs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no :sup:<code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Proxmox Backup</p></td>
+<td class="text-center"><p>pbs</p></td>
+<td class="text-center"><p>both</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>n/a</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>GlusterFS</p></td>
+<td class="text-center"><p>glusterfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no :sup:<code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CephFS</p></td>
+<td class="text-center"><p>cephfs</p></td>
+<td class="text-center"><p>file</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>LVM</p></td>
+<td class="text-center"><p>lvm</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>no^3</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>LVM-thin</p></td>
+<td class="text-center"><p>lvmthin</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>iSCSI/kernel</p></td>
+<td class="text-center"><p>iscsi</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>iSCSI/libiscsi</p></td>
+<td class="text-center"><p>iscsidirect</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Ceph/RBD</p></td>
+<td class="text-center"><p>rbd</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>ZFS over iSCSI</p></td>
+<td class="text-center"><p>zfs</p></td>
+<td class="text-center"><p>block</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<section id="id2">
+<h3>7.1.1. 씬 프로비저닝<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h3>
+<p>여러 스토리지와 QEMU 이미지 포맷인 <point>qcow2</point>는 <point>씬 프로비저닝</point>을 지원합니다. 씬 프로비저닝을 활성화하면 게스트 시스템이 실제로 사용하는 블록만 스토리지에 기록됩니다.<br></p>
+<p>예를 들어 32GB 하드 디스크가 있는 VM을 생성하고 게스트 시스템 OS를 설치한 후 VM의 루트 파일 시스템에 3GB의 데이터가 포함되어 있다고 가정해 보겠습니다. 이 경우 게스트 VM에 32GB 하드 드라이브가 표시되더라도 스토리지에는 3GB만 기록됩니다. 이러한 방식으로 씬 프로비저닝을 사용하면 현재 사용 가능한 스토리지 블록보다 더 큰 디스크 이미지를 생성할 수 있습니다. VM을 위한 대용량 디스크 이미지를 생성하고 필요 시 VM의 파일 시스템 크기를 조정하지 않고도 스토리지에 디스크를 더 추가할 수 있습니다.<br></p>
+<p>“스냅샷” 기능이 있는 모든 스토리지 유형은 씬 프로비저닝도 지원합니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 스토리지가 가득 차면 해당 스토리지의 볼륨을 사용하는 모든 게스트에게 IO 오류가 발생합니다. 이로 인해 파일 시스템 불일치가 발생하고 데이터가 손상될 수 있습니다. 따라서 이러한 상황을 방지하기 위해 스토리지 리소스를 과도하게 프로비저닝하지 않거나 여유 공간을 주의 깊게 관찰하는 것이 좋습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="id3">
+<h2>7.2. 스토리지 구성<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h2>
+<p>모든 Proxmox VE 관련 스토리지 구성은 <point>/etc/pve/storage.cfg</point>의 단일 텍스트 파일에 저장됩니다. 이 파일은 <point>/etc/pve/</point> 내에 있으므로 모든 클러스터 노드에 자동으로 배포됩니다. 따라서 모든 노드가 동일한 스토리지 구성을 공유하게 됩니다.<br></p>
+<p>스토리지 구성 공유는 모든 노드에서 동일한 “공유” 스토리지에 액세스할 수 있기 때문에 공유 스토리지에 적합합니다. 그러나 로컬 스토리지 유형에도 유용합니다. 이 경우 로컬 스토리지는 모든 노드에서 사용할 수 있지만 물리적으로 다르며 완전히 다른 콘텐츠를 가질 수 있습니다.<br><br></p>
+<section id="id4">
+<h3>7.2.1. 스토리지 풀<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h3>
+<p>각 스토리지 풀에는 <point><type></point>이 있으며, <point>&lt;STORAGE_ID&gt;</point>로 고유하게 식별됩니다. 풀 구성은 다음과 같습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">유형</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STORAGE_ID</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">프로퍼티</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">값</span>
+        <span class="o">&lt;</span><span class="n">프로퍼티</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">값</span>
+        <span class="o">&lt;</span><span class="nb">property</span><span class="o">&gt;</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p><point><type>: &lt;STORAGE_ID&gt;</point> 줄은 풀 정의를 시작하고 그 뒤에 속성 목록이 이어집니다. 대부분의 속성에는 값이 필요합니다. 일부 속성에는 합리적인 기본값이 있으며, 이 경우 값을 생략할 수 있습니다.<br></p>
+<p>더 자세히 알아보려면 설치 후 기본 스토리지 구성을 살펴보세요. 여기에는 <point>/var/lib/vz</point> 디렉터리를 가리키며 항상 사용 가능한 <point>local</point>이라는 이름의 특수 로컬 스토리지 풀이 하나 포함되어 있습니다. 설치 시 선택한 스토리지 유형에 따라 Proxmox VE 설치 프로그램이 추가 스토리지 항목을 생성합니다.<br><br></p>
+<p><point><img alt="" src="../_images/check.png" /> 기본 스토리지 구성(/etc/pve/storage.cfg)</point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">:</span> <span class="n">local</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">vz</span>
+        <span class="n">content</span> <span class="n">iso</span><span class="p">,</span><span class="n">vztmpl</span><span class="p">,</span><span class="n">backup</span>
+
+<span class="c1"># default image store on LVM based installation</span>
+<span class="n">lvmthin</span><span class="p">:</span> <span class="n">local</span><span class="o">-</span><span class="n">lvm</span>
+        <span class="n">thinpool</span> <span class="n">data</span>
+        <span class="n">vgname</span> <span class="n">pve</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+
+<span class="c1"># default image store on ZFS based installation</span>
+<span class="n">zfspool</span><span class="p">:</span> <span class="n">local</span><span class="o">-</span><span class="n">zfs</span>
+        <span class="n">pool</span> <span class="n">rpool</span><span class="o">/</span><span class="n">data</span>
+        <span class="n">sparse</span>
+        <span class="n">content</span> <span class="n">images</span><span class="p">,</span><span class="n">rootdir</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 정확히 동일한 기본 스토리지를 가리키는 여러 스토리지 구성은 문제가 될 수 있습니다. 이러한 <point>별칭(aliase)</point> 스토리지 구성은 정확히 동일한 디스크 이미지를 가리키는 두 개의 서로 다른 볼륨 ID(<point>volid</point>)로 이어질 수 있습니다. Proxmox VE는 이미지의 볼륨 ID가 가리키는 이미지가 고유할 것으로 예상합니다. <point>별칭(aliase)</point> 스토리지 구성에 다른 콘텐츠 유형을 선택하는 것은 괜찮을 수 있지만 권장하지는 않습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="id5">
+<h3>7.2.2. 일반적인 스토리지 속성<a class="headerlink" href="#id5" title="Link to this heading"><span>#</span></a></h3>
+<p>몇 가지 스토리지 속성은 여러 스토리지 유형에서 공통적입니다.</p>
+<ul class="simple">
+<li><p><point>nodes</point></p>
+<ul>
+<li><p>이 스토리지를 사용할 수 있거나 액세스할 수 있는 클러스터 노드 이름 목록입니다. 이 속성을 사용하여 스토리지 액세스를 제한된 노드 집합으로 제한할 수 있습니다.</p></li>
+</ul>
+</li>
+<li><p><point>content</point></p>
+<ul>
+<li><p>스토리지가 가상 디스크 이미지, cdrom iso 이미지, 컨테이너 템플릿 또는 컨테이너 root 디렉터리 등 여러 콘텐츠 유형을 지원할 수 있습니다. 모든 스토리지 유형이 모든 콘텐츠 유형을 지원하는 것은 아닙니다. 이 속성을 설정하여 이 스토리지가 사용되는 용도를 선택할 수 있습니다.</p></li>
+<li><p><point>images</point> : QEMU/KVM VM 이미지</p></li>
+<li><p><point>rootdir</point> : 컨테이너 데이터 저장</p></li>
+<li><p><point>vztmpl</point> : 컨테이너 템플릿</p></li>
+<li><p><point>backup</point> : 백업 파일(<point>vzdump</point>)</p></li>
+<li><p><point>iso</point> : ISO 이미지</p></li>
+<li><p><point>snippets</point> : 스니펫 파일(예: 게스트 후크 스크립트)</p></li>
+</ul>
+</li>
+<li><p><point>shared</point></p>
+<ul>
+<li><p>모든 노드(또는 <point>nodes</point> 옵션에 나열된 모든 노드)에 동일한 콘텐츠가 있는 단일 저장소임을 나타냅니다. 다른 노드에서 로컬 스토리지의 콘텐츠에 자동으로 액세스할 수 있게 하는 것이 아니라 이미 공유된 스토리지를 그렇게 표시할 뿐입니다.</p></li>
+</ul>
+</li>
+<li><p><point>disable</point></p>
+<ul>
+<li><p>이 플래그를 사용하면 스토리지를 완전히 비활성화할 수 있습니다.</p></li>
+</ul>
+</li>
+<li><p><point>maxfiles</point></p>
+<ul>
+<li><p>더 이상 사용되지 않습니다. 대신 <point>prune-backups</point>를 사용하세요. VM당 최대 백업 파일 수입니다. 무제한의 경우 <point>0</point>을 사용합니다.</p></li>
+</ul>
+</li>
+<li><p><point>prune-backups</point></p>
+<ul>
+<li><p>백업 보존 옵션입니다. 자세한 내용은 백업 보존을 참조하십시오.</p></li>
+</ul>
+</li>
+<li><p><point>format</point></p>
+<ul>
+<li><p>기본 이미지 형식(<point>raw|qcow2|vmdk</point>)</p></li>
+</ul>
+</li>
+<li><p><point>preallocation</point></p>
+<ul>
+<li><p>파일 기반 스토리지의 <point>raw</point> 및 <point>qcow2</point> 이미지에 대한 사전 할당 모드(<point>off|metadata|falloc|full</point>). 기본값은 <point>metadata</point>이며, <point>raw</point> 이미지의 경우 <point>off</point>로 처리됩니다. 네트워크 저장소를 대용량 <point>qcow2</point> 이미지와 함께 사용할 때는 <point>off</point>를 사용하면 시간 초과를 피하는 데 도움이 됩니다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 서로 다른 Proxmox VE 클러스터에서 동일한 스토리지 풀을 사용하는 것은 바람직하지 않습니다. 일부 스토리지 작업에는 스토리지에 대한 독점 액세스가 필요하므로 적절한 잠금이 필요합니다. 이 기능은 클러스터 내에서 구현되지만 다른 클러스터 간에는 작동하지 않습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+</section>
+<section id="id6">
+<h2>7.3. 볼륨<a class="headerlink" href="#id6" title="Link to this heading"><span>#</span></a></h2>
+<p>당사는 스토리지 데이터에 특별한 표기법을 사용합니다. 스토리지 풀에서 데이터를 할당하면 이러한 볼륨 식별자가 반환됩니다. 볼륨은 <point>&lt;STORAGE_ID&gt;</point>와 그 뒤에 콜론으로 구분된 스토리지 유형에 따른 볼륨 이름으로 식별됩니다. 유효한 <point>&lt;VOLUME_ID&gt;</point>는 다음과 같습니다:</p>
+<ul class="simple">
+<li><p>local:230/example-image.raw</p></li>
+<li><p>local:iso/debian-501-amd64-netinst.iso</p></li>
+<li><p>local:vztmpl/debian-5.0-joomla_1.5.9-1_i386.tar.gz</p></li>
+<li><p>iscsi-storage:0.0.2.scsi-14f504e46494c4500494b5042546d2d646744372d31616d61
+<point>&lt;VOLUME_ID&gt;</point>의 파일 시스템 경로를 가져오려면 다음을 사용합니다:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvesm</span> <span class="n">path</span> <span class="o">&lt;</span><span class="n">VOLUME_ID</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><br><br></p>
+<section id="id7">
+<h3>7.3.1. 볼륨 소유권<a class="headerlink" href="#id7" title="Link to this heading"><span>#</span></a></h3>
+<p><point>image</point> 유형 볼륨에는 소유권 관계가 존재합니다. 이러한 각 볼륨은 VM 또는 컨테이너가 소유합니다. 예를 들어 <point>local:230/example-image.raw</point> 볼륨은 VM 230이 소유합니다. 대부분의 스토리지 백엔드는 이 소유권 정보를 볼륨 이름에 인코딩합니다.<br></p>
+<p>VM 또는 컨테이너를 제거하면 시스템에서 해당 VM 또는 컨테이너가 소유한 모든 관련 볼륨도 제거됩니다.<br><br></p>
+</section>
+</section>
+<section id="id8">
+<h2>7.4. 명령줄 인터페이스 사용<a class="headerlink" href="#id8" title="Link to this heading"><span>#</span></a></h2>
+<p>스토리지 풀과 볼륨 식별자의 개념을 숙지하는 것이 좋지만, 실제로는 명령줄에서 이러한 낮은 수준의 작업을 수행할 필요는 없습니다. 일반적으로 볼륨 할당 및 제거는 VM 및 컨테이너 관리 도구에서 수행됩니다.<br></p>
+<p>그럼에도 불구하고 일반적인 스토리지 관리 작업을 수행할 수 있는 <point>pvesm</point>(“Proxmox VE Storage Manager”)이라는 명령줄 도구가 있습니다.<br><br></p>
+<section id="id9">
+<h3>7.4.1. 예시<a class="headerlink" href="#id9" title="Link to this heading"><span>#</span></a></h3>
+<ul>
+<li><p>스토리지 풀 추가</p>
+<ul class="simple">
+<li><p><point>pvesm add <TYPE> &lt;STORAGE_ID&gt; <OPTIONS></point></p></li>
+<li><p><point>pvesm add dir &lt;STORAGE_ID&gt; –path <PATH></point></p></li>
+<li><p><point>pvesm add nfs &lt;STORAGE_ID&gt; –path <PATH> –server <SERVER> –export <EXPORT></point></p></li>
+<li><p><point>pvesm add lvm &lt;STORAGE_ID&gt; –vgname <VGNAME></point></p></li>
+<li><p><point>pvesm add iscsi &lt;STORAGE_ID&gt; –portal &lt;HOST[:PORT]&gt; –target <TARGET></point></p></li>
+</ul>
+</li>
+<li><p>스토리지 풀 비활성화</p>
+<ul class="simple">
+<li><p><point>pvesm set &lt;STORAGE_ID&gt; –disable 1</point></p></li>
+</ul>
+</li>
+<li><p>스토리지 풀 활성화</p>
+<ul class="simple">
+<li><p><point>pvesm set &lt;STORAGE_ID&gt; –disable 0</point></p></li>
+</ul>
+</li>
+<li><p>스토리지 옵션 변경/설정</p>
+<ul class="simple">
+<li><p><point>pvesm set &lt;STORAGE_ID&gt; <OPTIONS></point></p></li>
+<li><p><point>pvesm set &lt;STORAGE_ID&gt; –shared 1</point></p></li>
+<li><p><point>pvesm set local –format qcow2</point></p></li>
+<li><p><point>pvesm set &lt;STORAGE_ID&gt; –content iso</point></p></li>
+</ul>
+</li>
+<li><p>스토리지 풀을 제거(데이터를 삭제하지 않으며, 연결을 끊거나 마운트 해제하지도 않습니다. 스토리지 구성만 제거합니다.)</p>
+<ul class="simple">
+<li><p><point>pvesm remove &lt;STORAGE_ID&gt;</point></p></li>
+</ul>
+</li>
+<li><p>볼륨 할당</p>
+<ul class="simple">
+<li><p><point>pvesm alloc &lt;STORAGE_ID&gt; <VMID> <name> <size> [–format &lt;raw|qcow2&gt;]</point></p></li>
+</ul>
+</li>
+<li><p>로컬 스토리지에 4G 볼륨을 할당(빈 문자열을 <NAME>으로 전달하면 이름이 자동으로 생성됩니다.)</p>
+<ul class="simple">
+<li><p><point>pvesm alloc local <VMID> ‘’ 4G</point></p></li>
+</ul>
+</li>
+<li><p>여유 볼륨</p>
+<ul class="simple">
+<li><p><point>pvesm free &lt;VOLUME_ID&gt;</point></p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 이렇게 하면 실제로 모든 볼륨 데이터가 삭제됩니다.</p>
+</div></blockquote>
+</li>
+<li><p>스토리지 상태 나열</p>
+<ul class="simple">
+<li><p><point>pvesm status</point></p></li>
+</ul>
+</li>
+<li><p>스토리지 콘텐츠 나열</p>
+<ul class="simple">
+<li><p><point>pvesm list &lt;STORAGE_ID&gt; [–vmid <VMID>]</point></p></li>
+</ul>
+</li>
+<li><p>VMID로 할당된 볼륨 나열</p>
+<ul class="simple">
+<li><p><point>pvesm list &lt;STORAGE_ID&gt; –vmid <VMID></point></p></li>
+</ul>
+</li>
+<li><p>ISO 이미지 나열</p>
+<ul class="simple">
+<li><p><point>pvesm list &lt;STORAGE_ID&gt; –content iso</point></p></li>
+</ul>
+</li>
+<li><p>컨테이너 템플릿 나열</p>
+<ul class="simple">
+<li><p><point>pvesm list &lt;STORAGE_ID&gt; –content vztmpl</point></p></li>
+</ul>
+</li>
+<li><p>볼륨의 파일 시스템 경로 표시</p>
+<ul class="simple">
+<li><p><point>pvesm path &lt;VOLUME_ID&gt;</point></p></li>
+</ul>
+</li>
+<li><p>local:103/vm-103-disk-0.qcow2 볼륨을 파일 대상으로 내보내기.<br>(이것은 주로 내부적으로 pvesm 가져오기와 함께 사용됩니다. 스트림 형식 qcow2+size는 qcow2 형식과 다릅니다. 따라서 내보낸 파일을 단순히 VM에 첨부할 수 없습니다. 이는 다른 형식에도 적용됩니다.)</p>
+<ul class="simple">
+<li><p><point>pvesm export local:103/vm-103-disk-0.qcow2 qcow2+size target –with-snapshots 1</point></p></li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+</section>
+</section>
+<section id="id10">
+<h2>7.5. 디렉토리<a class="headerlink" href="#id10" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point>dir</point></p></li>
+</ul>
+<p>Proxmox VE는 로컬 디렉터리 또는 로컬에 마운트된 공유를 스토리지로 사용할 수 있습니다. 디렉터리는 파일 수준 스토리지이므로 가상 디스크 이미지, 컨테이너, 템플릿, ISO 이미지 또는 백업 파일과 같은 모든 콘텐츠 유형을 저장할 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 표준 리눅스 <point>/etc/fstab</point>을 통해 추가 스토리지를 마운트한 다음 해당 마운트 지점에 대한 디렉터리 스토리지를 정의할 수 있습니다. 이렇게 하면 Linux에서 지원하는 모든 파일 시스템을 사용할 수 있습니다.</p>
+</div></blockquote>
+<p>이 백엔드는 기본 디렉터리가 POSIX와 호환된다고 가정하지만 다른 것은 가정하지 않습니다. 즉, 스토리지 수준에서 스냅샷을 만들 수 없다는 뜻입니다. 그러나 해당 형식은 내부적으로 스냅샷을 지원하기 때문에 <point>qcow2</point> 파일 형식을 사용하는 VM 이미지에 대한 해결 방법이 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 일부 스토리지 유형은 <point>O_DIRECT</point>를 지원하지 않으므로 이러한 스토리지에는 캐시 모드를 <point>사용할 수 없습니다</point>. 대신 캐시 모드 <point>writeback</point>을 사용하면 됩니다.</p>
+</div></blockquote>
+<p>미리 정의된 디렉토리 레이아웃을 사용하여 서로 다른 콘텐츠 유형을 서로 다른 하위 디렉터리에 저장합니다. 이 레이아웃은 모든 파일 수준 스토리지 백엔드에서 사용됩니다.<br><br></p>
+<p><point><img alt="" src="../_images/check.png" /> 디렉토리 레이아웃</point></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p><strong>콘텐츠 유형</strong></p></th>
+<th class="head text-left"><p><strong>하위 디렉토리</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>VM 이미지</p></td>
+<td class="text-left"><p><point>images/&lt;VMID&gt;/</point></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ISO 이미지</p></td>
+<td class="text-left"><p><point>template/iso/</point></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>컨테이너 템플릿</p></td>
+<td class="text-left"><p><point>template/cache/</point></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>백업 파일</p></td>
+<td class="text-left"><p><point>dump/</point></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>스니펫 파일</p></td>
+<td class="text-left"><p><point>snippets/</point></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br></p>
+<section id="id11">
+<h3>7.5.1. 구성<a class="headerlink" href="#id11" title="Link to this heading"><span>#</span></a></h3>
+<p>이 백엔드는 모든 일반적인 스토리지 속성을 지원하며 두 가지 속성을 추가합니다. <point>path</point> 속성은 디렉터리를 지정하는 데 사용됩니다. 파일 시스템의 절대 경로여야 합니다.<br></p>
+<p>선택 사항인 <point>content-dirs</point> 속성을 사용하면 기본 레이아웃을 변경할 수 있습니다. 이 속성은 다음 형식의 쉼표로 구분된 식별자 목록으로 구성됩니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vtype</span><span class="o">=</span><span class="n">경로</span>
+</pre></div>
+</div>
+<p>여기서 <point>vtype</point>은 스토리지에 허용되는 콘텐츠 유형 중 하나이고, path는 스토리지의 마운트 지점을 기준으로 한 경로입니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예(/etc/pve/storage.cfg)</point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">:</span> <span class="n">backup</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">backup</span>
+        <span class="n">content</span> <span class="n">backup</span>
+        <span class="n">prune</span><span class="o">-</span><span class="n">backups</span> <span class="n">keep</span><span class="o">-</span><span class="n">last</span><span class="o">=</span><span class="mi">7</span>
+        <span class="nb">max</span><span class="o">-</span><span class="n">protected</span><span class="o">-</span><span class="n">backups</span> <span class="mi">3</span>
+        <span class="n">content</span><span class="o">-</span><span class="n">dirs</span> <span class="n">backup</span><span class="o">=</span><span class="n">custom</span><span class="o">/</span><span class="n">backup</span><span class="o">/</span><span class="nb">dir</span>
+</pre></div>
+</div>
+<p>위의 구성은 <point>backup</point>이라는 스토리지 풀을 정의합니다. 이 풀은 VM당 최대 7개의 일반 백업(<point>keep-last=7</point>)과 3개의 보호된 백업을 저장하는 데 사용할 수 있습니다. 백업 파일의 실제 경로는 <point>/mnt/backup/custom/backup/dir/….</point>입니다.</p>
+<p><br><br></p>
+</section>
+<section id="id12">
+<h3>7.5.2. 파일 명명 규칙<a class="headerlink" href="#id12" title="Link to this heading"><span>#</span></a></h3>
+<p>이 백엔드는 VM 이미지에 대해 잘 정의된 명명 체계를 사용합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-</span>\<span class="o">&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;.&lt;</span><span class="n">FORMAT</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><point>&lt;VMID&gt;</point></p>
+<ul>
+<li><p>이것은 소유자 VM을 지정합니다.</p></li>
+</ul>
+</li>
+<li><p><point>&lt;NAME&gt;</point></p>
+<ul>
+<li><p>공백이 없는 임의의 이름(ascii)일 수 있습니다. 백엔드에서는 기본적으로 disk-[N]을 사용하며, 여기서 [N]은 정수로 대체되어 이름을 고유하게 만듭니다.</p></li>
+</ul>
+</li>
+<li><p><point>&lt;FORMAT&gt;</point></p>
+<ul>
+<li><p>이미지 포맷을 지정합니다(raw|qcow2|vmdk).</p></li>
+</ul>
+</li>
+</ul>
+<p>VM 템플릿을 생성하면 모든 VM 이미지의 이름이 읽기 전용임을 나타내기 위해 이름이 변경되며 복제본의 기본 이미지로 사용할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span><span class="o">-</span>\<span class="o">&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;.&lt;</span><span class="n">FORMAT</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 이러한 기본 이미지는 복제된 이미지를 생성하는 데 사용됩니다. 따라서 이러한 파일은 읽기 전용이어야 하며 수정되지 않도록 하는 것이 중요합니다. 백엔드는 액세스 모드를 <point>0444</point>로 변경하고 스토리지가 이를 지원하는 경우 불변 플래그(<point>chattr +i</point>)를 설정합니다.<br><br></p>
+</div></blockquote>
+</section>
+<section id="id13">
+<h3>7.5.3. 스토리지 기능<a class="headerlink" href="#id13" title="Link to this heading"><span>#</span></a></h3>
+<p>위에서 언급했듯이 대부분의 파일 시스템은 기본적으로 스냅샷을 지원하지 않습니다. 이 문제를 해결하기 위해 이 백엔드는 qcow2 내부 스냅샷 기능을 사용할 수 있습니다.<br></p>
+<p>클론에도 동일하게 적용됩니다. 백엔드는 qcow2 기본 이미지 기능을 사용하여 클론을 생성합니다.<br></p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 디렉터리에 대한 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images<br>• rootdir<br>• vztmpl<br>• iso<br>• backup<br>• snippets<br></p></td>
+<td class="text-center"><p>• raw<br>• qcow2<br>• vmdk<br>• subvol<br></p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>qcow2</p></td>
+<td class="text-center"><p>qcow2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="id14">
+<h3>7.5.4. 예시<a class="headerlink" href="#id14" title="Link to this heading"><span>#</span></a></h3>
+<p>다음 명령을 사용하여 로컬 스토리지에 4GB 이미지를 할당하세요:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm alloc local 100 vm-100-disk10.raw 4G</span>
+<span class="n">Formatting</span> <span class="s1">&#39;/var/lib/vz/images/100/vm-100-disk10.raw&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">raw</span> <span class="n">size</span><span class="o">=</span><span class="mi">4294967296</span>
+<span class="n">successfully</span> <span class="n">created</span> <span class="s1">&#39;local:100/vm-100-disk10.raw&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/check.png" /> 이미지 이름은 위의 명명 규칙을 따라야 합니다.</p>
+</div></blockquote>
+<p>실제 파일 시스템 경로는 다음과 같이 표시됩니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm path local:100/vm-100-disk10.raw</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">vz</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="n">vm</span><span class="o">-</span><span class="mi">100</span><span class="o">-</span><span class="n">disk10</span><span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>그리고 다음과 같이 이미지를 제거할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm free local:100/vm-100-disk10.raw</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="nfs">
+<h2>7.6. NFS<a class="headerlink" href="#nfs" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point>nfs</point></p></li>
+</ul>
+<p>NFS 백엔드는 디렉터리 백엔드를 기반으로 하므로 대부분의 속성을 공유합니다. 디렉터리 레이아웃과 파일 명명 규칙은 동일합니다. 가장 큰 장점은 NFS 서버 속성을 직접 구성할 수 있으므로 백엔드에서 자동으로 공유를 마운트할 수 있다는 것입니다. <point>/etc/fstab</point>을 수정할 필요가 없습니다. 또한 백엔드는 서버가 온라인 상태인지 테스트할 수 있으며, 서버에 내보낸 공유를 쿼리하는 방법을 제공합니다.<br><br></p>
+<section id="id15">
+<h3>7.6.1. 구성<a class="headerlink" href="#id15" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 항상 설정되어 있는 공유 플래그를 제외한 모든 일반 스토리지 속성을 지원합니다. 또한 다음 속성을 사용하여 NFS 서버를 구성할 수 있습니다:</p>
+<ul class="simple">
+<li><p><point>server</point></p>
+<ul>
+<li><p>서버 IP 또는 DNS 이름. DNS 조회 지연을 방지하려면 일반적으로 매우 안정적인 DNS 서버가 있거나 로컬 <point>/etc/hosts</point> 파일에 서버를 나열하지 않는 한 DNS 이름 대신 IP 주소를 사용하는 것이 좋습니다.</p></li>
+</ul>
+</li>
+<li><p><point>export</point></p>
+<ul>
+<li><p>NFS 내보내기 경로(<point>pvesm nfsscan</point>에 나열된 대로).</p></li>
+</ul>
+</li>
+<li><p><point>path</point></p>
+<ul>
+<li><p>로컬 마운트 지점(기본값은 <point>/mnt/pve/&lt;STORAGE_ID&gt;/</point>).</p></li>
+</ul>
+</li>
+<li><p><point>content-dirs</point></p>
+<ul>
+<li><p>기본 디렉터리 레이아웃에 대한 재정의이며, 선택 사항입니다.</p></li>
+</ul>
+</li>
+<li><p><point>options</point></p>
+<ul>
+<li><p>NFS 마운트 옵션(<point>man nfs</point> 참조).</p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nfs</span><span class="p">:</span> <span class="n">iso</span><span class="o">-</span><span class="n">templates</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">iso</span><span class="o">-</span><span class="n">templates</span>
+        <span class="n">server</span> <span class="mf">10.0.0.10</span>
+        <span class="n">export</span> <span class="o">/</span><span class="n">space</span><span class="o">/</span><span class="n">iso</span><span class="o">-</span><span class="n">templates</span>
+        <span class="n">options</span> <span class="n">vers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">soft</span>
+        <span class="n">content</span> <span class="n">iso</span><span class="p">,</span><span class="n">vztmpl</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> NFS 요청이 시간 초과된 후에는 기본적으로 NFS 요청이 무기한 재시도됩니다. 이로 인해 클라이언트 측에서 예기치 않은 중단이 발생할 수 있습니다. 읽기 전용 콘텐츠의 경우 재시도 횟수를 3회로 제한하는 NFS 소프트 옵션을 고려하는 것이 좋습니다.
+<br><br></p>
+</div></blockquote>
+</section>
+<section id="id16">
+<h3>7.6.2. 스토리지 기능<a class="headerlink" href="#id16" title="Link to this heading"><span>#</span></a></h3>
+<p>NFS는 스냅샷을 지원하지 않지만 백엔드에서는 <point>qcow2</point> 기능을 사용하여 스냅샷 및 복제를 구현합니다.<br></p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 NFS의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images<br>• rootdir<br>• vztmpl<br>• iso<br>• backup<br>• snippets<br></p></td>
+<td class="text-center"><p>• raw<br>• qcow2<br>• vmdk<br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>qcow2</p></td>
+<td class="text-center"><p>qcow2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="id17">
+<h3>7.6.3. 예시<a class="headerlink" href="#id17" title="Link to this heading"><span>#</span></a></h3>
+<p>다음을 사용하여 내보낸 NFS 공유 목록을 가져올 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm nfsscan &lt;server&gt;</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="cifs">
+<h2>7.7. CIFS<a class="headerlink" href="#cifs" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point>cifs</point></p></li>
+</ul>
+<p>CIFS 백엔드는 디렉토리 백엔드를 확장하므로 CIFS 마운트를 수동으로 설정할 필요가 없습니다. 이러한 스토리지는 서버 하트비트 확인 또는 내보낸 공유의 편리한 선택과 같은 모든 백엔드 이점과 함께 Proxmox VE API 또는 웹 UI를 통해 직접 추가할 수 있습니다.<br><br></p>
+<section id="id18">
+<h3>7.7.1. 구성<a class="headerlink" href="#id18" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 항상 설정되어 있는 공유 플래그를 제외한 모든 일반적인 스토리지 속성을 지원합니다. 또한 다음과 같은 CIFS 특수 속성을 사용할 수 있습니다:</p>
+<ul>
+<li><p><point>server</point></p>
+<ul class="simple">
+<li><p>서버 IP 또는 DNS 이름입니다.</p></li>
+<li><p>필수항목입니다.</p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> DNS 조회 지연을 방지하려면 일반적으로 매우 안정적인 DNS 서버가 있거나 로컬 <point>/etc/hosts</point> 파일에 서버를 나열하지 않는 한 DNS 이름 대신 IP 주소를 사용하는 것이 좋습니다.</p>
+</div></blockquote>
+</li>
+<li><p><point>share</point></p>
+<ul class="simple">
+<li><p>사용할 CIFS 공유(<point>pvesm scan cifs <address></point> 또는 웹 UI로 사용 가능한 공유를 가져옵니다).</p></li>
+<li><p>필수항목입니다.</p></li>
+</ul>
+</li>
+<li><p><point>username</point></p>
+<ul class="simple">
+<li><p>CIFS 스토리지의 사용자 이름입니다.</p></li>
+<li><p>선택 사항이며 기본값은 ‘guest’입니다.</p></li>
+</ul>
+</li>
+<li><p><point>password</point></p>
+<ul class="simple">
+<li><p>사용자 비밀번호입니다. 선택 사항입니다. root만 읽을 수 있는 파일(<point>/etc/pve/priv/storage/<STORAGE-ID>.pw</point>)에 저장됩니다.</p></li>
+</ul>
+</li>
+<li><p><point>domain</point></p>
+<ul class="simple">
+<li><p>이 스토리지의 사용자 도메인(작업 그룹)을 설정합니다.</p></li>
+<li><p>선택 사항입니다.</p></li>
+</ul>
+</li>
+<li><p><point>smbversion</point></p>
+<ul class="simple">
+<li><p>SMB 프로토콜 버전. 선택 사항이며 기본값은 <point>3</point>입니다. SMB1은 보안 문제로 인해 지원되지 않습니다.</p></li>
+</ul>
+</li>
+<li><p><point>path</point></p>
+<ul class="simple">
+<li><p>로컬 마운트 지점.</p></li>
+<li><p>선택 사항이며 기본값은 <point>/mnt/pve/&lt;STORAGE_ID&gt;/</point>입니다.</p></li>
+</ul>
+</li>
+<li><p><point>content-dirs</point></p>
+<ul class="simple">
+<li><p>기본 디렉터리 레이아웃에 대한 재정의입니다.</p></li>
+<li><p>선택 사항입니다.</p></li>
+</ul>
+</li>
+<li><p><point>options</point></p>
+<ul class="simple">
+<li><p>추가 CIFS 마운트 옵션(<point>man mount.cifs</point> 참조). 일부 옵션은 자동으로 설정되므로 여기에서 설정하지 않아도 됩니다. Proxmox VE는 항상 옵션을 소프트 설정합니다. 구성에 따라 다음 옵션이 자동으로 설정됩니다: <point>username, credentials, guest, domain, vers</point>.</p></li>
+</ul>
+</li>
+<li><p><point>subdir</point></p>
+<ul class="simple">
+<li><p>마운트할 공유의 하위 디렉터리입니다.</p></li>
+<li><p>선택 사항이며 기본값은 공유의 루트 디렉터리입니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg)</point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cifs</span><span class="p">:</span> <span class="n">backup</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">backup</span>
+        <span class="n">server</span> <span class="mf">10.0.0.11</span>
+        <span class="n">share</span> <span class="n">VMData</span>
+        <span class="n">content</span> <span class="n">backup</span>
+        <span class="n">options</span> <span class="n">noserverino</span><span class="p">,</span><span class="n">echo_interval</span><span class="o">=</span><span class="mi">30</span>
+        <span class="n">username</span> <span class="n">anna</span>
+        <span class="n">smbversion</span> <span class="mi">3</span>
+        <span class="n">subdir</span> <span class="o">/</span><span class="n">data</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id19">
+<h3>7.7.2. 스토리지 기능<a class="headerlink" href="#id19" title="Link to this heading"><span>#</span></a></h3>
+<p>CIFS는 스토리지 수준에서 스냅샷을 지원하지 않습니다. 그러나 스냅샷 및 복제 기능을 계속 사용하려는 경우 qcow2 백업 파일을 사용할 수 있습니다.<br></p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 CIFS용 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images<br>• rootdir<br>• vztmpl<br>• iso<br>• backup<br>• snippets<br></p></td>
+<td class="text-center"><p>• raw<br>• qcow2<br>• vmdk<br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>qcow2</p></td>
+<td class="text-center"><p>qcow2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id20">
+<h3>예제<a class="headerlink" href="#id20" title="Link to this heading"><span>#</span></a></h3>
+<p>다음을 사용하여 내보낸 CIFS 공유 목록을 가져올 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm scan cifs &lt;server&gt; [--username &lt;username&gt;] [--password]</span>
+</pre></div>
+</div>
+<p>그런 다음 이 공유를 전체 Proxmox VE 클러스터에 스토리지로 추가할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm add cifs &lt;storagename&gt; --server &lt;server&gt; --share &lt;share&gt; [--username &lt;username&gt;] [--password]</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="proxmox-backup-server">
+<h2>7.8. Proxmox Backup Server<a class="headerlink" href="#proxmox-backup-server" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> pbs </point></p></li>
+</ul>
+<p>이 백엔드를 사용하면 다른 스토리지와 마찬가지로 Proxmox 백업 서버를 Proxmox VE에 직접 통합할 수 있습니다. Proxmox 백업 스토리지는 Proxmox VE API, CLI 또는 웹 인터페이스를 통해 직접 추가할 수 있습니다.
+<br><br></p>
+<section id="id21">
+<h3>7.8.1. 구성<a class="headerlink" href="#id21" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 항상 설정되어 있는 공유 플래그를 제외한 모든 일반 스토리지 속성을 지원합니다. 또한 다음과 같은 Proxmox 백업 서버의 특수 속성을 사용할 수 있습니다:</p>
+<ul class="simple">
+<li><p><point> server </point></p>
+<ul>
+<li><p>서버 IP 또는 DNS 이름입니다. 필수입니다.</p></li>
+</ul>
+</li>
+<li><p><point> port </point></p>
+<ul>
+<li><p>기본 포트 대신 이 포트(예: <point>8007</point>)를 사용합니다. 선택 사항입니다.</p></li>
+</ul>
+</li>
+<li><p><point> username </point></p>
+<ul>
+<li><p>Proxmox 백업 서버 스토리지의 사용자 이름입니다. 필수입니다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 사용자 이름에 영역을 추가하는 것을 잊지 마세요. 예를 들어 <point>root&#64;pam</point> 또는 <point>archiver&#64;pbs</point>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><point> password </point></p>
+<ul>
+<li><p>사용자 비밀번호입니다. 이 값은 루트 사용자로 액세스가 제한된 <point>/etc/pve/priv/storage/<STORAGE-ID>.pw</point> 아래에 있는 파일에 저장됩니다. 필수입니다.</p></li>
+</ul>
+</li>
+<li><p><point> datastore </point></p>
+<ul>
+<li><p>사용할 Proxmox 백업 서버 데이터스토어의 ID입니다. 필수.</p></li>
+</ul>
+</li>
+<li><p><point> fingerprint </point></p>
+<ul>
+<li><p>Proxmox 백업 서버 API TLS 인증서의 지문입니다. 서버 대시보드에서 또는 <point>proxmox-backup-manager cert info</point> 명령을 사용하여 얻을 수 있습니다. 자체 서명된 인증서 또는 호스트가 서버 CA를 신뢰하지 않는 기타 인증서에 필요합니다.</p></li>
+</ul>
+</li>
+<li><p><point> encryption-key </point></p>
+<ul>
+<li><p>클라이언트 측에서 백업 데이터를 암호화하기 위한 키입니다. 현재 비밀번호로 보호되지 않는(키 파생 함수(kdf) 없음) 키만 지원됩니다. 루트 사용자로 액세스가 제한된 <point>/etc/pve/priv/storage/<STORAGE-ID>.enc</point> 아래에 파일에 저장됩니다. 매직 값 autogen을 사용하여 자동으로 새 키를 생성하려면 <point>proxmox-backup-client key create –kdf none <path></point>를 사용합니다. 선택 사항입니다.</p></li>
+</ul>
+</li>
+<li><p><point> master-pubkey </point></p>
+<ul>
+<li><p>백업 작업의 일부로 백업 암호화 키를 암호화하는 데 사용되는 공개 RSA 키입니다. 루트 사용자로 액세스가 제한된 <point>/etc/pve/priv/storage/<STORAGE-ID>.master.pem</point> 아래에 파일에 저장됩니다. 백업 암호화 키의 암호화된 사본이 각 백업에 추가되고 복구 목적으로 Proxmox 백업 서버 인스턴스에 저장됩니다. 선택 사항이며, <point>암호화 키(encryption-key)</point>가 필요합니다.</p></li>
+</ul>
+</li>
+</ul>
+<br>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pbs</span><span class="p">:</span> <span class="n">backup</span>
+        <span class="n">datastore</span> <span class="n">main</span>
+        <span class="n">server</span> <span class="n">enya</span><span class="o">.</span><span class="n">proxmox</span><span class="o">.</span><span class="n">com</span>
+        <span class="n">content</span> <span class="n">backup</span>
+        <span class="n">fingerprint</span> <span class="mi">09</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="n">ef</span><span class="p">:</span><span class="o">..</span><span class="n">snip</span><span class="o">..</span><span class="p">:</span><span class="mi">88</span><span class="p">:</span><span class="n">af</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="n">fe</span><span class="p">:</span><span class="mi">4</span><span class="n">c</span><span class="p">:</span><span class="mi">3</span><span class="n">b</span><span class="p">:</span><span class="n">cf</span><span class="p">:</span><span class="mi">8</span><span class="n">b</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">88</span><span class="p">:</span><span class="mi">0</span><span class="n">b</span><span class="p">:</span><span class="mi">4</span><span class="n">e</span><span class="p">:</span><span class="mi">3</span><span class="n">c</span><span class="p">:</span><span class="n">b2</span>
+        <span class="n">prune</span><span class="o">-</span><span class="n">backups</span> <span class="n">keep</span><span class="o">-</span><span class="nb">all</span><span class="o">=</span><span class="mi">1</span>
+        <span class="n">username</span> <span class="n">archiver</span><span class="nd">@pbs</span>
+        <span class="n">encryption</span><span class="o">-</span><span class="n">key</span> <span class="n">a9</span><span class="p">:</span><span class="n">ee</span><span class="p">:</span><span class="n">c8</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="o">..</span><span class="n">snip</span><span class="o">..</span><span class="p">:</span><span class="mi">2</span><span class="n">d</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">2</span><span class="n">c</span><span class="p">:</span><span class="mi">98</span>
+        <span class="n">master</span><span class="o">-</span><span class="n">pubkey</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id22">
+<h3>7.8.2. 스토리지 기능<a class="headerlink" href="#id22" title="Link to this heading"><span>#</span></a></h3>
+<p>Proxmox 백업 서버는 백업만 지원하며, 블록 수준 또는 파일 수준 기반일 수 있습니다. Proxmox VE는 가상 머신에는 블록 레벨을, 컨테이너에는 파일 레벨을 사용합니다.<br></p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 pbs의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• backup</p></td>
+<td class="text-center"><p>n/a</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>n/a</p></td>
+<td class="text-center"><p>n/a</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id23">
+<h3>7.8.3. 암호화<a class="headerlink" href="#id23" title="Link to this heading"><span>#</span></a></h3>
+<p><img alt="" src="../_images/storage1.png" /><br>
+선택적으로 GCM 모드에서 AES-256으로 클라이언트 측 암호화를 구성할 수 있습니다. 암호화는 웹 인터페이스를 통해 구성하거나 CLI에서 <point>암호화 키</point> 옵션을 사용하여 구성할 수 있습니다(위 참조). 키는 루트 사용자만 액세스할 수 있는 <point>/etc/pve/priv/storage/<STORAGE-ID>.enc</point> 파일에 저장됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 키가 없으면 백업에 액세스할 수 없습니다. 따라서 키를 백업하는 콘텐츠와 분리된 장소에 순서대로 보관해야 합니다. 예를 들어 해당 시스템의 키를 사용하여 전체 시스템을 백업하는 경우가 발생할 수 있습니다. 그런 다음 어떤 이유로든 시스템에 액세스할 수 없게 되어 복원해야 하는 경우, 고장난 시스템과 함께 암호화 키도 손실되므로 복원할 수 없게 됩니다.</p>
+</div></blockquote>
+<br>
+<p>빠른 재해 복구를 위해 키를 안전하게 보관하되 쉽게 접근할 수 있는 곳에 보관하는 것이 좋습니다. 따라서 즉시 복구할 수 있는 비밀번호 관리자에 보관하는 것이 가장 좋습니다. 이에 대한 백업용으로 USB 플래시 드라이브에 키를 저장하여 안전한 곳에 보관하는 것도 좋습니다. 이렇게 하면 어떤 시스템과도 분리되어 있지만 비상 시에도 쉽게 복구할 수 있습니다. 마지막으로 최악의 경우를 대비하여 종이로 된 키 사본을 안전한 곳에 보관하는 것도 고려해야 합니다. paperkey 하위 명령을 사용하여 QR로 인코딩된 버전의 키를 만들 수 있습니다. 다음 명령은 paperkey 명령의 출력을 텍스트 파일로 전송하여 쉽게 인쇄할 수 있도록 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># proxmox-backup-client key paperkey /etc/pve/priv/storage/&lt;STORAGE-ID&gt;.enc --output-format text &gt; qrkey.txt</span>
+</pre></div>
+</div>
+<p>또한, 키 복구 목적으로 단일 RSA 마스터 키 쌍을 사용할 수도 있습니다. 암호화된 백업을 수행하는 모든 클라이언트가 단일 공개 마스터 키를 사용하도록 구성하면 이후의 모든 암호화된 백업에 사용된 AES 암호화 키의 RSA 암호화 사본이 포함됩니다. 해당 비공개 마스터 키를 사용하면 클라이언트 시스템을 더 이상 사용할 수 없는 경우에도 AES 키를 복구하고 백업의 암호를 해독할 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 마스터 키 쌍에도 일반 암호화 키와 동일한 안전 보관 규칙이 적용됩니다. 개인키 사본이 없으면 복구가 불가능합니다! <point>paperkey</point> 명령은 안전한 물리적 위치에 보관하기 위해 개인 마스터 키의 종이 사본을 생성하는 기능을 지원합니다.</p>
+</div></blockquote>
+<p>암호화는 클라이언트 측에서 관리되므로 암호화되지 않은 백업과 암호화된 백업이 서로 다른 키로 암호화되어 있어도 서버의 동일한 데이터스토어를 사용할 수 있습니다. 그러나 키가 다른 백업 간의 중복 제거는 불가능하므로 별도의 데이터스토어를 만드는 것이 더 좋습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 신뢰할 수 있는 네트워크에서 로컬로 서버를 실행하는 경우와 같이 암호화를 통해 얻을 수 있는 이점이 없는 경우에는 암호화를 사용하지 마세요. 암호화되지 않은 백업에서 복구하는 것이 항상 더 쉽습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="cli">
+<h3>예시: CLI를 통해 스토리지 추가<a class="headerlink" href="#cli" title="Link to this heading"><span>#</span></a></h3>
+<p>그런 다음 이 공유를 전체 Proxmox VE 클러스터에 스토리지로 추가할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm add pbs &lt;id&gt; --server &lt;server&gt; --datastore &lt;datastore&gt; --username &lt;username&gt; --fingerprint 00:B4:... --password</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="glusterfs">
+<h2>7.9. GlusterFS<a class="headerlink" href="#glusterfs" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> glusterfs </point></p></li>
+</ul>
+<p>GlusterFS는 확장 가능한 네트워크 파일 시스템입니다. 이 시스템은 모듈식 설계를 사용하며 상용 하드웨어에서 실행되며 저렴한 비용으로 고가용성 엔터프라이즈 스토리지를 제공할 수 있습니다. 이러한 시스템은 수 페타바이트까지 확장할 수 있으며 수천 명의 클라이언트를 처리할 수 있습니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 노드/브릭 충돌이 발생한 후 GlusterFS는 데이터의 일관성을 유지하기 위해 전체 <point> rsync </point>를 수행합니다. 이 작업은 대용량 파일의 경우 매우 오랜 시간이 걸릴 수 있으므로 이 백엔드는 대용량 VM 이미지를 저장하는 데 적합하지 않습니다.
+<br><br></p>
+</div></blockquote>
+<section id="id24">
+<h3>7.9.1. 구성<a class="headerlink" href="#id24" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 모든 일반적인 스토리지 속성을 지원하며 다음과 같은 GlusterFS 전용 옵션을 추가합니다:</p>
+<ul class="simple">
+<li><p><point> server </point></p>
+<ul>
+<li><p>GlusterFS 볼파일 서버 IP 또는 DNS 이름.</p></li>
+</ul>
+</li>
+<li><p><point> server2 </point></p>
+<ul>
+<li><p>백업 볼륨파일 서버 IP 또는 DNS 이름.</p></li>
+</ul>
+</li>
+<li><p><point> volume </point></p>
+<ul>
+<li><p>GlusterFS 볼륨.</p></li>
+</ul>
+</li>
+<li><p><point> transport </point></p>
+<ul>
+<li><p>GlusterFS 전송: <point>tcp, unix</point> 또는 <point> rdma </point></p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">glusterfs</span><span class="p">:</span> <span class="n">Gluster</span>
+        <span class="n">server</span> <span class="mf">10.2.3.4</span>
+        <span class="n">server2</span> <span class="mf">10.2.3.5</span>
+        <span class="n">volume</span> <span class="n">glustervol</span>
+        <span class="n">content</span> <span class="n">images</span><span class="p">,</span><span class="n">iso</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id25">
+<h3>7.9.2. 파일 명명 규칙<a class="headerlink" href="#id25" title="Link to this heading"><span>#</span></a></h3>
+<p>디렉터리 레이아웃과 파일 명명 규칙은 <point> dir </point> 백엔드에서 상속됩니다.</p>
+<p><br><br></p>
+</section>
+<section id="id26">
+<h3>7.9.3. 스토리지 기능<a class="headerlink" href="#id26" title="Link to this heading"><span>#</span></a></h3>
+<p>스토리지는 파일 수준 인터페이스를 제공하지만 기본 스냅샷/복제 구현은 제공하지 않습니다.<br></p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 glusterfs의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• vztmpl <br>• iso <br>• backup <br>• snippets <br></p></td>
+<td class="text-center"><p>• raw <br>• qcow2 <br>• vmdk <br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>qcow2</p></td>
+<td class="text-center"><p>qcow2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="zfs">
+<h2>7.10. 로컬 ZFS 풀<a class="headerlink" href="#zfs" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> zfspool </point></p></li>
+</ul>
+<p>이 백엔드를 사용하면 로컬 ZFS 풀(또는 해당 풀 내부의 ZFS 파일 시스템)에 액세스할 수 있습니다.</p>
+<br>
+<section id="id27">
+<h3>7.10.1. 구성<a class="headerlink" href="#id27" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 일반적인 스토리지 속성인 <point>content, nodes, disable</point> 및 다음과 같은 ZFS 특정 속성을 지원합니다:</p>
+<ul class="simple">
+<li><p><point> pool </point></p>
+<ul>
+<li><p>ZFS 풀/파일 시스템을 선택합니다. 모든 할당은 해당 풀 내에서 이루어집니다.</p></li>
+</ul>
+</li>
+<li><p><point> blocksize </point></p>
+<ul>
+<li><p>ZFS 블록 크기 매개변수를 설정합니다.</p></li>
+</ul>
+</li>
+<li><p><point> sparse </point></p>
+<ul>
+<li><p>ZFS 씬 프로비저닝을 사용합니다. 스파스 볼륨은 예약이 볼륨 크기와 같지 않은 볼륨입니다.</p></li>
+</ul>
+</li>
+<li><p><point> mountpoint </point></p>
+<ul>
+<li><p>ZFS 풀/파일 시스템의 마운트 지점입니다. 이 값을 변경해도 <point> ZFS </point>에서 보는 데이터 세트의 <point>mountpoint</point> 속성에는 영향을 주지 않습니다. 기본값은 <point>/<pool></point>입니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zfspool</span><span class="p">:</span> <span class="n">vmdata</span>
+        <span class="n">pool</span> <span class="n">tank</span><span class="o">/</span><span class="n">vmdata</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+        <span class="n">sparse</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id28">
+<h3>7.10.2. 파일 명명 체계<a class="headerlink" href="#id28" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드에서는 VM 이미지에 대해 다음과 같은 명명 체계를 사용합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span>      <span class="o">//</span> <span class="n">일반</span> <span class="n">VM</span> <span class="n">이미지</span>
+<span class="n">base</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span>    <span class="o">//</span> <span class="n">템플릿</span> <span class="n">VM</span> <span class="n">이미지</span><span class="p">(</span><span class="n">읽기</span> <span class="n">전용</span><span class="p">)</span>
+<span class="n">subvol</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span>  <span class="o">//</span> <span class="n">서브볼륨</span><span class="p">(</span><span class="n">컨테이너용</span> <span class="n">ZFS</span> <span class="n">파일</span> <span class="n">시스템</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><point> <VMID> </point></p>
+<ul>
+<li><p>소유자 VM을 지정합니다.</p></li>
+</ul>
+</li>
+<li><p><point> <NAME> </point></p>
+<ul>
+<li><p>공백이 없는 임의의 이름(<point> ascii</point>)일 수 있습니다. 백엔드에서는 기본적으로 <point>disk[N]</point>을 사용하며, 여기서 <point>[N]</point>은 정수로 대체되어 이름을 고유하게 만듭니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id29">
+<h3>7.10.3. 스토리지 기능<a class="headerlink" href="#id29" title="Link to this heading"><span>#</span></a></h3>
+<p>ZFS는 스냅샷 및 복제와 관련하여 가장 진보된 스토리지 유형일 것입니다. 백엔드는 VM 이미지(포맷 <point>raw</point>)와 컨테이너 데이터(포맷 <point>subvol</point>) 모두에 ZFS 데이터세트를 사용합니다. ZFS 속성은 상위 데이터 세트에서 상속되므로 상위 데이터 세트의 기본값을 간단히 설정할 수 있습니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 zfs의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• rootdir <br></p></td>
+<td class="text-center"><p>• raw <br>• subvol <br></p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id30">
+<h3>7.10.4. 예시<a class="headerlink" href="#id30" title="Link to this heading"><span>#</span></a></h3>
+<p>VM 이미지를 저장하기 위해 별도의 ZFS 파일 시스템을 생성하는 것이 좋습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># zfs create tank/vmdata</span>
+</pre></div>
+</div>
+<p>새로 할당된 파일 시스템에서 압축을 사용하도록 설정합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># zfs set compression=on tank/vmdata</span>
+</pre></div>
+</div>
+<p>다음을 사용하여 사용 가능한 ZFS 파일 시스템 목록을 확인할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm zfsscan</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="lvm">
+<h2>7.11. LVM<a class="headerlink" href="#lvm" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> lvm </point></p></li>
+</ul>
+<p>LVM은 하드 디스크와 파티션 위에 있는 가벼운 소프트웨어 계층입니다. 사용 가능한 디스크 공간을 더 작은 논리 볼륨으로 분할하는 데 사용할 수 있습니다. LVM은 Linux에서 널리 사용되며 하드 드라이브를 더 쉽게 관리할 수 있게 해줍니다.<br></p>
+<p>또 다른 사용 사례는 큰 iSCSI LUN 위에 LVM을 배치하는 것입니다. 이렇게 하면 iSCSI 사양에 공간 할당에 대한 관리 인터페이스가 정의되어 있지 않기 때문에 다른 방법으로는 불가능했던 iSCSI LUN의 공간을 쉽게 관리할 수 있습니다.</p>
+<br>
+<section id="id31">
+<h3>7.11.1. 구성<a class="headerlink" href="#id31" title="Link to this heading"><span>#</span></a></h3>
+<p>LVM 백엔드는 일반적인 스토리지 속성인 <point>content, nodes, disable</point> 및 다음과 같은 LVM 특정 속성을 지원합니다.</p>
+<ul class="simple">
+<li><p><point> vgname </point></p>
+<ul>
+<li><p>LVM 볼륨 그룹 이름입니다. 기존 볼륨 그룹을 가리켜야 합니다.</p></li>
+</ul>
+</li>
+<li><p><point> base </point></p>
+<ul>
+<li><p>기본 볼륨입니다. 이 볼륨은 스토리지에 액세스하기 전에 자동으로 활성화됩니다. 이는 주로 LVM 볼륨 그룹이 원격 iSCSI 서버에 있는 경우에 유용합니다.</p></li>
+</ul>
+</li>
+<li><p><point> saferemove </point></p>
+<ul>
+<li><p>웹 UI에서 “제거된 볼륨 삭제”라고 합니다. LV를 제거할 때 데이터를 0으로 설정합니다. 볼륨을 제거할 때 모든 데이터가 지워지고 나중에 생성된 다른 LV(동일한 물리적 익스텐트가 할당됨)에서 액세스할 수 없게 됩니다. 이는 비용이 많이 드는 작업이지만 특정 환경에서는 보안 조치로 필요할 수 있습니다.</p></li>
+</ul>
+</li>
+<li><p><point> saferemove_throughput </point></p>
+<ul>
+<li><p>처리량 삭제(<point>cstream -t</point> 매개변수 값).</p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lvm</span><span class="p">:</span> <span class="n">myspace</span>
+        <span class="n">vgname</span> <span class="n">myspace</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id32">
+<h3>7.11.2. 파일 명명 체계<a class="headerlink" href="#id32" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 기본적으로 ZFS 풀 백엔드와 동일한 명명 규칙을 사용합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span> <span class="o">//</span> <span class="n">일반</span> <span class="n">VM</span> <span class="n">이미지</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id33">
+<h3>7.11.3. 스토리지 기능<a class="headerlink" href="#id33" title="Link to this heading"><span>#</span></a></h3>
+<p>LVM은 일반적인 블록 스토리지이지만 이 백엔드는 스냅샷과 클론을 지원하지 않습니다. 안타깝게도 일반적인 LVM 스냅샷은 스냅샷 시간 동안 전체 볼륨 그룹의 모든 쓰기를 방해하기 때문에 매우 비효율적입니다.<br></p>
+<p>가장 큰 장점 중 하나는 공유 스토리지(예: iSCSI LUN) 위에서 사용할 수 있다는 것입니다. 백엔드 자체는 적절한 클러스터 전체 잠금을 구현합니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 최신 LVM-thin 백엔드는 스냅샷과 복제를 허용하지만 공유 스토리지는 지원하지 않습니다.</p>
+</div></blockquote>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 lvm의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• rootdir <br></p></td>
+<td class="text-center"><p>• raw <br></p></td>
+<td class="text-center"><p>possible</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id34">
+<h3>7.11.4. 예시<a class="headerlink" href="#id34" title="Link to this heading"><span>#</span></a></h3>
+<p>사용 가능한 볼륨 그룹 나열:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm lvmscan</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="lvm-thin">
+<h2>7.12. LVM thin<a class="headerlink" href="#lvm-thin" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> lvmthin </point></p></li>
+</ul>
+<p>LVM은 일반적으로 볼륨을 생성할 때 블록을 할당합니다. LVM 씬 풀은 대신 기록될 때 블록을 할당합니다. 이 동작을 씬 프로비저닝이라고 하는데, 볼륨이 물리적으로 사용 가능한 공간보다 훨씬 클 수 있기 때문입니다.<br></p>
+<p>일반적인 LVM 명령줄 도구를 사용하여 LVM 씬 풀을 관리하고 생성할 수 있습니다(자세한 내용은 <point>man lvmthin</point> 참조). <point> pve </point>라는 LVM 볼륨 그룹이 이미 있다고 가정하면 다음 명령은 <point> data </point>라는 새 LVM 씬 풀(크기 100G)을 생성합니다.</p>
+<br>
+<section id="id35">
+<h3>7.12.1. 구성<a class="headerlink" href="#id35" title="Link to this heading"><span>#</span></a></h3>
+<p>LVM 씬 백엔드는 일반적인 스토리지 속성인 <point>content, nodes, disable</point> 및 다음과 같은 LVM 특정 속성을 지원합니다.</p>
+<ul class="simple">
+<li><p><point> vgname </point></p>
+<ul>
+<li><p>LVM 볼륨 그룹 이름. 기존 볼륨 그룹을 가리켜야 합니다.</p></li>
+</ul>
+</li>
+<li><p><point> thinpool </point></p>
+<ul>
+<li><p>LVM 씬 풀의 이름입니다.</p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lvmthin</span><span class="p">:</span> <span class="n">local</span><span class="o">-</span><span class="n">lvm</span>
+        <span class="n">thinpool</span> <span class="n">data</span>
+        <span class="n">vgname</span> <span class="n">pve</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id36">
+<h3>7.12.2. 파일 명명 체계<a class="headerlink" href="#id36" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 기본적으로 ZFS 풀 백엔드와 동일한 명명 규칙을 사용합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-&lt;</span><span class="n">VMID</span><span class="o">&gt;-&lt;</span><span class="n">NAME</span><span class="o">&gt;</span> <span class="o">//</span> <span class="n">일반</span> <span class="n">VM</span> <span class="n">이미지</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id37">
+<h3>7.12.3. 스토리지 기능<a class="headerlink" href="#id37" title="Link to this heading"><span>#</span></a></h3>
+<p>LVM 씬은 블록 스토리지이지만 스냅샷과 클론을 효율적으로 완벽하게 지원합니다. 새 볼륨은 자동으로 0으로 초기화됩니다.<br>
+LVM 씬 풀은 여러 노드에서 공유할 수 없으므로 로컬 스토리지로만 사용할 수 있다는 점을 언급해야 합니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 lvmthin의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• rootdir <br></p></td>
+<td class="text-center"><p>• raw <br></p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id38">
+<h3>7.12.4. 예시<a class="headerlink" href="#id38" title="Link to this heading"><span>#</span></a></h3>
+<p>볼륨 그룹 <point> pve </point>에서 사용 가능한 LVM 씬 풀을 나열합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm lvmthinscan pve</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="iscsi">
+<h2>7.13. 오픈 iSCSI 초기자<a class="headerlink" href="#iscsi" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> iscsi </point></p></li>
+</ul>
+<p>iSCSI는 스토리지 서버에 연결하는 데 널리 사용되는 기술입니다. 거의 모든 스토리지 공급업체가 iSCSI를 지원합니다. 또한 Debian을 기반으로 하는 OpenMediaVault와 같은 오픈 소스 iSCSI 대상 솔루션도 있습니다.<br></p>
+<p>이 백엔드를 사용하려면 Open-iSCSI(<point>open-iscsi</point>) 패키지를 설치해야 합니다. 이는 표준 Debian 패키지이지만 리소스를 절약하기 위해 기본적으로 설치되지 않습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># apt-get install open-iscsi</span>
+</pre></div>
+</div>
+<p>저수준 iscsi 관리 작업은 <point> iscsiadm </point> 도구를 사용하여 수행할 수 있습니다.</p>
+<br>
+<section id="id39">
+<h3>7.13.1. 구성<a class="headerlink" href="#id39" title="Link to this heading"><span>#</span></a></h3>
+<p>백엔드는 일반적인 스토리지 속성인 <point>content, nodes, disable</point>, 그리고 다음의 iSCSI 특정 속성을 지원합니다:</p>
+<ul class="simple">
+<li><p><point> portal </point></p>
+<ul>
+<li><p>iSCSI 포털(선택적 포트가 있는 IP 또는 DNS 이름).</p></li>
+</ul>
+</li>
+<li><p><point> target </point></p>
+<ul>
+<li><p>iSCSI 대상.</p></li>
+</ul>
+</li>
+</ul>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iscsi</span><span class="p">:</span> <span class="n">mynas</span>
+     <span class="n">portal</span> <span class="mf">10.10.10.1</span>
+     <span class="n">target</span> <span class="n">iqn</span><span class="mf">.2006</span><span class="o">-</span><span class="mf">01.</span><span class="n">openfiler</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">tsn</span><span class="o">.</span><span class="n">dcb5aaaddd</span>
+     <span class="n">content</span> <span class="n">none</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> iSCSI 위에 LVM을 사용하려면 <point>content none</point>을 설정하는 것이 좋습니다. 그렇게 하면 iSCSI LUN을 직접 사용하여 VM을 생성할 수 없습니다.</p>
+</div></blockquote>
+<p><br><br></p>
+</section>
+<section id="id40">
+<h3>7.13.2. 파일 명명 체계<a class="headerlink" href="#id40" title="Link to this heading"><span>#</span></a></h3>
+<p>iSCSI 프로토콜은 데이터를 할당하거나 삭제하기 위한 인터페이스를 정의하지 않습니다. 대신 대상 측에서 수행해야 하며 공급업체에 따라 다릅니다. 대상은 단순히 번호가 매겨진 LUN으로 내보냅니다. 따라서 Proxmox VE iSCSI 볼륨 이름은 Linux 커널에서 보는 LUN에 대한 일부 정보만 인코딩합니다.</p>
+<p><br><br></p>
+</section>
+<section id="id41">
+<h3>7.13.3. 스토리지 기능<a class="headerlink" href="#id41" title="Link to this heading"><span>#</span></a></h3>
+<p>LVM 씬은 블록 스토리지이지만 스냅샷과 클론을 효율적으로 완벽하게 지원합니다. 새 볼륨은 자동으로 0으로 초기화됩니다.<br>
+LVM 씬 풀은 여러 노드에서 공유할 수 없으므로 로컬 스토리지로만 사용할 수 있다는 점을 언급해야 합니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 iscsi의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• none <br></p></td>
+<td class="text-center"><p>• raw <br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id42">
+<h3>7.13.4. 예시<a class="headerlink" href="#id42" title="Link to this heading"><span>#</span></a></h3>
+<p>원격 iSCSI 포털을 스캔하고 가능한 대상 목록을 반환합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pvesm</span> <span class="n">scan</span> <span class="n">iscsi</span> <span class="o">&lt;</span><span class="n">HOST</span><span class="p">[:</span><span class="n">PORT</span><span class="p">]</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="id43">
+<h2>7.14. 사용자 모드 iSCSI<a class="headerlink" href="#id43" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> iscsidirect </point></p></li>
+</ul>
+<p>이 백엔드는 기본적으로 Open-iSCSI 백업과 동일한 기능을 제공하지만 사용자 수준 라이브러리를 사용하여 구현합니다. 이 백엔드를 사용하려면 <point>libiscsi-bin</point> 패키지를 설치해야 합니다.<br></p>
+<p>커널 드라이버가 포함되지 않으므로 성능 최적화로 볼 수 있습니다. 하지만 이러한 iSCSI LUN 위에 LVM을 사용할 수 없다는 단점이 있습니다. 따라서 스토리지 서버 측에서 모든 공간 할당을 관리해야 합니다.
+<br></p>
+<section id="id44">
+<h3>7.14.1. 구성<a class="headerlink" href="#id44" title="Link to this heading"><span>#</span></a></h3>
+<p>사용자 모드 iSCSI 백엔드는 Open-iSCSI 백업과 동일한 구성 옵션을 사용합니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iscsidirect</span><span class="p">:</span> <span class="n">faststore</span>
+     <span class="n">portal</span> <span class="mf">10.10.10.1</span>
+     <span class="n">target</span> <span class="n">iqn</span><span class="mf">.2006</span><span class="o">-</span><span class="mf">01.</span><span class="n">openfiler</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">tsn</span><span class="o">.</span><span class="n">dcb5aaaddd</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id45">
+<h3>7.14.2. 스토리지 기능<a class="headerlink" href="#id45" title="Link to this heading"><span>#</span></a></h3>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 이 백엔드는 VM에서만 작동합니다. 컨테이너는 이 드라이버를 사용할 수 없습니다.</p>
+</div></blockquote>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 iscsidirect의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br></p></td>
+<td class="text-center"><p>• raw <br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+<td class="text-center"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="ceph-rados-block-devices-rbd">
+<h2>7.15. Ceph RADOS Block Devices (RBD)<a class="headerlink" href="#ceph-rados-block-devices-rbd" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> rbd </point></p></li>
+</ul>
+<p>Ceph는 뛰어난 성능, 안정성 및 확장성을 제공하도록 설계된 분산 객체 저장소 및 파일 시스템입니다. RADOS 블록 디바이스는 기능이 풍부한 블록 수준 스토리지를 구현하며 다음과 같은 이점을 얻을 수 있습니다.</p>
+<ul class="simple">
+<li><p>씬 프로비저닝</p></li>
+<li><p>크기 조절 가능한 볼륨</p></li>
+<li><p>분산 및 중복(여러 OSD에 걸쳐 스트라이프)</p></li>
+<li><p>전체 스냅샷 및 복제 기능</p></li>
+<li><p>자체 복구</p></li>
+<li><p>단일 장애 지점 없음</p></li>
+<li><p>엑사바이트 수준으로 확장 가능</p></li>
+<li><p>커널 및 사용자 공간 구현 가능</p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 소규모 배포의 경우 Proxmox VE 노드에서 Ceph 서비스를 직접 실행할 수도 있습니다. 최신 하드웨어에는 충분한 CPU 성능과 RAM이 있으므로 동일한 노드에서 스토리지 서비스와 VM을 실행할 수 있습니다.</p>
+</div></blockquote>
+<br>
+<section id="id46">
+<h3>7.15.1. 구성<a class="headerlink" href="#id46" title="Link to this heading"><span>#</span></a></h3>
+<p>이 백엔드는 공통 스토리지 속성 <point>nodes, disable, content</point> 및 다음 <point> rbd </point> 특정 속성을 지원합니다.</p>
+<ul class="simple">
+<li><p><point> monhost </point></p>
+<ul>
+<li><p>모니터 데몬 IP 목록. 선택 사항이며 Ceph가 Proxmox VE 클러스터에서 실행되지 않는 경우에만 필요합니다.</p></li>
+</ul>
+</li>
+<li><p><point> pool </point></p>
+<ul>
+<li><p>Ceph 풀 이름.</p></li>
+</ul>
+</li>
+<li><p><point> username </point></p>
+<ul>
+<li><p>RBD 사용자 ID. 선택 사항이며 Ceph가 Proxmox VE 클러스터에서 실행되지 않는 경우에만 필요합니다. 사용자 ID만 사용해야 합니다. “client.” 유형 접두사는 생략해야 합니다.</p></li>
+</ul>
+</li>
+<li><p><point> krbd </point></p>
+<ul>
+<li><p>krbd 커널 모듈을 통해 rados 블록 장치에 대한 액세스를 적용합니다. 선택 사항.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 컨테이너는 옵션 값과 관계없이 <point> krbd </point>를 사용합니다.</p>
+</div></blockquote>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rbd</span><span class="p">:</span> <span class="n">ceph</span><span class="o">-</span><span class="n">external</span>
+        <span class="n">monhost</span> <span class="mf">10.1.1.20</span> <span class="mf">10.1.1.21</span> <span class="mf">10.1.1.22</span>
+        <span class="n">pool</span> <span class="n">ceph</span><span class="o">-</span><span class="n">external</span>
+        <span class="n">content</span> <span class="n">images</span>
+        <span class="n">username</span> <span class="n">admin</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> <point> rbd </point> 유틸리티를 사용하면 저수준 관리 작업을 수행할 수 있습니다.
+<br><br></p>
+</div></blockquote>
+</section>
+<section id="id47">
+<h3>7.15.2. 인증<a class="headerlink" href="#id47" title="Link to this heading"><span>#</span></a></h3>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> Ceph가 Proxmox VE 클러스터에 로컬로 설치된 경우 저장소를 추가할 때 다음이 자동으로 수행됩니다.</p>
+</div></blockquote>
+<p>기본적으로 활성화된 <point> cephx </point> 인증을 사용하는 경우 외부 Ceph 클러스터에서 키링을 제공해야 합니다.<br>
+CLI를 통해 저장소를 구성하려면 먼저 키링이 포함된 파일을 사용할 수 있도록 해야 합니다. 한 가지 방법은 외부 Ceph 클러스터에서 Proxmox VE 노드 중 하나로 직접 파일을 복사하는 것입니다. 다음 예에서는 실행하는 노드의 <point>/root</point> 디렉터리에 복사합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># scp &lt;external cephserver&gt;:/etc/ceph/ceph.client.admin.keyring /root/rbd.keyring</span>
+
+</pre></div>
+</div>
+<p>그런 다음 <point> pvesm </point> CLI 도구를 사용하여 외부 RBD 저장소를 구성하고 <point>–keyring</point> 매개변수를 사용합니다. 이 매개변수는 복사한 키링 파일의 경로여야 합니다. 예를 들어:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm add rbd &lt;name&gt; --monhost &quot;10.1.1.20 10.1.1.21 10.1.1.22&quot; --content images --keyring /root/rbd.keyring</span>
+
+</pre></div>
+</div>
+<p>GUI를 통해 외부 RBD 스토리지를 구성할 때 키링을 복사하여 적절한 필드에 붙여넣을 수 있습니다.</p>
+<p>키링은 다음 위치에 저장됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/pve/priv/ceph/&lt;STORAGE_ID&gt;.keyring</span>
+
+</pre></div>
+</div>
+<p><br><br></p>
+<p>7.15.3. Ceph 클라이언트 구성(선택 사항)
+외부 Ceph 스토리지에 연결해도 외부 클러스터의 구성 DB에서 클라이언트별 옵션을 설정할 수 없는 경우가 있습니다. Ceph 키링 옆에 <point>ceph.conf</point>를 추가하여 스토리지의 Ceph 클라이언트 구성을 변경할 수 있습니다.<br>
+ceph.conf는 스토리지와 이름이 같아야 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/pve/priv/ceph/&lt;STORAGE_ID&gt;.conf</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 이러한 설정을 가볍게 변경하지 마세요. Proxmox VE는 &lt;STORAGE_ID&gt;.conf를 스토리지 구성과 병합합니다.</p>
+</div></blockquote>
+</section>
+<section id="id48">
+<h3>7.15.4. 스토리지 기능<a class="headerlink" href="#id48" title="Link to this heading"><span>#</span></a></h3>
+<p><point> rbd </point> 백엔드는 블록 수준의 저장소이며 전체 스냅샷과 복제 기능을 구현합니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 rbd의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br>• rootdir <br></p></td>
+<td class="text-center"><p>• raw <br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="ceph-filesystem-cephfs">
+<h2>7.16. Ceph Filesystem (CephFS)<a class="headerlink" href="#ceph-filesystem-cephfs" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> cephfs </point></p></li>
+</ul>
+<p>CephFS는 Ceph 스토리지 클러스터를 사용하여 데이터를 저장하는 POSIX 호환 파일 시스템을 구현합니다. CephFS는 Ceph를 기반으로 구축되므로 대부분의 속성을 공유합니다. 여기에는 중복성, 확장성, 자가 복구 및 고가용성이 포함됩니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> Proxmox VE는 Ceph 설정을 관리할 수 있으므로 CephFS 저장소를 구성하는 것이 더 쉬워집니다. 최신 하드웨어는 많은 처리 능력과 RAM을 제공하므로 동일한 노드에서 저장소 서비스와 VM을 실행해도 성능에 큰 영향을 미치지 않습니다.</p>
+</div></blockquote>
+<p>CephFS 저장소 플러그인을 사용하려면 Ceph 저장소를 추가하여 기본 Debian Ceph 클라이언트를 교체해야 합니다. 추가한 후 <point>apt update</point>를 실행한 다음 <point>apt dist-upgrade</point>를 실행하여 최신 패키지를 가져옵니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 다른 Ceph 저장소가 구성되어 있지 않은지 확인하십시오. 그렇지 않으면 설치가 실패하거나 노드에 혼합된 패키지 버전이 있어 예기치 않은 동작이 발생합니다.
+<br></p>
+</div></blockquote>
+<section id="id49">
+<h3>7.16.1. 구성<a class="headerlink" href="#id49" title="Link to this heading"><span>#</span></a></h3>
+<p>이 백엔드는 공통 스토리지 속성 <point>nodes, disable, content</point> 및 다음 <point>cephfs</point> 특정 속성을 지원합니다.</p>
+<ul class="simple">
+<li><p><point> fs-name </point></p>
+<ul>
+<li><p>Ceph FS 이름.</p></li>
+</ul>
+</li>
+<li><p><point> monhost </point></p>
+<ul>
+<li><p>모니터 데몬 주소 목록. 선택 사항이며 Ceph가 Proxmox VE 클러스터에서 실행되지 않는 경우에만 필요합니다.</p></li>
+</ul>
+</li>
+<li><p><point> path </point></p>
+<ul>
+<li><p>로컬 마운트 지점. 선택 사항이며 기본값은 /mnt/pve/&lt;STORAGE_ID&gt;/입니다.</p></li>
+</ul>
+</li>
+<li><p><point> username </point></p>
+<ul>
+<li><p>Ceph 사용자 ID. 선택 사항이며 Ceph가 Proxmox VE 클러스터에서 실행되지 않는 경우에만 필요합니다. 이 경우 기본값은 admin입니다.</p></li>
+</ul>
+</li>
+<li><p><point> subdir </point></p>
+<ul>
+<li><p>마운트할 CephFS 하위 디렉터리. 선택 사항이며 기본값은 /입니다.</p></li>
+</ul>
+</li>
+<li><p><point> fuse </point></p>
+<ul>
+<li><p>커널 클라이언트 대신 FUSE를 통해 CephFS에 액세스합니다. 선택 사항이며 기본값은 0입니다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 컨테이너는 옵션 값과 관계없이 <point> krbd </point>를 사용합니다.</p>
+</div></blockquote>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cephfs</span><span class="p">:</span> <span class="n">cephfs</span><span class="o">-</span><span class="n">external</span>
+        <span class="n">monhost</span> <span class="mf">10.1.1.20</span> <span class="mf">10.1.1.21</span> <span class="mf">10.1.1.22</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">cephfs</span><span class="o">-</span><span class="n">external</span>
+        <span class="n">content</span> <span class="n">backup</span>
+        <span class="n">username</span> <span class="n">admin</span>
+        <span class="n">fs</span><span class="o">-</span><span class="n">name</span> <span class="n">cephfs</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> <point> cephx가 비활성화되지 않았다면 클라이언트의 비밀 키 파일을 설정하는 것을 잊지 마세요.
+<br><br></p>
+</div></blockquote>
+</section>
+<section id="id50">
+<h3>7.16.2. 인증<a class="headerlink" href="#id50" title="Link to this heading"><span>#</span></a></h3>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> Ceph가 Proxmox VE 클러스터에 로컬로 설치된 경우 저장소를 추가할 때 다음이 자동으로 수행됩니다.</p>
+</div></blockquote>
+<p>기본적으로 활성화된 <point> cephx </point> 인증을 사용하는 경우 외부 Ceph 클러스터에서 비밀을 제공해야 합니다.<br>
+CLI를 통해 저장소를 구성하려면 먼저 비밀이 포함된 파일을 사용할 수 있도록 해야 합니다. 한 가지 방법은 외부 Ceph 클러스터에서 파일을 Proxmox VE 노드 중 하나로 직접 복사하는 것입니다. 다음 예에서는 실행하는 노드의 <point>/root </point>디렉터리에 복사합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># scp &lt;external cephserver&gt;:/etc/ceph/cephfs.secret /root/cephfs.secret</span>
+</pre></div>
+</div>
+<p>그런 다음 <point> pvesm </point> CLI 도구를 사용하여 외부 RBD 저장소를 구성하고 <point>–keyring</point> 매개변수를 사용합니다. 이 매개변수는 복사한 비밀 파일에 대한 경로여야 합니다. 예를 들어:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pvesm add cephfs &lt;name&gt; --monhost &quot;10.1.1.20 10.1.1.21 10.1.1.22&quot; --content backup --keyring /root/cephfs.secret</span>
+</pre></div>
+</div>
+<p>GUI를 통해 외부 RBD 스토리지를 구성할 때 비밀을 적절한 필드에 복사하여 붙여넣을 수 있습니다.<br></p>
+<p>비밀은 키 자체일 뿐이며, <point>[client.userid]</point> 섹션도 포함하는 rbd 백엔드와는 대조적입니다.</p>
+<p>비밀은 다음에 저장됩니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/pve/priv/ceph/&lt;STORAGE_ID&gt;.secret</span>
+</pre></div>
+</div>
+<p>Ceph 클러스터에서 비밀을 수신할 수 있습니다(Ceph 관리자로). 아래 명령을 실행하면 됩니다. 여기서 <point> userid </point>는 클러스터에 액세스하도록 구성된 클라이언트 ID입니다. Ceph 사용자 관리에 대한 자세한 내용은 Ceph 문서를 참조하세요.[12]</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ceph auth get-key client.userid &gt; cephfs.secret</span>
+</pre></div>
+</div>
+</section>
+<section id="id51">
+<h3>7.16.3. 스토리지 기능<a class="headerlink" href="#id51" title="Link to this heading"><span>#</span></a></h3>
+<p><point> cephfs </point> 백엔드는 Ceph 클러스터 기반의 POSIX 호환 파일 시스템입니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 cephfs의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• vztmpl <br>• iso <br>• backup <br>• snippets <br></p></td>
+<td class="text-center"><p>• none <br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes<sup>[1]</sup></p></td>
+<td class="text-center"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>[1] : 알려진 버그는 없지만, 충분한 테스트가 이루어지지 않았기 때문에 스냅샷의 안정성이 아직 보장되지 않습니다.</p>
+<p><br><br></p>
+</section>
+</section>
+<section id="btrfs">
+<h2>7.17. BTRFS<a class="headerlink" href="#btrfs" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> btrfs </point></p></li>
+</ul>
+<p>표면적으로 이 스토리지 유형은 디렉토리 스토리지 유형과 매우 유사하므로 일반적인 개요는 디렉토리 백엔드 섹션을 참조하세요.<br>
+주요 차이점은 이 스토리지 유형에서 <point> raw </point> 포맷 디스크가 하위 볼륨에 배치되어 스냅샷을 찍고 스냅샷이 보존된 상태에서 오프라인 스토리지 마이그레이션을 지원한다는 것입니다.</p>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> BTRFS는 파일을 열 때 <point>O_DIRECT</point> 플래그를 따르므로 VM은 캐시 모드 <point>none</point>을 사용해서는 안 됩니다. 그렇지 않으면 체크섬 오류가 발생합니다.</p>
+</div></blockquote>
+<br>
+<section id="id52">
+<h3>7.17.1. 구성<a class="headerlink" href="#id52" title="Link to this heading"><span>#</span></a></h3>
+<p>이 백엔드는 디렉토리 저장소와 비슷하게 구성됩니다. 디렉토리를 마운트 지점 자체가 아닌 BTRFS 저장소로 추가할 때 <point>is_mountpoint </point> 옵션을 통해 실제 마운트 지점을 지정하는 것이 좋습니다.<br></p>
+<p>예를 들어, BTRFS 파일 시스템이 <point>/mnt/data2</point>에 마운트되고 해당 <point>pve-storage/ </point>하위 디렉토리(스냅샷일 수 있으며 권장됨)를 <point> data2 </point>라는 스토리지 풀로 추가해야 하는 경우 다음 항목을 사용할 수 있습니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">btrfs</span><span class="p">:</span> <span class="n">data2</span>
+        <span class="n">path</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">data2</span><span class="o">/</span><span class="n">pve</span><span class="o">-</span><span class="n">storage</span>
+        <span class="n">content</span> <span class="n">rootdir</span><span class="p">,</span><span class="n">images</span>
+        <span class="n">is_mountpoint</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">data2</span>
+</pre></div>
+</div>
+<br>
+</section>
+<section id="id53">
+<h3>7.17.2. 스냅샷<a class="headerlink" href="#id53" title="Link to this heading"><span>#</span></a></h3>
+<p>서브볼륨이나 <point> raw </point> 파일의 스냅샷을 찍을 때 스냅샷은 <point>&#64;</point>와 스냅샷 이름이 뒤에 붙은 동일한 경로로 읽기 전용 서브볼륨으로 생성됩니다.</p>
+<p><br><br></p>
+</section>
+</section>
+<section id="zfs-over-iscsi">
+<h2>7.18. ZFS over ISCSI<a class="headerlink" href="#zfs-over-iscsi" title="Link to this heading"><span>#</span></a></h2>
+<ul class="simple">
+<li><p>스토리지 풀 유형: <point> zfs </point></p></li>
+</ul>
+<p>이 백엔드는 스토리지로 ZFS 풀을 가지고 있는 원격 머신과 <point> ssh </point>를 통한 iSCSI 대상 구현에 액세스합니다. 각 게스트 디스크에 대해 ZVOL을 생성하고 iSCSI LUN으로 내보냅니다. 이 LUN은 Proxmox VE에서 게스트 디스크에 사용됩니다.</p>
+<p>다음 iSCSI 대상 구현이 지원됩니다.</p>
+<ul class="simple">
+<li><p>LIO(Linux)</p></li>
+<li><p>IET(Linux)</p></li>
+<li><p>ISTGT(FreeBSD)</p></li>
+<li><p>Comstar(Solaris)</p></li>
+</ul>
+<blockquote>
+<div><p><img alt="" src="../_images/pin.png" /> 이 플러그인에는 ZFS를 지원하는 원격 스토리지 어플라이언스가 필요하며, 일반 스토리지 어플라이언스/SAN에서 ZFS 풀을 생성하는 데 사용할 수 없습니다.</p>
+</div></blockquote>
+<br>
+<section id="id54">
+<h3>7.18.1. 구성<a class="headerlink" href="#id54" title="Link to this heading"><span>#</span></a></h3>
+<p>ZFS over iSCSI 플러그인을 사용하려면 Proxmox VE 노드에서 <point> ssh </point> 연결을 허용하도록 원격 머신(대상)을 구성해야 합니다. Proxmox VE는 ZVOL을 생성하고 iSCSI를 통해 내보내기 위해 대상에 연결합니다. 인증은 <point>/etc/pve/priv/zfs/&lt;target_ip&gt;_id_rsa</point>에 저장된 ssh-key(암호 보호 없음)를 통해 수행됩니다.</p>
+<p>다음 단계는 ssh-key를 생성하고 IP 192.0.2.1을 사용하여 스토리지 머신에 배포합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">priv</span><span class="o">/</span><span class="n">zfs</span>
+<span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">priv</span><span class="o">/</span><span class="n">zfs</span><span class="o">/</span><span class="mf">192.0.2.1</span><span class="n">_id_rsa</span>
+<span class="n">ssh</span><span class="o">-</span><span class="n">copy</span><span class="o">-</span><span class="nb">id</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">priv</span><span class="o">/</span><span class="n">zfs</span><span class="o">/</span><span class="mf">192.0.2.1</span><span class="n">_id_rsa</span><span class="o">.</span><span class="n">pub</span> <span class="n">root</span><span class="o">@</span><span class="mf">192.0.2.1</span>
+<span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">priv</span><span class="o">/</span><span class="n">zfs</span><span class="o">/</span><span class="mf">192.0.2.1</span><span class="n">_id_rsa</span> <span class="n">root</span><span class="o">@</span><span class="mf">192.0.2.1</span>
+</pre></div>
+</div>
+<p>백엔드는 일반적인 스토리지 속성인 <point>content, nodes, disable</point> 및 다음과 같은 ISCSI 특정 속성을 지원합니다.</p>
+<ul class="simple">
+<li><p><point> pool </point></p>
+<ul>
+<li><p>iSCSI 대상의 ZFS 풀/파일 시스템. 모든 할당은 해당 풀 내에서 수행됩니다.</p></li>
+</ul>
+</li>
+<li><p><point> portal </point></p>
+<ul>
+<li><p>iSCSI 포털(선택적 포트가 있는 IP 또는 DNS 이름).</p></li>
+</ul>
+</li>
+<li><p><point> target </point></p>
+<ul>
+<li><p>iSCSI 대상.</p></li>
+</ul>
+</li>
+<li><p><point> iscsiprovider </point></p>
+<ul>
+<li><p>원격 머신에서 사용되는 iSCSI 대상 구현</p></li>
+</ul>
+</li>
+<li><p><point> comstar_tg </point></p>
+<ul>
+<li><p>comstar 뷰의 대상 그룹.</p></li>
+</ul>
+</li>
+<li><p><point> comstar_hg </point></p>
+<ul>
+<li><p>comstar 뷰의 호스트 그룹.</p></li>
+</ul>
+</li>
+<li><p><point> lio_tpg </point></p>
+<ul>
+<li><p>Linux LIO 대상의 대상 포털 그룹</p></li>
+</ul>
+</li>
+<li><p><point> nowritecache </point></p>
+<ul>
+<li><p>대상에서 쓰기 캐싱 비활성화</p></li>
+</ul>
+</li>
+<li><p><point> blocksize </point></p>
+<ul>
+<li><p>ZFS 블록 크기 매개변수 설정.</p></li>
+</ul>
+</li>
+<li><p><point> sparse </point></p>
+<ul>
+<li><p>ZFS 씬 프로비저닝 사용. 스파스 볼륨은 예약이 볼륨 크기와 같지 않은 볼륨입니다.</p></li>
+</ul>
+</li>
+</ul>
+<br>
+<p><point><img alt="" src="../_images/check.png" /> 구성 예제(/etc/pve/storage.cfg) </point><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="p">:</span> <span class="n">lio</span>
+   <span class="n">blocksize</span> <span class="mi">4</span><span class="n">k</span>
+   <span class="n">iscsiprovider</span> <span class="n">LIO</span>
+   <span class="n">pool</span> <span class="n">tank</span>
+   <span class="n">portal</span> <span class="mf">192.0.2.111</span>
+   <span class="n">target</span> <span class="n">iqn</span><span class="mf">.2003</span><span class="o">-</span><span class="mf">01.</span><span class="n">org</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">iscsi</span><span class="o">.</span><span class="n">lio</span><span class="o">.</span><span class="n">x8664</span><span class="p">:</span><span class="n">sn</span><span class="o">.</span><span class="n">xxxxxxxxxxxx</span>
+   <span class="n">content</span> <span class="n">images</span>
+   <span class="n">lio_tpg</span> <span class="n">tpg1</span>
+   <span class="n">sparse</span> <span class="mi">1</span>
+
+<span class="n">zfs</span><span class="p">:</span> <span class="n">solaris</span>
+   <span class="n">blocksize</span> <span class="mi">4</span><span class="n">k</span>
+   <span class="n">target</span> <span class="n">iqn</span><span class="mf">.2010</span><span class="o">-</span><span class="mf">08.</span><span class="n">org</span><span class="o">.</span><span class="n">illumos</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="n">xxxxxxxx</span><span class="o">-</span><span class="n">xxxx</span><span class="o">-</span><span class="n">xxxx</span><span class="o">-</span><span class="n">xxxx</span><span class="o">-</span><span class="n">xxxxxxxxxxxx</span><span class="p">:</span><span class="n">tank1</span>
+   <span class="n">pool</span> <span class="n">tank</span>
+   <span class="n">iscsiprovider</span> <span class="n">comstar</span>
+   <span class="n">portal</span> <span class="mf">192.0.2.112</span>
+   <span class="n">content</span> <span class="n">images</span>
+
+<span class="n">zfs</span><span class="p">:</span> <span class="n">freebsd</span>
+   <span class="n">blocksize</span> <span class="mi">4</span><span class="n">k</span>
+   <span class="n">target</span> <span class="n">iqn</span><span class="mf">.2007</span><span class="o">-</span><span class="mf">09.</span><span class="n">jp</span><span class="o">.</span><span class="n">ne</span><span class="o">.</span><span class="n">peach</span><span class="o">.</span><span class="n">istgt</span><span class="p">:</span><span class="n">tank1</span>
+   <span class="n">pool</span> <span class="n">tank</span>
+   <span class="n">iscsiprovider</span> <span class="n">istgt</span>
+   <span class="n">portal</span> <span class="mf">192.0.2.113</span>
+   <span class="n">content</span> <span class="n">images</span>
+
+<span class="n">zfs</span><span class="p">:</span> <span class="n">iet</span>
+   <span class="n">blocksize</span> <span class="mi">4</span><span class="n">k</span>
+   <span class="n">target</span> <span class="n">iqn</span><span class="mf">.2001</span><span class="o">-</span><span class="mf">04.</span><span class="n">com</span><span class="o">.</span><span class="n">example</span><span class="p">:</span><span class="n">tank1</span>
+   <span class="n">pool</span> <span class="n">tank</span>
+   <span class="n">iscsiprovider</span> <span class="n">iet</span>
+   <span class="n">portal</span> <span class="mf">192.0.2.114</span>
+   <span class="n">content</span> <span class="n">images</span>
+</pre></div>
+</div>
+</section>
+<section id="id55">
+<h3>7.18.2. 스토리지 기능<a class="headerlink" href="#id55" title="Link to this heading"><span>#</span></a></h3>
+<p>ZFS over iSCSI 플러그인은 스냅샷이 가능한 공유 스토리지를 제공합니다. ZFS 어플라이언스가 배포에서 단일 장애 지점이 되지 않도록 해야 합니다.</p>
+<p><point><img alt="" src="../_images/check.png" /> 백엔드 iscsi의 스토리지 기능</point></p>
+<div align="center">
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>콘텐츠 유형</p></th>
+<th class="head text-center"><p>이미지 포맷</p></th>
+<th class="head text-center"><p>공유</p></th>
+<th class="head text-center"><p>스냅샷</p></th>
+<th class="head text-center"><p>클론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>• images <br></p></td>
+<td class="text-center"><p>• raw <br></p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>yes</p></td>
+<td class="text-center"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br><br><br></p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06-pmxcfs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">이전</p>
+        <p class="prev-next-title">Proxmox Cluster File System(pmxcfs)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 내용
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.1. 스토리지 유형</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.1.1. 씬 프로비저닝</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2. 스토리지 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.1. 스토리지 풀</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.2.2. 일반적인 스토리지 속성</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.3. 볼륨</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.3.1. 볼륨 소유권</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.4. 명령줄 인터페이스 사용</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.4.1. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5. 디렉토리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.5.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.5.2. 파일 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">7.5.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">7.5.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nfs">7.6. NFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">7.6.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">7.6.2. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">7.6.3. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cifs">7.7. CIFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">7.7.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">7.7.2. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">예제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxmox-backup-server">7.8. Proxmox Backup Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">7.8.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">7.8.2. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">7.8.3. 암호화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">예시: CLI를 통해 스토리지 추가</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glusterfs">7.9. GlusterFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">7.9.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">7.9.2. 파일 명명 규칙</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">7.9.3. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zfs">7.10. 로컬 ZFS 풀</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">7.10.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">7.10.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">7.10.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">7.10.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm">7.11. LVM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">7.11.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">7.11.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">7.11.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">7.11.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm-thin">7.12. LVM thin</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">7.12.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">7.12.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">7.12.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">7.12.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iscsi">7.13. 오픈 iSCSI 초기자</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">7.13.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">7.13.2. 파일 명명 체계</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">7.13.3. 스토리지 기능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">7.13.4. 예시</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">7.14. 사용자 모드 iSCSI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">7.14.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">7.14.2. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-rados-block-devices-rbd">7.15. Ceph RADOS Block Devices (RBD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">7.15.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">7.15.2. 인증</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">7.15.4. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceph-filesystem-cephfs">7.16. Ceph Filesystem (CephFS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">7.16.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">7.16.2. 인증</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">7.16.3. 스토리지 기능</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#btrfs">7.17. BTRFS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">7.17.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">7.17.2. 스냅샷</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zfs-over-iscsi">7.18. ZFS over ISCSI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">7.18.1. 구성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">7.18.2. 스토리지 기능</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+으로 phum
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, phum.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ko" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Proxmox Cluster File System(pmxcfs) &#8212; virton 1.1 문서</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5a11954d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=2dfc782e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=afa94a99"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guide/06-pmxcfs';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Proxmox VE 지원 스토리지" href="07-storage.html" />
+    <link rel="prev" title="5. Cluster" href="05-cluster.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ko"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">virton 1.1 문서</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="검색" aria-label="검색" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">검색</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">버트온(VirtOn) 매뉴얼</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../main/01-intro.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main/02-install.html">2. 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main/03-configure.html">3. 기본 구성</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Proxmox 매뉴얼</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">1. 개요</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-install.html">2. Proxmox VE 설치</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ops.html">3. 운영</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-gui.html">4. GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-cluster.html">5. Cluster</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Proxmox Cluster File System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-storage.html">7. 스토리지 유형</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="이 페이지 다운로드">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/guide/06-pmxcfs.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="소스 파일 다운로드"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDF로 인쇄"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="전체 화면으로보기"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="검색" aria-label="검색" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Proxmox Cluster File System(pmxcfs)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 내용 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posix">6.1. POSIX 호환성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.2. 파일 접근 권한</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.3. 기술</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.4. 파일 시스템 레이아웃</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.4.1. 파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.4.2. 심볼릭 링크</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#json">6.4.3. 디버깅을 위한 특수 상태 파일 (JSON)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.4.4. 디버깅 활성화/비활성화</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.5. 복구</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.5.1. 클러스터 구성 제거</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.5.2. 장애가 발생한 노드에서 게스트 복구/이동하기</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="proxmox-cluster-file-system-pmxcfs">
+<h1>Proxmox Cluster File System(pmxcfs)<a class="headerlink" href="#proxmox-cluster-file-system-pmxcfs" title="Link to this heading"><span>#</span></a></h1>
+<p>Proxmox 클러스터 파일 시스템(“pmxcfs”)은 구성 파일을 저장하는 데이터베이스 기반 파일 시스템으로, <point>corosync</point>를 사용하여 모든 클러스터 노드에 실시간으로 복제됩니다. 이를 사용하여 모든 Proxmox VE 관련 구성 파일을 저장합니다.<br>
+파일 시스템은 영구 데이터베이스 내의 모든 데이터를 디스크에 저장하지만 데이터의 사본은 RAM에 상주합니다. 이로 인해 최대 크기에 제한이 있으며 현재 128MB입니다. 이 정도면 수천 대의 가상 머신 구성을 저장하기에 충분합니다.<br>
+이 시스템은 다음과 같은 이점을 제공합니다:</p>
+<ul class="simple">
+<li><p>모든 구성을 모든 노드에 실시간으로 원활하게 복제 가능</p></li>
+<li><p>강력한 일관성 검사를 통해 VM ID 중복을 방지</p></li>
+<li><p>노드가 쿼럼을 잃었을 때 읽기 전용으로 전환</p></li>
+<li><p>모든 노드에 대한 코로싱크 클러스터 구성 자동 업데이트</p></li>
+<li><p>분산 잠금 메커니즘 포함</p></li>
+</ul>
+<p><br><br></p>
+<section id="posix">
+<h2>6.1. POSIX 호환성<a class="headerlink" href="#posix" title="Link to this heading"><span>#</span></a></h2>
+<p>파일 시스템은 FUSE를 기반으로 하므로 동작은 POSIX와 유사합니다. 그러나 일부 기능은 필요하지 않기 때문에 단순히 구현되지 않았습니다:</p>
+<ul class="simple">
+<li><p>일반 파일과 디렉터리는 생성할 수 있지만 심볼릭 링크는 생성할 수 없습니다.</p></li>
+<li><p>비어 있지 않은 디렉터리의 이름을 변경할 수 없습니다(이렇게 하면 VMID가 고유하다는 것을 더 쉽게 보장할 수 있기 때문입니다).</p></li>
+<li><p>파일 사용 권한을 변경할 수 없습니다(사용 권한은 경로를 기반으로 함).</p></li>
+<li><p><point>O_EXCL</point> 생성은 원자적이지 않습니다(이전 NFS처럼).</p></li>
+<li><p><point>O_TRUNC</point> 생성은 원자적이지 않음(FUSE 제한)
+<br><br></p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>6.2. 파일 접근 권한<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h2>
+<p>모든 파일과 디렉터리는 사용자 <point>root</point>가 소유하며 그룹 <point>www-data</point>를 가집니다. root만 쓰기 권한이 있지만 <point>www-data</point> 그룹은 대부분의 파일을 읽을 수 있습니다. 다음 경로 아래의 파일은 root만 액세스할 수 있습니다:<br></p>
+<ul class="simple">
+<li><p><point>/etc/pve/priv/</point></p></li>
+<li><p><point>/etc/pve/nodes/${NAME}/priv/</point>
+<br><br></p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>6.3. 기술<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
+<p>클러스터 통신에는 Corosync 클러스터 엔진을, 데이터베이스 파일에는 SQlite를 사용합니다. 파일 시스템은 FUSE를 사용하여 사용자 공간에서 구현됩니다.<br><br></p>
+</section>
+<section id="id3">
+<h2>6.4. 파일 시스템 레이아웃<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h2>
+<p>파일 시스템은 다음 위치에 마운트됩니다:<br></p>
+<ul class="simple">
+<li><p><point>/etc/pve</point>
+<br><br></p></li>
+</ul>
+<section id="id4">
+<h3>6.4.1. 파일<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h3>
+<ul class="simple">
+<li><p><point>authkey.pub</point> : 티켓 시스템에서 사용하는 공개 키</p></li>
+<li><p><point>ceph.conf</point> : Ceph 구성 파일(참고: /etc/ceph/ceph.conf는 이에 대한 심볼릭 링크입니다)</p></li>
+<li><p><point>corosync.conf</point> : Corosync 클러스터 구성 파일(Proxmox VE 4.x 이전에는 이 파일을 cluster.conf라고 불렀음)</p></li>
+<li><p><point>datacenter.cfg</point> : Proxmox VE 데이터 센터 전체 구성(키보드 레이아웃, 프록시, …)</p></li>
+<li><p><point>domains.cfg</point> : Proxmox VE 인증 도메인</p></li>
+<li><p><point>firewall/cluster.fw</point> : 모든 노드에 적용되는 방화벽 구성</p></li>
+<li><p><point>firewall/[NAME].fw</point> : 개별 노드에 대한 방화벽 구성</p></li>
+<li><p><point>firewall/[VMID].fw</point> : VM 및 컨테이너용 방화벽 구성</p></li>
+<li><p><point>ha/crm_commands</point> : 현재 CRM에서 수행 중인 HA 작업을 표시</p></li>
+<li><p><point>ha/manager_status</point> : 클러스터의 HA 서비스에 관한 JSON 형식 정보</p></li>
+<li><p><point>ha/resources.cfg</point> : 고가용성에서 관리하는 리소스 및 현재 상태</p></li>
+<li><p><point>nodes/[NAME]/config</point> : 노드별 구성</p></li>
+<li><p><point>nodes/[NAME]/lxc/[VMID].conf</point> : LXC 컨테이너에 대한 VM 구성 데이터</p></li>
+<li><p><point>nodes/[NAME]/openvz/</point> : 컨테이너 구성 데이터에 사용되는 Proxmox VE 4.0 이전 버전(사용 중단, 곧 제거됨)</p></li>
+<li><p><point>nodes/[NAME]/pve-ssl.key</point> : pve-ssl.pem에 대한 비공개 SSL 키</p></li>
+<li><p><point>nodes/[NAME]/pve-ssl.pem</point> : 웹 서버용 공개 SSL 인증서(클러스터 CA가 서명)</p></li>
+<li><p><point>nodes/[NAME]/pveproxy-ssl.key</point> : pveproxy-ssl.pem에 대한 비공개 SSL 키(선택 사항)</p></li>
+<li><p><point>nodes/[NAME]/pveproxy-ssl.pem</point> : 웹 서버용 공개 SSL 인증서(체인)(선택 사항, pve-ssl.pem에 대한 재정의)</p></li>
+<li><p><point>nodes/[NAME]/qemu-server/[VMID].conf</point> : KVM VM의 VM 구성 데이터</p></li>
+<li><p><point>priv/authkey.key</point> : 티켓 시스템에서 사용하는 개인 키</p></li>
+<li><p><point>priv/authorized_keys</point> : 인증을 위한 클러스터 구성원의 SSH 키</p></li>
+<li><p><point>priv/ceph*</point> : Ceph 인증 키 및 관련 기능</p></li>
+<li><p><point>priv/known_hosts</point> : 확인을 위한 클러스터 구성원의 SSH 키</p></li>
+<li><p><point>priv/lock/*</point> : 클러스터 전체의 안전한 운영을 위해 다양한 서비스에서 사용하는 잠금 파일</p></li>
+<li><p><point>priv/pve-root-ca.key</point> : 클러스터 CA의 개인 키</p></li>
+<li><p><point>priv/shadow.cfg</point> : PVE 영역 사용자를 위한 섀도 비밀번호 파일</p></li>
+<li><p><point>priv/storage/<STORAGE-ID>.pw</point> : 스토리지의 비밀번호를 일반 텍스트로 포함</p></li>
+<li><p><point>priv/tfa.cfg</point> : Base64로 인코딩된 2단계 인증 구성 파일</p></li>
+<li><p><point>priv/token.cfg</point> : 모든 토큰의 API 토큰 비밀 정보</p></li>
+<li><p><point>pve-root-ca.pem</point> : 클러스터 CA의 공개 인증서</p></li>
+<li><p><point>pve-www.key</point> : CSRF 토큰 생성에 사용되는 개인 키</p></li>
+<li><p><point>sdn/*</point> : 소프트웨어 정의 네트워킹(SDN)을 위한 공유 구성 파일</p></li>
+<li><p><point>status.cfg</point> : Proxmox VE 외부 메트릭 서버 구성</p></li>
+<li><p><point>storage.cfg</point> : Proxmox VE 스토리지 구성</p></li>
+<li><p><point>user.cfg</point> : Proxmox VE 액세스 제어 구성(users/groups/…)</p></li>
+<li><p><point>virtual-guest/cpu-models.conf</point> : 사용자 지정 CPU 모델 저장용</p></li>
+<li><p><point>vzdump.cron</point> : 클러스터 전체 vzdump 백업 작업 일정</p></li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id5">
+<h3>6.4.2. 심볼릭 링크<a class="headerlink" href="#id5" title="Link to this heading"><span>#</span></a></h3>
+<p>클러스터 파일 시스템 내의 특정 디렉토리는 노드의 자체 구성 파일을 가리키기 위해 심볼릭 링크를 사용합니다. 따라서 아래 표에서 가리키는 파일은 클러스터의 각 노드에 있는 서로 다른 파일을 참조합니다.</p>
+<ul class="simple">
+<li><p><point>local</point> : nodes/[LOCAL_HOST_NAME]</p></li>
+<li><p><point>lxc</point> : nodes/[LOCAL_HOST_NAME]/lxc/</p></li>
+<li><p><point>openvz</point> : nodes/[LOCAL_HOST_NAME]/openvz/ (사용되지 않음, 곧 삭제됨)</p></li>
+<li><p><point>qemu-server</point> : nodes/[LOCAL_HOST_NAME]/qemu-server/</p></li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="json">
+<h3>6.4.3. 디버깅을 위한 특수 상태 파일 (JSON)<a class="headerlink" href="#json" title="Link to this heading"><span>#</span></a></h3>
+<ul class="simple">
+<li><p><point>.version</point> : 파일 버전(파일 수정 감지)</p></li>
+<li><p><point>.members</point> : 클러스터 멤버에 대한 정보</p></li>
+<li><p><point>.vmlist</point> : 모든 VM 목록</p></li>
+<li><p><point>.clusterlog</point> : 클러스터 로그(최근 50개 항목)</p></li>
+<li><p><point>.rrd</point> : RRD 데이터(가장 최근 항목)</p></li>
+</ul>
+<p><br><br></p>
+</section>
+<section id="id6">
+<h3>6.4.4. 디버깅 활성화/비활성화<a class="headerlink" href="#id6" title="Link to this heading"><span>#</span></a></h3>
+<p>다음을 사용하여 자세한 syslog 메시지를 활성화할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo “1” &gt;/etc/pve/.debug
+</pre></div>
+</div>
+<p>그리고 다음과 같이 상세 정보 표시를 비활성화할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo “0” &gt;/etc/pve/.debug
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="id7">
+<h2>6.5. 복구<a class="headerlink" href="#id7" title="Link to this heading"><span>#</span></a></h2>
+<p>하드웨어 문제와 같이 Proxmox VE 호스트에 심각한 문제가 있는 경우 pmxcfs 데이터베이스 파일 <point>/var/lib/pve-cluster/config.db</point>를 복사하여 새 Proxmox VE 호스트로 옮기는 것이 도움이 될 수 있습니다. 새 호스트에서(아무것도 실행되지 않은 상태에서) <point>pve-cluster</point> 서비스를 중지하고 <point>config.db</point> 파일을 교체해야 합니다(필요한 권한 <point>0600</point>). 그런 다음 손실된 Proxmox VE 호스트에 따라 <point>/etc/hostname</point> 및 <point>/etc/hosts</point>를 조정한 후 재부팅하고 확인합니다(VM/CT 데이터도 잊지 마세요).
+<br><br></p>
+<section id="id8">
+<h3>6.5.1. 클러스터 구성 제거<a class="headerlink" href="#id8" title="Link to this heading"><span>#</span></a></h3>
+<p>권장되는 방법은 클러스터에서 노드를 제거한 후 다시 설치하는 것입니다. 이렇게 하면 모든 비밀 클러스터/ssh 키와 모든 공유 구성 데이터가 삭제됩니다.<br></p>
+<p>경우에 따라 재설치하지 않고 노드를 로컬 모드로 되돌리고 싶을 수도 있는데, 이는 재설치하지 않고 노드 분리하기에서 설명합니다.<br><br></p>
+</section>
+<section id="id9">
+<h3>6.5.2. 장애가 발생한 노드에서 게스트 복구/이동하기<a class="headerlink" href="#id9" title="Link to this heading"><span>#</span></a></h3>
+<p><point>nodes/[NAME]/qemu-server/(VM)</point> 및 <point>nodes/[NAME]/lxc/(컨테이너)</point>의 게스트 구성 파일의 경우, Proxmox VE는 포함된 노드 <point>[NAME]</point>을 해당 게스트의 소유자로 간주합니다. 이 개념은 동시 게스트 구성 변경을 방지하기 위해 값비싼 클러스터 전체 잠금 대신 로컬 잠금을 사용할 수 있게 해줍니다.<br></p>
+<p>결과적으로 게스트의 소유 노드에 정전, 차단, 이벤트 등으로 인해 장애가 발생하면 (모든 디스크가 공유 스토리지에 있는 경우에도) (오프라인) 소유 노드의 로컬 잠금을 얻을 수 없으므로 정기적인 마이그레이션이 불가능합니다(모든 디스크가 공유 스토리지에 있는 경우에도). HA 관리 게스트의 경우, Proxmox VE의 고가용성 스택에는 차단된 노드에서 게스트의 올바른 자동 복구를 보장하는 데 필요한 (클러스터 전체) 잠금 및 감시 기능이 포함되어 있으므로 이는 문제가 되지 않습니다.<br></p>
+<p>HA로 관리되지 않는 게스트에 공유 디스크만 있고 장애가 발생한 노드에서만 사용할 수 있는 다른 로컬 리소스가 없는 경우, 게스트 구성 파일을 <point>/etc/pve/</point>의 장애 노드 디렉토리에서 온라인 노드 디렉토리로 이동(게스트의 논리적 소유자 또는 위치 변경)하는 것만으로 수동 복구가 가능합니다.<br></p>
+<p>예를 들어, 오프라인 <point>노드1</point>에서 다른 노드 <point>노드2</point>로 <point>ID 100</point>의 VM을 복구하려면 클러스터의 모든 구성원 노드에서 root로 다음 명령을 실행하면 됩니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">nodes</span><span class="o">/</span><span class="n">node1</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="mf">100.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pve</span><span class="o">/</span><span class="n">nodes</span><span class="o">/</span><span class="n">node2</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">server</span><span class="o">/</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>이와 같이 게스트를 수동으로 복구하기 전에 장애가 발생한 소스 노드의 전원이 실제로 꺼져 있는지/차단되어 있는지 반드시 확인하세요. 그렇지 않으면 mv 명령에 의해 Proxmox VE의 잠금 원칙이 위반되어 예기치 않은 결과가 발생할 수 있습니다.</p>
+</div></blockquote>
+<blockquote>
+<div><p>로컬 디스크(또는 오프라인 노드에서만 사용할 수 있는 기타 로컬 리소스)가 있는 게스트는 이와 같이 복구할 수 없습니다. 실패한 노드가 클러스터에 다시 추가될 때까지 기다리거나 백업에서 이러한 게스트를 복원하세요.</p>
+</div></blockquote>
+<p><br><br><br></p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05-cluster.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">이전</p>
+        <p class="prev-next-title">5. Cluster</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07-storage.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">다음</p>
+        <p class="prev-next-title">Proxmox VE 지원 스토리지</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 내용
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posix">6.1. POSIX 호환성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.2. 파일 접근 권한</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.3. 기술</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.4. 파일 시스템 레이아웃</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.4.1. 파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.4.2. 심볼릭 링크</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#json">6.4.3. 디버깅을 위한 특수 상태 파일 (JSON)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.4.4. 디버깅 활성화/비활성화</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.5. 복구</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.5.1. 클러스터 구성 제거</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.5.2. 장애가 발생한 노드에서 게스트 복구/이동하기</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+으로 phum
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, phum.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
