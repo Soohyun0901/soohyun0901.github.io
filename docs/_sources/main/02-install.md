@@ -69,6 +69,3 @@ docker ps
 
 <br>
 
-
-## 2.3. Proxmox 연결 및 구성
-
