@@ -283,7 +283,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="검색" aria-label="검색" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -299,6 +301,15 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> 내용 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 호스트 연결 단계</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.2. 연결 동작 확인</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -312,9 +323,12 @@
 <h1>3. 연결 및 구성<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
 <p>정상적으로 버트온 웹페이지에 접속되었다면 그 다음에 해야하는 설정은 사용 중인 Proxmox 노드를 연결하는 것입니다.<br>
 아래 단계를 수행하여 운영 중인 Proxmox 클러스터 및 노드를 연결하세요.<br><br></p>
+<section id="id2">
+<h2>3.1. 호스트 연결 단계<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
 <ol class="arabic simple">
 <li><p>왼쪽의 <point>설정</point> 탭으로 이동합니다.</p></li>
-<li><p>연결할 Proxmox 호스트 정보를 입력합니다.</p>
+<li><p>연결할 Proxmox 호스트 정보를 입력합니다.
+<img alt="" src="../_images/connect1.png" /><br></p>
 <ul class="simple">
 <li><p><point>호스트</point> : Proxmox에 접근하기 위한 IP주소 혹은 도메인을 입력</p></li>
 <li><p><point>포트</point> : Proxmox API는 HTTPS 프로토콜을 사용하고, 기본값은 8006</p></li>
@@ -322,14 +336,26 @@
 <li><p><point>비밀번호</point> : 위 로그인 계정의 비밀번호를 입력</p></li>
 </ul>
 </li>
-<li><p>입력한 정보를 확인한 후, 아래 <point>연결테스트</point> 버튼을 클릭하여 통신이 가능한지 확인합니다.</p></li>
+<li><p>입력한 정보를 확인한 후, 아래 <point>연결테스트</point> 버튼을 클릭하여 통신 가능 여부를 확인합니다.</p></li>
 </ol>
 <blockquote>
-<div><p><img alt="" src="../_images/alert.svg" /> 연결 실패된 경우, 입력한 정보를 다시 확인한 다음 연결테스트를 진행합니다.</p>
+<div><p><img alt="" src="../_images/alert.svg" /> 3번에서 연결이 실패된 경우, 입력 정보와 호스트 현 상태를 확인하세요.</p>
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>통신이 가능한 경우, <point>설정 저장</point>을 눌러 호스트 정보를 저장합니다.</p></li>
+<li><p>정상적으로 통신 가능한 경우, <point>설정 저장</point>을 눌러 호스트 정보를 저장합니다.<br><br></p></li>
 </ol>
+</section>
+<section id="id3">
+<h2>3.2. 연결 동작 확인<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h2>
+<p><point>대시보드</point> 탭을 눌러 노드 정보, VM 리스트, 스토리지 정보 등이 정상적으로 표시되는지 확인합니다. 필요한 경우 모니터링 및 알람 설정을 추가로 구성합니다.<br></p>
+<blockquote>
+<div><p>※ 컨테이너는 <point>–restart unless-stopped</point> 설정으로 되어 있어 VM 재부팅 시 자동으로 재실행됩니다.</p>
+</div></blockquote>
+<blockquote>
+<div><p>※ 인증서는 <point>/app/certs</point> 디렉토리에 위치하며, 자체 서명 인증서를 사용합니다.</p>
+</div></blockquote>
+<p><br><br><br><br></p>
+</section>
 </section>
 
 
@@ -367,6 +393,23 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 내용
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 호스트 연결 단계</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.2. 연결 동작 확인</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
