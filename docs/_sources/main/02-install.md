@@ -21,7 +21,14 @@ Proxmox  웹 UI에서 스토리지에 업로드된 백업 파일을 선택한 �
 복원할 VM의 옵션을 설정합니다.
 * <b>Storage</b> : 복원될 VM이 위치할 스토리지를 선택
 * <b>VM</b> : 현재 사용 중이지 않은 VM ID 입력
-* <b>Bandwidth Limit(선택사항)</b> : 복원 시 제한 대역폭 설정
+* <b>Bandwidth Limit(선택사항)</b> : 기본값은 선택한 저장소의 limit(대역폭 제한을 비활성화하려면 '0' 입력)
+* <b>Unique(선택사항)</b> : MAC 주소 등 고유 속성값 자동 생성
+* <b>Start after restore(선택사항)</b> : 복원을 마치면 자동으로 시작
+* Overriding Settings(재정의할 설정값)
+    * <b>Name(선택사항)</b> : VM 이름
+    * <b>Memory(선택사항)</b> : VM 메모리
+    * <b>Cores(선택사항)</b> : VM 코어 수
+    * <b>Sockets(선택사항)</b> : VM 소켓 수
 
 남은 설정은 복원을 마친 후에 진행해도 무방하므로 Storage와 VM 설정이 끝났다면 <point>Restore</point> 버튼을 클릭하여 복원을 시작합니다. <br>
 ![](../_static/images/main/install3.png)<br><br>
