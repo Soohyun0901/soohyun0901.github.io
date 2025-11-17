@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>호스트 연결 및 구성 &#8212; virton 1.1 문서</title>
+    <title>3. 연결 및 구성 &#8212; virton 1.1 문서</title>
   
   
   
@@ -294,7 +294,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>호스트 연결 및 구성</h1>
+    <h1>3. 연결 및 구성</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -309,7 +309,23 @@
                 <article class="bd-article">
                   
   <section id="id1">
-<h1>호스트 연결 및 구성<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
+<h1>3. 연결 및 구성<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
+<p>정상적으로 버트온 웹페이지에 접속되었다면 그 다음에 해야하는 설정은 사용 중인 Proxmox 노드를 연결하는 것입니다.
+아래 단계를 수행하여 운영 중인 Proxmox 클러스터 및 노드를 연결하세요.<br><br></p>
+<ol class="arabic simple">
+<li><p>왼쪽의 <point>설정</point> 탭으로 이동합니다.</p></li>
+<li><p>연결할 Proxmox 호스트 정보를 입력합니다.</p>
+<ul class="simple">
+<li><p><point>호스트</point> : Proxmox에 접근하기 위한 IP주소 혹은 도메인을 입력</p></li>
+<li><p><point>포트</point> : Proxmox API는 HTTPS 프로토콜을 사용하고, 기본값은 8006</p></li>
+<li><p><point>사용자 이름</point> : 로그인할 계정을 입력(예: root&#64;pam)</p></li>
+<li><p><point>비밀번호</point> : 위 로그인 계정의 비밀번호를 입력</p></li>
+</ul>
+</li>
+<li><p>입력한 정보를 확인한 후, 아래 <point>연결테스트</point> 버튼을 클릭하여 통신이 가능한지 확인합니다.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">연결</span> <span class="pre">실패된</span> <span class="pre">경우,</span> <span class="pre">입력한</span> <span class="pre">정보를</span> <span class="pre">다시</span> <span class="pre">확인한</span> <span class="pre">다음</span> <span class="pre">연결테스트를</span> <span class="pre">진행합니다.</span></code>
+4. 통신이 가능한 경우, <point>설정 저장</point>을 눌러 호스트 정보를 저장합니다.</p>
 </section>
 
 

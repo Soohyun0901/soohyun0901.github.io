@@ -49,7 +49,7 @@
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="색인" href="../genindex.html" />
     <link rel="search" title="검색" href="../search.html" />
-    <link rel="next" title="호스트 연결 및 구성" href="03-connect.html" />
+    <link rel="next" title="3. 연결 및 구성" href="03-connect.html" />
     <link rel="prev" title="1. 개요" href="01-intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ko"/>
@@ -306,17 +306,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 사전 준비</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 백업 파일 배치</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2. 복원 단계</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2.1. 백업 파일로 VM 복원</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.2. 네트워크 인터페이스 확인</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.4. 웹 접속 확인</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 백업 파일 배치</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2. VM  복원 수행</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2.2. 네트워크 인터페이스 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.4. 웹 접속 확인</a></li>
 </ul>
             </nav>
         </div>
@@ -332,9 +326,7 @@
 <h1>2. 설치 및 구성<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
 <p>버트온은 백업 파일(<point>vzdump-qemu-xxxx.vma.zst</point>)을 사용하여 VM으로 빠르게 배포됩니다. 따라서 Proxmox를 미리 구성하는 것을 권장합니다.<br><br></p>
 <section id="id2">
-<h2>2.1. 사전 준비<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
-<section id="id3">
-<h3>2.1.1. 백업 파일 배치<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h3>
+<h2>2.1. 백업 파일 배치<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
 <p>아래 URL을 통해 다운로드한 <point>vzdump-qemu-xxxx.vma.zst</point>파일을 Proxmox 스토리지의 <point>백업 디렉토리(Backups)</point>로 이동시킵니다.</p>
 <ul class="simple">
 <li><p>스토리지 경로 예시 :</p>
@@ -347,22 +339,19 @@
 </ul>
 <br>
 </section>
-</section>
-<section id="id4">
-<h2>2.2. 복원 단계<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h2>
 <section id="vm">
-<h3>2.2.1. 백업 파일로 VM 복원<a class="headerlink" href="#vm" title="Link to this heading"><span>#</span></a></h3>
-<p><img alt="" src="../_images/install1.png" /><br></p>
+<h2>2.2. VM  복원 수행<a class="headerlink" href="#vm" title="Link to this heading"><span>#</span></a></h2>
 <ul class="simple">
-<li><p>웹 경로 : <code class="docutils literal notranslate"><span class="pre">Datacenter</span> <span class="pre">-&gt;</span> <span class="pre">Nodes</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">-&gt;</span> <span class="pre">Backups</span></code></p></li>
+<li><p>웹 경로 : <code class="docutils literal notranslate"><span class="pre">Datacenter</span> <span class="pre">-&gt;</span> <span class="pre">Nodes</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">-&gt;</span> <span class="pre">Backups</span></code>
+<img alt="" src="../_images/install1.png" /><br></p></li>
 </ul>
-<p><br>Proxmox  웹 UI에서 스토리지에 업로드된 백업 파일을 선택한 후, <point>Restore</point> 버튼을 클릭합니다.<br></p>
+<p>Proxmox  웹 UI에서 스토리지에 업로드된 백업 파일을 선택한 후, <point>Restore</point> 버튼을 클릭합니다.<br></p>
 <p><img alt="" src="../_images/install2.png" /><br><br>
 복원할 VM의 옵션을 설정합니다.</p>
 <ul class="simple">
 <li><p><b>Storage</b> : 복원될 VM이 위치할 스토리지를 선택</p></li>
 <li><p><b>VM</b> : 현재 사용 중이지 않은 VM ID 입력</p></li>
-<li><p><b>Bandwidth Limit</b> : 복원 시 제한 대역폭 설정(선택사항)</p></li>
+<li><p><b>Bandwidth Limit(선택사항)</b> : 복원 시 제한 대역폭 설정</p></li>
 </ul>
 <p>남은 설정은 복원을 마친 후에 진행해도 무방하므로 Storage와 VM 설정이 끝났다면 <point>Restore</point> 버튼을 클릭하여 복원을 시작합니다. <br>
 <img alt="" src="../_images/install3.png" /><br><br></p>
@@ -372,13 +361,13 @@
 </div>
 <br>
 </section>
-<section id="id5">
-<h3>2.2.2. 네트워크 인터페이스 확인<a class="headerlink" href="#id5" title="Link to this heading"><span>#</span></a></h3>
+<section id="id3">
+<h2>2.2.2. 네트워크 인터페이스 확인<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h2>
 <p><img alt="" src="../_images/install4.png" /><br></p>
 <p>복원이 완료되었다면, Hardware 탭에서 <point>Network Device</point>가 올바르게 연결되어 있는지 확인합니다. 필요한 경우 MAC 주소, VLAN ID 등을 수정한 후 저장합니다.<br><br></p>
 </section>
-<section id="id6">
-<h3>2.2.3. 부팅 및 컨테이너 상태 확인<a class="headerlink" href="#id6" title="Link to this heading"><span>#</span></a></h3>
+<section id="id4">
+<h2>2.2.3. 부팅 및 컨테이너 상태 확인<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h2>
 <p><img alt="" src="../_images/install5.png" /><br></p>
 <p>VM의 전원을 켜고 로그인하여 아래 명령으로 컨테이너 상태를 확인합니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">ps</span>
@@ -389,21 +378,20 @@
 <br><br></p></li>
 </ul>
 </section>
-<section id="id7">
-<h3>2.2.4. 웹 접속 확인<a class="headerlink" href="#id7" title="Link to this heading"><span>#</span></a></h3>
+<section id="id5">
+<h2>2.2.4. 웹 접속 확인<a class="headerlink" href="#id5" title="Link to this heading"><span>#</span></a></h2>
 <p><img alt="" src="../_images/install6.png" /><br></p>
 <p><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">addr</span> <span class="pre">show</span></code> 를 통해 VM의 IP를 확인합니다. 확인한 IP로 브라우저에  접속합니다.</p>
 <ul class="simple">
 <li><p>예 : https://&lt;VM_IP&gt;</p></li>
 </ul>
 <br>
-<p><b>연결이 비공개로 설정되어 있지 않습니다.</b>라는 안내 팝업이 뜨면 왼쪽 하단의 <b>고급</b> 버튼 -&gt; <b>안전하지 않음</b>을 눌러 접속합니다.</p>
+<p><b>’연결이 비공개로 설정되어 있지 않습니다.’</b>라는 안내 팝업이 뜨면 왼쪽 하단의 <b>고급</b> 버튼 -&gt; <b>안전하지 않음</b>을 눌러 접속합니다.</p>
 <blockquote>
 <div><p><img alt="" src="../_images/pin.png" /> 참고<br>
 위 메세지는 브라우저 보안 인증서 목록에 본 시스템의 인증서가 등록되어있지 않아 나오는 것이며, 버트온은 <point>자체 서명 인증서(Self-Signed Certificate)</point>를 사용하여 모든 통신은 SSL 암호화를 통해 보안상 안전하게 접속할 수 있습니다.</p>
 </div></blockquote>
 <br>
-</section>
 </section>
 </section>
 
@@ -432,7 +420,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">다음</p>
-        <p class="prev-next-title">호스트 연결 및 구성</p>
+        <p class="prev-next-title">3. 연결 및 구성</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -453,17 +441,11 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 사전 준비</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 백업 파일 배치</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2. 복원 단계</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2.1. 백업 파일로 VM 복원</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.2. 네트워크 인터페이스 확인</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.4. 웹 접속 확인</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 백업 파일 배치</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2. VM  복원 수행</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2.2. 네트워크 인터페이스 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.4. 웹 접속 확인</a></li>
 </ul>
   </nav></div>
 
