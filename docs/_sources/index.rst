@@ -14,6 +14,7 @@
    1. 개요 <main/01-intro>
    2. 설치 및 구성<main/02-install>
    3. 호스트 연결 및 구성<main/03-connect>
+   4. UI 기능 요소<main/04-UI>
 
 .. toctree::
    :maxdepth: 2
