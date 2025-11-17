@@ -308,9 +308,9 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 백업 파일 배치</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2. VM  복원 수행</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2.2. 네트워크 인터페이스 확인</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.4. 웹 접속 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.3. 네트워크 인터페이스 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.4. 부팅 및 컨테이너 상태 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5. 웹 접속 확인</a></li>
 </ul>
             </nav>
         </div>
@@ -354,14 +354,10 @@
 <li><p><b>Bandwidth Limit(선택사항)</b> : 기본값은 선택한 저장소의 limit(대역폭 제한을 비활성화하려면 ‘0’ 입력)</p></li>
 <li><p><b>Unique(선택사항)</b> : MAC 주소 등 고유 속성값 자동 생성</p></li>
 <li><p><b>Start after restore(선택사항)</b> : 복원을 마치면 자동으로 시작</p></li>
-<li><p>Overriding Settings(재정의할 설정값)</p>
-<ul>
 <li><p><b>Name(선택사항)</b> : VM 이름</p></li>
 <li><p><b>Memory(선택사항)</b> : VM 메모리</p></li>
 <li><p><b>Cores(선택사항)</b> : VM 코어 수</p></li>
 <li><p><b>Sockets(선택사항)</b> : VM 소켓 수</p></li>
-</ul>
-</li>
 </ul>
 <p>남은 설정은 복원을 마친 후에 진행해도 무방하므로 Storage와 VM 설정이 끝났다면 <point>Restore</point> 버튼을 클릭하여 복원을 시작합니다. <br>
 <img alt="" src="../_images/install3.png" /><br><br></p>
@@ -372,12 +368,12 @@
 <br>
 </section>
 <section id="id3">
-<h2>2.2.2. 네트워크 인터페이스 확인<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h2>
+<h2>2.3. 네트워크 인터페이스 확인<a class="headerlink" href="#id3" title="Link to this heading"><span>#</span></a></h2>
 <p><img alt="" src="../_images/install4.png" /><br></p>
 <p>복원이 완료되었다면, Hardware 탭에서 <point>Network Device</point>가 올바르게 연결되어 있는지 확인합니다. 필요한 경우 MAC 주소, VLAN ID 등을 수정한 후 저장합니다.<br><br></p>
 </section>
 <section id="id4">
-<h2>2.2.3. 부팅 및 컨테이너 상태 확인<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h2>
+<h2>2.4. 부팅 및 컨테이너 상태 확인<a class="headerlink" href="#id4" title="Link to this heading"><span>#</span></a></h2>
 <p><img alt="" src="../_images/install5.png" /><br></p>
 <p>VM의 전원을 켜고 로그인하여 아래 명령으로 컨테이너 상태를 확인합니다:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">ps</span>
@@ -389,7 +385,7 @@
 </ul>
 </section>
 <section id="id5">
-<h2>2.2.4. 웹 접속 확인<a class="headerlink" href="#id5" title="Link to this heading"><span>#</span></a></h2>
+<h2>2.5. 웹 접속 확인<a class="headerlink" href="#id5" title="Link to this heading"><span>#</span></a></h2>
 <p><img alt="" src="../_images/install6.png" /><br></p>
 <p><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">addr</span> <span class="pre">show</span></code> 를 통해 VM의 IP를 확인합니다. 확인한 IP로 브라우저에  접속합니다.</p>
 <ul class="simple">
@@ -453,9 +449,9 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 백업 파일 배치</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vm">2.2. VM  복원 수행</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2.2. 네트워크 인터페이스 확인</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.2.3. 부팅 및 컨테이너 상태 확인</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2.4. 웹 접속 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.3. 네트워크 인터페이스 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.4. 부팅 및 컨테이너 상태 확인</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5. 웹 접속 확인</a></li>
 </ul>
   </nav></div>
 
