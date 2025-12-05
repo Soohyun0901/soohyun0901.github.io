@@ -1,13 +1,13 @@
 # 3. 연결 및 구성
 
-정상적으로 버트온 웹페이지에 접속되었다면 그 다음에 해야하는 설정은 사용 중인 Proxmox 노드를 연결하는 것입니다.<br>
-아래 단계를 수행하여 운영 중인 Proxmox 클러스터 및 노드를 연결하세요.<br><br>
+![](../_static/images/main/connect1.png)<br>
+위 화면이 가장 처음 웹페이지에 접속하면 나오는 화면입니다. 다음 단계를 따라 운영 중인 Proxmox 클러스터 및 노드를 연결하세요.<br><br>
 
 ## 3.1. 호스트 연결 단계
 
 1. 왼쪽의 <point>설정</point> 탭으로 이동합니다.
 2. 연결할 Proxmox 호스트 정보를 입력합니다.
-![](../_static/images/main/connect1.png)<br>
+![](../_static/images/main/connect2.png)<br>
     - <point>호스트</point> : Proxmox에 접근하기 위한 IP주소 혹은 도메인을 입력
     - <point>포트</point> : Proxmox API는 HTTPS 프로토콜을 사용하고, 기본값은 8006
     - <point>사용자 이름</point> : 로그인할 계정을 입력(예: root@pam)
