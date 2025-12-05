@@ -57,7 +57,14 @@
     .bd-main .bd-content{ max-width: calc(var(--content-max-width) + 220px); }
   }
   */
-  
+  /* 우측 사이드바(secondary sidebar) 폭 조절 */
+.bd-sidebar-secondary {
+    width: 200px !important;     /* 기본 270px → 200px */
+    max-width: 200px !important;
+}
+.bd-main .bd-content {
+    max-width: calc(var(--content-max-width) + 80px);
+}
   /* 4) 제목/문단 간격 & 정렬 */
   .bd-content h1, .bd-content h2, .bd-content h3,
   .bd-content h4, .bd-content h5, .bd-content h6{
