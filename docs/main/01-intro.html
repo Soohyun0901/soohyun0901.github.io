@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5a11954d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72d5849c" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -150,7 +150,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-install.html">2. 설치 및 구성</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-configure.html">3. 운영•기능</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-connect.html">3. 호스트 연결 및 구성</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-UI.html">4. UI 기능 요소</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Proxmox 매뉴얼</span></p>
 <ul class="nav bd-sidenav">
@@ -283,7 +284,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="검색" aria-label="검색" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -299,6 +302,14 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> 내용 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. 주요 기능</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -311,8 +322,10 @@
   <section id="id1">
 <h1>1. 개요<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h1>
 <p>버트온(VirtOn)은 Proxmox 기반 가상화 솔루션입니다.<br>
-버트온은 클러스터와 개별 노드의 CPU, 메모리, 네트워크 등 실시간 리소스 사용률에 대한 모니터링 및 관리 기능을 고도화하고 각 노드 간의 연결 상태와 업타임, 버전, 서비스 상태 등을 통합적으로 조회•제어할 수 있도록 합니다. <br><br>
-현재 <point>VirtOn 1.1</point>의 주요 기능은 다음과 같습니다.</p>
+버트온은 클러스터와 개별 노드의 CPU, 메모리, 네트워크 등 실시간 리소스 사용률에 대한 모니터링 및 관리 기능을 고도화하고 각 노드 간의 연결 상태와 업타임, 버전, 서비스 상태 등을 통합적으로 조회•제어할 수 있도록 합니다. <br><br></p>
+<section id="id2">
+<h2>1.1. 주요 기능<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
+<p>현재 VirtOn의 주요 기능은 다음과 같습니다.</p>
 <ul class="simple">
 <li><p><point>VM 관리</point></p>
 <ul>
@@ -353,6 +366,7 @@
 </ul>
 <p><br><br><br><br><br><br></p>
 </section>
+</section>
 
 
                 </article>
@@ -389,6 +403,22 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 내용
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. 주요 기능</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

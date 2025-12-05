@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d7bb9791" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=72d5849c" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -308,6 +308,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.1. 대시보드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. 인스턴스</a></li>
 </ul>
             </nav>
         </div>
@@ -321,8 +322,7 @@
                   
   <section id="ui">
 <h1>4. UI 기능 요소<a class="headerlink" href="#ui" title="Link to this heading"><span>#</span></a></h1>
-<p><img alt="" src="../_images/ui1.png" /><br>
-버트온 웹 인터페이스는 모두 5가지 탭으로 구성되어 있습니다.</p>
+<p>버트온 웹 인터페이스는 모두 5가지 탭으로 구성되어 있습니다.</p>
 <ul class="simple">
 <li><p><point>대시보드</point> : 호스트 시스템의 실시간 현황 및 상태 확인</p></li>
 <li><p><point>인스턴스</point> : 각 노드의 하드웨어 정보 확인 및 개별 인스턴스 관리에 필요한 리소스 정보 제공</p></li>
@@ -333,7 +333,15 @@
 <p><br><br></p>
 <section id="id1">
 <h2>4.1. 대시보드<a class="headerlink" href="#id1" title="Link to this heading"><span>#</span></a></h2>
-<p>클러스터 전체 및 각 노드의 CPU, 메모리, 디스크, 네트워크 등 리소스 사용 현황을 통합하여 조회합니다. 또한 노드의 연결 상태, 업타임, 버전 서비스 상태 등을 실시간으로 모니터링하며, 관련 알림 정보를 확인할 수 있습니다.</p>
+<p><img alt="" src="../_images/ui1.png" /><br>
+클러스터 전체 및 각 노드의 CPU, 메모리, 디스크, 네트워크 등 리소스 사용 현황을 통합하여 조회합니다. 또한 노드의 연결 상태, 업타임, 버전 서비스 상태 등을 실시간으로 모니터링하며, 관련 알림 정보를 확인할 수 있습니다.</p>
+<p>연결한 Proxmox 클러스터 전체 현황과 개별 노드의 상태를 한 화면에서 통합적으로 확인할 수 있는 기능입니다.<br>
+대시보드는 CPU•메모리•디스크•네트워크와 같은 주요 시스템 리소스의 사용량을 시각화하여 제공하며, 각 노드가 현재 어떤 부하 상태에 있는지 직관적으로 파악할 수 있도록 구성되어 있습니다.<br><br>
+또한, 각 노드의 연결 상태(Online/Offline), 업타임(Uptime), 설치된 Proxmox VE 버전 및 주요 서비스 활성화 여부 등 운영에 필요한 핵심 정보를 실시간으로 모니터링할 수 있습니다.<br>
+이벤트가 발생한 경우, 관련 알림이나 로그를 통해 즉시 원인을 파악하고 대응할 수 있어 전체 클러스터의 안정적인 운영을 지원합니다.<br><br></p>
+</section>
+<section id="id2">
+<h2>4.1. 인스턴스<a class="headerlink" href="#id2" title="Link to this heading"><span>#</span></a></h2>
 </section>
 </section>
 
@@ -384,6 +392,7 @@
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.1. 대시보드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. 인스턴스</a></li>
 </ul>
   </nav></div>
 
