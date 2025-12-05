@@ -356,3 +356,15 @@ footer a:focus svg {
   fill: var(--link-hover-color) !important;
   stroke: var(--link-hover-color) !important;
 }
+
+/* === 우측 TOC 스크롤 컨트롤 완전 제거 === */
+.bd-sidebar-secondary .bd-toc {
+    overscroll-behavior: none !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+}
+
+/* 스크롤 버튼 overlay 제거 */
+.bd-sidebar-secondary .toc-overlay {
+    display: none !important;
+}
